@@ -13,9 +13,16 @@ https://github.com/kubernetes-sigs/kubeadm-dind-cluster/pull/204
 
 #+NAME: kubeadm source checkout
 #+BEGIN_SRC tmux :session k8s:kubeadm-dind
-#git clone git@github.com:kubernetes-sigs/kubeadm-dind-cluster.git ~/dind
-git clone git@github.com:ii/kubeadm-dind-cluster.git ~/dind
-git checkout -b audit-policy origin/audit-policy
+  #git clone git@github.com:kubernetes-sigs/kubeadm-dind-cluster.git ~/dind
+  git clone git@github.com:ii/kubeadm-dind-cluster.git ~/dind
+  cd ~/dind/
+  git checkout -b audit-policy origin/audit-policy
+#+END_SRC
+
+#+NAME: k8s source checkout
+#+BEGIN_SRC tmux :session k8s:kubesrc
+go get k8s.io/kubernetes
+# it will say "no Go files in..."
 #+END_SRC
 
 * kubeadm-dind with k8s source
@@ -35,6 +42,25 @@ docker rmi $(docker images -q)
   cd ~/dind/
   time ./build/build-local.sh
 #+END_SRC
+
+#+NAME: poking around during compilation
+#+BEGIN_SRC shell
+docker images
+#+END_SRC
+
+#+RESULTS: poking around during compilation
+| REPOSITORY                    | TAG     | IMAGE        |    ID | CREATED | SIZE   |       |       |
+| mirantis/kubeadm-dind-cluster | local   | 1e4b52947f02 |    10 | seconds | ago    | 817MB |       |
+| mirantis/hypokube             | base    | 07a1efaf4385 |    38 | seconds | ago    | 131MB |       |
+| mirantis/kubeadm-dind-cluster | bare-v4 | b64759f632cb | About | a       | minute | ago   | 472MB |
+| debian                        | jessie  | 79f4bda91989 |     5 | weeks   | ago    | 127MB |       |
+| web_beat                      | latest  | e1c14261cca1 |     3 | months  | ago    | 934MB |       |
+| web_flask                     | latest  | e1c14261cca1 |     3 | months  | ago    | 934MB |       |
+| web_flower                    | latest  | e1c14261cca1 |     3 | months  | ago    | 934MB |       |
+| web_migrations                | latest  | e1c14261cca1 |     3 | months  | ago    | 934MB |       |
+| web_worker                    | latest  | e1c14261cca1 |     3 | months  | ago    | 934MB |       |
+| k8s.gcr.io/debian-base-amd64  | 0.3     | 570ff9f1b6a2 |     3 | months  | ago    | 43MB  |       |
+| quay.io/teamworks/flask_base  | 1.9     | 0d024e8a2f0c |     3 | months  | ago    | 506MB |       |
 
 #+NAME: kubeadm deploy
 #+BEGIN_SRC tmux :session k8s:kubeadm-dind

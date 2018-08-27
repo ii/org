@@ -179,8 +179,8 @@ curl -L https://github.com/tmate-io/tmate/releases/download/2.2.1/tmate-2.2.1-st
 #+BEGIN_SRC tmux :session k8s:packet
 cat <<EOF > ~/.gitconfig
 [user]
-        email = hh@ii.coop
-        name = Hippie Hacker
+        email = iibb@ii.coop
+        name = Berno
 [alias]
         lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
         create-pull-request = !sh -c 'stash pull-request $0'

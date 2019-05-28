@@ -191,8 +191,8 @@ Go - encoding is UTF-8 internally
     - function ~count()~ is run in parallel using the keyword ~go~, e.g. ~go count()~
     - This causes main to continue executing immediately without needing the count() function to finish first.
   
-[[file:go-in-practice/chapter1/goroutine.go][chapter1/go_routine.go]]
-#+INCLUDE: "./go-in-practice/chapter1/go_routine.go" src go
+[[file:go-in-practice/chapter1/goroutine.go][chapter1/goroutine.go]]
+#+INCLUDE: "./go-in-practice/chapter1/goroutine.go" src go
 
 #+NAME: Listing 1.6 Printing concurrently
 #+BEGIN_SRC go :imports '("fmt" "time") :main no

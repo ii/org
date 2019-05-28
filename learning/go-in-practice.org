@@ -52,6 +52,7 @@ https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 -rw-rw-r-- 1 heyste heyste 9528205 May 29 08:01 go-in-practice.pdf
 -rw-r--r-- 1 hippie hippie 9528205 May 28 14:16 go-in-practice.pdf
 
+[[pdfview:go-in-practice.pdf]]
 [[docview:go-in-practice.pdf::120]]
 [[file:go-in-practice.pdf]]
 
@@ -68,6 +69,24 @@ https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 #+RESULTS: clone code examples
 [[file:./go-in-practice/]]
 
+#+BEGIN_SRC emacs-lisp
+(require 'org-pdfview)
+(add-to-list 'org-file-apps '("\\.pdf\\'" . (lambda (file link) (org-pdfview-open link))))
+(org-pdfview-open "./go-in-practice.pdf")
+(require 'org-babel-eval-in-repl)
+(define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
+(define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)
+#+END_SRC
+
+#+BEGIN_SRC sh :session foo
+cd /tmp
+ls -la
+date
+#+END_SRC
+
+#+RESULTS:
+
+** 
 
 * Front Matter
 
@@ -108,12 +127,17 @@ https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 [[file:go-in-practice/chapter1/returns2.go][chapter1/returns2.go]]
 
 ***** Direct Linking to code
-You can open these and type ~, x x~ to run  =spacemacs/go-run-main=
+You can open these and type:
+~, x x~ to run  =spacemacs/go-run-main=
+~SPC SPC go-playground RET~ to load into go playground
+~SPC SPC go-playground-rm RET~ in the playground to remove the snippet
 [[file:go-in-practice/chapter1/returns.go][chapter1/returns.go]]
 ***** INCLUDING the src
 
 ~, '~ to open this included file in a dedicated buffer.
 ~, x x~ to run =spacemacs/go-run-main=
+~SPC SPC go-playground RET~ to load into go playground
+~SPC SPC go-playground-rm RET~ in the playground to remove the snippet
 The file (and specific lines) will be included in the export.
 
 #+INCLUDE: "./go-in-practice/chapter1/returns.go" src go :lines "11-18"
@@ -129,7 +153,8 @@ return "Foo", "Bar"
 
 #+RESULTS: header
 #+BEGIN_SRC go
-
+  import ("fmt")
+  fmt.Print("AOEUAOEU")
 #+END_SRC
 
 #+RESULTS: main
@@ -760,9 +785,25 @@ Searches and links to headers don't quite work:
 You can view it in docview 
 
 
-** TODO write or find ob-golang so ,, works for org golang blocks
+** DONE write or find ob-golang so ,, works for org golang blocks
+   CLOSED: [2019-05-29 Wed 10:24]
+ob-go is now installed and enabled
 ** TODO Delve
 ** TODO go-playground
+https://github.com/grafov/go-playground
+~SPC SPC go-playground RET~ to load into go playground
+~SPC SPC go-playground-rm RET~ in the playground to remove the snippet
+** TODO gorepl-mode
+https://github.com/manute/gorepl-mode
+Requires: https://github.com/motemen/gore
+#+BEGIN_SRC shell
+go get -u github.com/motemen/gore/cmd/gore
+go get -u github.com/k0kubun/pp        # or github.com/davecgh/go-spew/spew
+#+END_SRC
+
+#+RESULTS:
+#+begin_EXAMPLE
+#+end_EXAMPLE
 
 ** TODO look into gocheck
 ** TODO go-coverage

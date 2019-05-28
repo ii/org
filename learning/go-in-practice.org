@@ -7,10 +7,10 @@
 
 * Objective
 
-Given a synopsis of /Go in Practive/ with a focus on the code examples.
+Given a synopsis of /Go in Practice/ with a focus on the code examples.
 
 
-* Front Matter...
+* Front Matter
 
 ** Table of Contents
 

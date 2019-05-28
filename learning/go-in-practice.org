@@ -1,0 +1,449 @@
+#+TITLE: Go in Practice
+#+AUTHOR: Stephen Heywood
+#+EMAIL: stephen@ii.coop
+#+CREATOR: ii.coop
+#+DATE: 15th May, 2019
+#+STARTUP: showeverything
+
+* Objective
+
+Given a synopsis of /Go in Practive/ with a focus on the code examples.
+
+
+* Front Matter...
+
+** Table of Contents
+
+- Foreword
+- Preface
+- Acknowledgments
+- About this Book
+- About the Authors
+- About the Cover Illustration
+- Part 1. Background and fundamentals
+  - Ch 1. Getting into Go
+  - Ch 2. A solid foundation
+  - Ch 3. Concurrency in Go
+- Part 2. Well-rounded applications
+  - Ch 4. Handling errors and panics
+  - Ch 5. Debugging and testing
+- Part 3. An interface for your applications
+  - Ch 6. HTML and email template patterns
+  - Ch 7. Serving and receiving assets and forms
+  - Ch 8. Working with web services
+- Part 4. Taking your applications to the cloud
+  - Ch 9. Using the cloud
+  - Ch 10. Communication between cloud services
+  - Ch 11. Reflection and code generation
+
+
+* Part 1. Background and fundamentals
+
+** Chapter 1. Getting into Go
+
+*** 1.1. What is Go?
+*** 1.2. Noteworthy aspects of Go
+
+**** 1.2.1. Multiple return values
+
+#+BEGIN_SRC go
+func Names() (string, string) {
+return "Foo", "Bar"
+}
+#+END_SRC
+
+- The ~return "Foo", "Bar"~ returns two values not a single tuple that contains multiple values which is the norm in other languages.
+
+#+BEGIN_SRC go
+func main() {
+  n1, n2 := Names()
+  fmt.Println(n1, n2)
+  n3, _ := Names()
+  fmt.Println(n3)
+}
+#+END_SRC
+
+- The "underscore" character ~_~ is used to tell the compiler that "I don't care about this variable or it's content"
+
+
+**** 1.2.2. A modern standard library
+
+
+- Networking and HTTP
+  - (net package)
+  - TCP / UDP 
+  - client or server role
+  - bufio package
+- Package bufio implements buffered I/O. It wraps an io.Reader or io.Writer object, creating another object (Reader or Writer) that also implements the interface but provides buffering and some help for textual I/O. 
+
+
+Go - encoding is UTF-8 internally
+
+
+- interfaces (review more)
+
+- HTML
+  - Includes support through ~html~ and ~html/template~ packages
+- Cryptography
+  - Includes support for common cryptography protocols, SHA, TLS, AES and HMAC
+- Data Encoding
+  - packages -> turn a JSON string into instantiated objects
+
+
+
+**** 1.2.3. Concurrency with goroutines and channels
+
+- Go scheduler
+- "multiple processing cores is now the norm"
+- Other languages (aka Ruby) have a "global thread lock" - which hampers running routines in parallel
+- "goroutine" , a function that can be run concurrently to the main program or other goroutines. Sometimes dubbed lightweight threads"
+  - Figure 1.2 Goroutines running in threads distributed on the available processing cores
+  - Listing 1.5 Concurrent output
+    - two functions printing concurrently
+    - function ~count()~ is run in parallel using the keyword ~go~, e.g. ~go count()~
+    - This causes main to continue executing immediately without needing the count() function to finish first.
+  
+- Concurrency: "channels"
+  - Channels provide a way for two goroutines to communicate with each other.
+  - Channels can be one-directional or bidirectional
+
+**** 1.2.4. Go the toolchain—more than a language
+
+- go executable is a toolchain enabling more than a compiler
+- package management
+  - lightweight
+  - built in from day one
+  - improve programmer productivity
+  - faster compile time
+  - syntax: ~import "fmt"~
+  - syntax: ~fmt.Println("Hello Word")~
+  - list packages in alphabetical order
+  - net/http  << imports only http section? from the net package.
+  - external packages - reference by URL.
+  - command: ~go get~
+  - can use most version-control systems ( git - mercurial - SVN and bazaar ) pg 14
+  - Go retrieves the codebase from Git and checks out the latest commit from the default branch.
+  - Go has no central repository and packages are fetched from their source location.
+- testing
+  - Essential element of software development
+  - syntax: ~import "testing"~
+  - testing package provides
+    - a command-line runner
+    - code-coverage reporting
+    - race-condition detection.
+  - naming convention for test files: end in ~_test.go~
+    - excluded when the application is built
+  - Command: ~go test~
+    - executes the function that begins with Test e.g. TestName
+  - Command: ~go test ./...~
+    - Test the current package and the ones nested in subdirectories
+  - Test Results
+    - Listing 1.12 - PASS
+    - Listing 1.13 - FAIL
+  - Use other packages for BDD or other testing patterns
+  - Code Coverage
+    - Command ~go test -cover~
+    - Reports the % of coverage provided
+    - Listing 1.14 - output
+    - Export results to files that be used by other tools (example?)
+    - http://blog.golang.org/cover
+  - More details on Testing in Chapter 4
+- Formatting
+  - Tabs vs Spaces ? Style issues/discussions don't help with developer productivity
+  - Idiomatic Go - https://golang.org/doc/effective_go.html (Effective Go)
+  - Command: ~go fmt~
+  - Rewrites all go files to canonical style.
+  - Use a hook on save to update the current format
+  - Explore: Emacs save hook / pre-git commit
+  - Explore: Convert tab to spaces view options
+- documentation generation
+- compiler
+- locate extra options - check: go --help
+
+*** 1.3. Go in the vast language landscape
+
+   - Go design was for "systems language", with cloud computing a subset.
+   - Not good focus for embedded systems due to the runtime and garbage collection.
+   - Alternative to C
+   - Go provides a runtime that includes features such as managing threads and garbage collection.
+   - Go applications have a sweet spot that provides real productivity.
+   - Go compiles to a single binary for an operating system to directly execute.
+     - The binary contains the Go runtime, all the imported packages and the entire application.
+     - everything needed to run the program is within a single binary
+   - Performance between languages isn't straightforward
+   - Go is a statically typed language with dynamic-like features.
+     - Statically typed languages do type checking based on static code analysis.
+     - Go has the ability to do some type switching. Under some circumstances, variables of one type can be turned into variables of a different type.
+   - Go has a built-in web server, as illustrated in figure 1.6 (pg 20)
+
+*** 1.4. Getting up and running in Go
+
+- [[http://tour.golang.org][http://tour.golang.org]]
+- [[https://play.golang.org][https://play.golang.org]]
+
+**** 1.4.1. Installing Go
+
+- [[https://golang.org/dl/][https://golang.org/dl/]]
+
+**** 1.4.2. Working with Git, Mercurial, and version control
+
+**** 1.4.3. Exploring the workspace
+
+- Go code is expected to be in a workspace.
+- Base directory referenced by ~GOPATH~
+- workspace has a set directory hierarchy (
+  - bin
+  - pkg
+  - src
+- Command ~go install~
+  - manages the ~bin~ directory
+- archive files ?
+  - file suffix .a 
+  - stored in the ~pkg~ directory
+
+**** 1.4.4. Working with environment variables
+
+- go executable expect the variable to exist.
+- ~export PATH=$PATH:$GOPATH/bin~
+- An optional environment variable ~GOBIN~ for installing binaries to an alternative location,
+
+*** 1.5. Hello, Go
+
+- Create a web server 
+
+- Command: ~go build~
+  - will build the current directory
+  - using a filename, set of filenames, only builds the selection.
+  - the built application needs to be executed
+
+*** 1.6. Summary
+
+- designed for modern hardware
+- advantage of recent advances in technology
+- provides a toolchain that makes the developer productive
+- goroutines enable concurrent execution
+
+** Chapter 2. A solid foundation
+
+*** 2.1. Working with CLI applications, the Go way
+
+- 2.1.1. Command-line flags
+- 2.1.2. Command-line frameworks
+
+*** 2.2. Handling configuration
+
+- Technique 3 Using configuration files
+- Technique 4 Configuration via environment variables
+
+*** 2.3. Working with real-world web servers
+
+- 2.3.1. Starting up and shutting down a server
+- 2.3.2. Routing web requests
+
+*** 2.4. Summary
+
+** Chapter 3. Concurrency in Go
+
+*** 3.1. Understanding Go’s concurrency model
+*** 3.2. Working with goroutines
+
+- Technique 10 Using goroutine closures
+- Technique 11 Waiting for goroutines
+- Technique 12 Locking with a mutex
+
+*** 3.3. Working with channels
+
+- Technique 13 Using multiple channels
+- Technique 14 Closing channels
+- Technique 15 Locking with buffered channels
+
+*** 3.4. Summary
+
+
+* Part 2. Well-rounded applications
+
+** Chapter 4. Handling errors and panics
+
+*** 4.1. Error handling
+
+- Technique 16 Minimize the nils
+- Technique 17 Custom error types
+- Technique 18 Error variables
+
+*** 4.2. The panic system
+
+- 4.2.1. Differentiating panics from errors
+- 4.2.2. Working with panics
+- 4.2.3. Recovering from panics
+- 4.2.4. Panics and goroutines
+
+*** 4.3. Summary
+
+** Chapter 5. Debugging and testing
+
+*** 5.1. Locating bugs
+
+- 5.1.1. Wait, where is my debugger?
+
+*** 5.2. Logging
+
+- 5.2.1. Using Go’s logger
+- 5.2.2. Working with system loggers
+
+*** 5.3. Accessing stack traces
+
+- Technique 26 Capturing stack traces
+
+*** 5.4. Testing
+
+- 5.4.1. Unit testing
+- 5.4.2. Generative testing
+
+*** 5.5. Using performance tests and benchmarks
+
+- Technique 29 Benchmarking Go code
+- Technique 30 Parallel benchmarks
+- Technique 31 Detecting race conditions
+
+*** 5.6. Summary
+
+
+* Part 3. An interface for your applications
+  
+** Chapter 6. HTML and email template patterns
+
+*** 6.1. Working with HTML templates
+
+- 6.1.1. Standard library HTML package overview
+- 6.1.2. Adding functionality inside templates
+- 6.1.3. Limiting template parsing
+- 6.1.4. When template execution breaks
+- 6.1.5. Mixing templates
+
+*** 6.2. Using templates for email
+
+- Technique 38 Generating email from templates
+
+*** 6.3. Summary
+
+** Chapter 7. Serving and receiving assets and forms
+
+*** 7.1. Serving static content
+
+- Technique 39 Serving subdirectories
+- Technique 40 File server with custom error pages
+- Technique 41 Caching file server
+- Technique 42 Embedding files in a binary
+- Technique 43 Serving from an alternative location
+
+*** 7.2. Handling form posts
+
+- 7.2.1. Introduction to form requests
+- 7.2.2. Working with files and multipart submissions
+- 7.2.3. Working with raw multipart data
+
+*** 7.3. Summary
+    
+** Chapter 8. Working with web services
+   
+*** 8.1. Using REST APIs
+
+- 8.1.1. Using the HTTP client
+- 8.1.2. When faults happen
+
+*** 8.2. Passing and handling errors over HTTP
+    
+- 8.2.1. Generating custom errors
+- 8.2.2. Reading and using custom errors
+
+*** 8.3. Parsing and mapping JSON
+
+- Technique 53 Parsing JSON without knowing the schema
+
+*** 8.4. Versioning REST APIs
+
+- Technique 54 API version in the URL
+- Technique 55 API version in content type
+
+*** 8.5. Summary
+
+
+* Part 4. Taking your applications to the cloud
+
+** Chapter 9. Using the cloud
+
+*** 9.1. What is cloud computing?
+
+- 9.1.1. The types of cloud computing
+- 9.1.2. Containers and cloud-native applications
+
+*** 9.2. Managing cloud services
+
+- 9.2.1. Avoiding cloud provider lock-in
+- 9.2.2. Dealing with divergent errors
+
+*** 9.3. Running on cloud servers
+
+- 9.3.1. Performing runtime detection
+- 9.3.2. Building for the cloud
+- 9.3.3. Performing runtime monitoring
+
+*** 9.4. Summary
+
+** Chapter 10. Communication between cloud services
+
+*** 10.1. Microservices and high availability
+*** 10.2. Communicating between services
+
+**** 10.2.1. Making REST faster
+
+***** TECHNIQUE 62: Reusing connections
+
+***** TECHNIQUE 63: Faster JSON marshal and unmarshal
+
+- https://github.com/ugorji/go
+
+**** 10.2.2. Moving beyond REST
+
+***** TECHNIQUE 64: Using protocol buffers
+
+***** TECHNIQUE 65: Communicating over RPC with protocol buffers
+
+*** 10.3. Summary
+
+** Chapter 11. Reflection and code generation
+
+*** 11.1. Three features of reflection
+
+- Technique 66 Switching based on type and kind
+- Technique 67 Discovering whether a value implements an interface
+- Technique 68 Accessing fields on a struct
+
+*** 11.2. Structs, tags, and annotations
+
+- 11.2.1. Annotating structs
+- 11.2.2. Using tag annotations
+
+*** 11.3. Generating Go code with Go code
+
+- Technique 70 Generating code with go generate
+
+*** 11.4. Summary
+
+
+* End Matter
+
+** Index
+** List of Figures
+** List of Listings
+
+
+* Extra Notes
+
+- [[https://github.com/mdempsky/gocode][gocode: An autocompletion daemon for the Go programming language]] 
+
+  
+* References
+
+
+- Test link to PDF: [[docview:go-in-practice.pdf::105][pg105]]

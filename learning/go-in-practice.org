@@ -25,15 +25,21 @@ We might be able to skewer this for driving a web browser to follow the right li
 
 *** pdf directly via docview
 
-#+header: :results 
+#+BEGIN_SRC emacs-lisp :results none
+(setq nextcloud-login (read-string "Nextcloud Login : "))
+(setq nextcloud-passwd (read-passwd "Nextcloud Pass : "))
+#+END_SRC
+
+#+noheader: :prologue "(\n"
+#+noheader: :epilogue ") 2>&1\n:\n"
+#+NOheader: :results 
 #+noheader: :results link
 #+noheader: :file "go-in-practice.pdf"
 #+noheader: :export org
+https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 #+name: download pdf via next cloud webdav
-#+header: :var LOGIN=(read-string "Nextcloud Login : ") PASS=(read-passwd "Nextcloud Pass : ")
+#+header: :var LOGIN=(symbol-value 'nextcloud-login) PASS=(symbol-value 'nextcloud-passwd)
 #+header: :eval no-export
-#+header: :prologue "(\n"
-#+header: :epilogue ") 2>&1\n:\n"
 #+BEGIN_SRC shell :prologue :wrap '(nil)
   rm -rf go-in-practive.pdf
   curl -s -S -u "${LOGIN}:${PASS}" -L \
@@ -43,7 +49,7 @@ We might be able to skewer this for driving a web browser to follow the right li
 #+END_SRC
 
 #+RESULTS: download pdf via next cloud webdav
--rw-r--r-- 1 hippie hippie 9528205 May 28 14:03 go-in-practice.pdf
+-rw-r--r-- 1 hippie hippie 9528205 May 28 14:16 go-in-practice.pdf
 
 [[file:go-in-practice.pdf]]
 
@@ -96,16 +102,21 @@ We might be able to skewer this for driving a web browser to follow the right li
 *** 1.2. Noteworthy aspects of Go
 
 **** 1.2.1. Multiple return values
+[[file:go-in-practice/chapter1/returns.go][chapter1/returns.go]]
+[[file:go-in-practice/chapter1/returns2.go][chapter1/returns2.go]]
 
 ***** Direct Linking to code
 You can open these and type ~, x x~ to run  =spacemacs/go-run-main=
 [[file:go-in-practice/chapter1/returns.go][chapter1/returns.go]]
 ***** INCLUDING the src
 
-#+INCLUDE "./go-in-practice/chapter1/returns.go" src go
+~, '~ to open this included file in a dedicated buffer.
+~, x x~ to run =spacemacs/go-run-main=
+The file (and specific lines) will be included in the export.
+
+#+INCLUDE: "./go-in-practice/chapter1/returns.go" src go :lines "11-18"
 
 ***** Inline Code Execution and output
-
 
 #+NAME: Names
 #+BEGIN_SRC go
@@ -128,7 +139,21 @@ Foo
 - The "underscore" character ~_~ is used to tell the compiler that "I don't care about this variable or it's content"
 
 **** 1.2.2. A modern standard library
+[[file:go-in-practice/chapter1/read_status.go][chapter1/read_status.go]]
+#+INCLUDE: "./go-in-practice/chapter1/read_status.go" src go
 
+#+NAME: Listing 13 Read TCP status: read_status.go
+#+BEGIN_SRC go :imports '("fmt" "bufio" "net")
+	conn, _ := net.Dial("tcp", "golang.org:80")
+	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
+	status, _ := bufio.NewReader(conn).ReadString('\n')
+	fmt.Println(status)
+#+END_SRC
+
+#+RESULTS: Listing 13 Read TCP status: read_status.go
+#+begin_EXPORT text
+HTTP/1.0 200 OK
+#+end_EXPORT
 
 - Networking and HTTP
   - (net package)
@@ -164,13 +189,76 @@ Go - encoding is UTF-8 internally
     - function ~count()~ is run in parallel using the keyword ~go~, e.g. ~go count()~
     - This causes main to continue executing immediately without needing the count() function to finish first.
   
+[[file:go-in-practice/chapter1/goroutine.go][chapter1/go_routine.go]]
+#+INCLUDE: "./go-in-practice/chapter1/go_routine.go" src go
+
+#+NAME: Listing 1.6 Printing concurrently
+#+BEGIN_SRC go :imports '("fmt" "time") :main no
+func count() {
+	for i := 0; i < 5; i++ {
+		fmt.Println(i)
+		time.Sleep(time.Millisecond * 1)
+	}
+}
+
+func main() {
+	go count()
+	time.Sleep(time.Millisecond * 2)
+	fmt.Println("Hello World")
+	time.Sleep(time.Millisecond * 5)
+}
+#+END_SRC
+
+#+RESULTS: Listing 1.6 Printing concurrently
+#+begin_EXPORT text
+0
+1
+Hello World
+2
+3
+4
+#+end_EXPORT
+
 - Concurrency: "channels"
   - Channels provide a way for two goroutines to communicate with each other.
   - Channels can be one-directional or bidirectional
 
+[[file:go-in-practice/chapter1/channel.go][chapter1/channel.go]]
+#+INCLUDE: "./go-in-practice/chapter1/channel.go" src go
+
+#+NAME: Listing 1.7 Using channels: channel.go
+#+BEGIN_SRC go :imports '("fmt" "time") :main no
+func printCount(c chan int) {
+	num := 0
+	for num >= 0 {
+		num = <-c
+		fmt.Print(num, " ")
+	}
+}
+
+func main() {
+	c := make(chan int)
+	a := []int{8, 6, 7, 5, 3, 0, 9, -1}
+
+	go printCount(c)
+
+	for _, v := range a {
+		c <- v
+	}
+	time.Sleep(time.Millisecond * 1)
+	fmt.Println("End of main")
+}
+#+END_SRC
+
+#+RESULTS: Listing 1.7 Using channels: channel.go
+#+begin_EXPORT text
+8 6 7 5 3 0 9 -1 End of main
+#+end_EXPORT
+
 **** 1.2.4. Go the toolchain—more than a language
 
 - go executable is a toolchain enabling more than a compiler
+
 - package management
   - lightweight
   - built in from day one
@@ -185,6 +273,9 @@ Go - encoding is UTF-8 internally
   - can use most version-control systems ( git - mercurial - SVN and bazaar ) pg 14
   - Go retrieves the codebase from Git and checks out the latest commit from the default branch.
   - Go has no central repository and packages are fetched from their source location.
+
+
+
 - testing
   - Essential element of software development
   - syntax: ~import "testing"~
@@ -209,17 +300,137 @@ Go - encoding is UTF-8 internally
     - Export results to files that be used by other tools (example?)
     - http://blog.golang.org/cover
   - More details on Testing in Chapter 4
+
+- TODO Explore gocheck / go-use-gocheck-for-testing
+https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/go#tests
+
+[[file:go-in-practice/chapter1/hello/hello.go][chapter1/hello/hello.go]]
+#+INCLUDE: "./go-in-practice/chapter1/hello/hello.go" src go
+
+#+NAME: Listing 1.10 Hello World: hello.go
+#+BEGIN_SRC go :imports '("fmt") :main no
+func getName() string {
+	return "World!"
+}
+
+func main() {
+	name := getName()
+	fmt.Println("Hello ", name)
+}
+#+END_SRC
+
+#+RESULTS: Listing 1.10 Hello World: hello.go
+#+begin_EXPORT text
+Hello  World!
+#+end_EXPORT
+
+
+To test, open this file and run ~, t t~ 
+[[file:go-in-practice/chapter1/hello/hello_test.go::/getName(/][chapter1/hello/hello_test.go]]
+#+INCLUDE: "./go-in-practice/chapter1/hello/hello_test.go" src go
+
+#+NAME: Listing 1.12 Running go test manually
+#+BEGIN_SRC shell :dir go-in-practice/chapter1/hello
+go test
+#+END_SRC
+
+#+RESULTS: Listing 1.12 Running go test manually
+#+begin_EXAMPLE
+PASS
+ok  	_/home/hippie/ii/org/learning/go-in-practice/chapter1/hello	0.001s
+#+end_EXAMPLE
+
+#+NAME: Listing 1.14 Testing with code coverage
+#+BEGIN_SRC shell :dir go-in-practice/chapter1/hello
+go test -cover
+#+END_SRC
+
+#+RESULTS: Listing 1.14 Testing with code coverage
+#+begin_EXAMPLE
+PASS
+coverage: 33.3% of statements
+ok  	_/home/hippie/ii/org/learning/go-in-practice/chapter1/hello	0.001s
+#+end_EXAMPLE
+
+
+[[http://blog.golang.org/cover]]
+
+
 - Formatting
   - Tabs vs Spaces ? Style issues/discussions don't help with developer productivity
   - Idiomatic Go - https://golang.org/doc/effective_go.html (Effective Go)
   - Command: ~go fmt~
   - Rewrites all go files to canonical style.
   - Use a hook on save to update the current format
+
   - Explore: Emacs save hook / pre-git commit
   - Explore: Convert tab to spaces view options
+
+We have some go-lang spacemacs settings to run go fmt on save etc.
+Might be interesting to see pre-git commit
+http://spacemacs.org/layers/+lang/go/README.html
+https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/go
+
 - documentation generation
 - compiler
 - locate extra options - check: go --help
+
+#+NAME: go extra compiler options
+#+BEGIN_SRC shell :epilogue ") 2>&1\n:" :prologue "(\n"
+go --help
+#+END_SRC
+
+#+RESULTS: go extra compiler options
+#+begin_EXAMPLE
+Go is a tool for managing Go source code.
+
+Usage:
+
+	go <command> [arguments]
+
+The commands are:
+
+	bug         start a bug report
+	build       compile packages and dependencies
+	clean       remove object files and cached files
+	doc         show documentation for package or symbol
+	env         print Go environment information
+	fix         update packages to use new APIs
+	fmt         gofmt (reformat) package sources
+	generate    generate Go files by processing source
+	get         download and install packages and dependencies
+	install     compile and install packages and dependencies
+	list        list packages or modules
+	mod         module maintenance
+	run         compile and run Go program
+	test        test packages
+	tool        run specified go tool
+	version     print Go version
+	vet         report likely mistakes in packages
+
+Use "go help <command>" for more information about a command.
+
+Additional help topics:
+
+	buildmode   build modes
+	c           calling between Go and C
+	cache       build and test caching
+	environment environment variables
+	filetype    file types
+	go.mod      the go.mod file
+	gopath      GOPATH environment variable
+	gopath-get  legacy GOPATH go get
+	goproxy     module proxy protocol
+	importpath  import path syntax
+	modules     modules, module versions, and more
+	module-get  module-aware go get
+	packages    package lists and patterns
+	testflag    testing flags
+	testfunc    testing functions
+
+Use "go help <topic>" for more information about that topic.
+
+#+end_EXAMPLE
 
 *** 1.3. Go in the vast language landscape
 
@@ -271,6 +482,34 @@ Go - encoding is UTF-8 internally
 *** 1.5. Hello, Go
 
 - Create a web server 
+
+[[file:go-in-practice/chapter1/inigo.go][chapter1/hello/inigo.go]]
+#+INCLUDE: "./go-in-practice/chapter1/inigo.go" src go
+
+#+NAME: Listing 1.16 Hello World web server: inigo.go
+#+BEGIN_SRC emacs-lisp :results none
+  ;; (setenv "GOPATH" (concat (file-name-directory (buffer-file-name))
+              ;; "go-in-practice/chapter1/"))
+  ;;(setenv "GOPATH" nil)
+  (compile "go run inigo.go") t)
+  (sleep-for 2)
+  (display-buffer-at-bottom (get-buffer "*compilation*") nil)
+  (browse-url-chromium "http:localhost:4000")  2
+#+END_SRC
+
+# :dir go-in-practice/chapter1/
+#+NAME: Listing 1.18 Building inigo.go
+#+BEGIN_SRC shell :epilogue ") 2>&1\n:" :prologue "(\n"
+go build inigo.go
+ls -la inigo
+# ./inigo
+#+END_SRC
+
+#+RESULTS: Listing 1.18 Building inigo.go
+#+begin_EXAMPLE
+-rwxrwxr-x 1 hippie hippie 7384565 May 28 15:49 inigo
+#+end_EXAMPLE
+
 
 - Command: ~go build~
   - will build the current directory
@@ -526,11 +765,12 @@ You can view it in docview
 ** TODO look into gocheck
 ** TODO go-coverage
 ** TODO go-guru
+https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ/edit
 ** TODO gocode => gogetdoc
 May need to run =go set autobuild true= or something similar.
 See [[file:/usr/local/share/emacs/site-lisp/spacemacs/layers/+lang/go/README.org::*Autocomplete][Autocomplete]]
 ** TODO go-use-test-args
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;; go layer cofig
 (go :variables go-use-test-args "-race -timeout 10s")
 #+END_SRC
@@ -571,4 +811,5 @@ go install github.com/godoctor/godoctor
   go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
   go get -u github.com/josharian/impl
 #+END_SRC
+
 

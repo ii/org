@@ -41,9 +41,9 @@
            (cons 'header-args:tmate
                  (concat
                   ":noweb yes"
+                  " :eval never-export"
                   " :noweb-ref " item-str
                   " :comments org"
-                  " :eval no-export"
                   " :results silent "
                   " :session (concat user-login-name \":main\" )"
                   ;; " :session (concat user-login-name \":\" " "main" ")"
@@ -56,13 +56,23 @@
                   ;; " :prologue (concat \"cd \" ssh-dir \"\n\")"
                   ;; " :prologue (concat "cd " org-file-dir "\n") ))
                   ))
+           (cons 'header-args:go
+                 (concat
+                  ":noweb yes"
+                  ;; " :noweb-ref " item-str
+                  " :comments org"
+                  " :eval no-export"
+                  " :results output code verbatim replace"
+                  " :exports both"
+                  " :wrap EXPORT text"
+                  ))
            (cons 'header-args:emacs-lisp
                  (concat
                   ":noweb yes"
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
-                  " :results code"
+                  " :results replace code"
                   " :exports both"
                   ))
            (cons 'header-args:elisp
@@ -80,7 +90,7 @@
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
-                  " :results output code verbatis replace"
+                  " :results output code verbatim replace"
                   " :exports both"
                   " :wrap EXAMPLE"
                   ;; This can help catch stderr and other issues
@@ -103,7 +113,7 @@
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
-                  " :results output code verbatis replace"
+                  " :results output code verbatim replace"
                   " :exports both"
                   " :wrap EXAMPLE"
                   ))

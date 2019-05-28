@@ -9,6 +9,57 @@
 
 Given a synopsis of /Go in Practice/ with a focus on the code examples.
 
+** Buy Book
+
+Matt Farina and Matt Butcher wrote a helpful book that we use as the basis for our walkthrough.
+Please purchase this book from them. We bought a copies for our team.
+
+http://goinpracticebook.com/
+
+** Access Book
+
+*** ii pdf via nextcloud PDF viewer
+https://nextcloud.ii.nz/apps/files/?dir=/iiFiles/Books&fileid=5114#pdfviewer
+
+We might be able to skewer this for driving a web browser to follow the right links
+
+*** pdf directly via docview
+
+#+header: :results 
+#+noheader: :results link
+#+noheader: :file "go-in-practice.pdf"
+#+noheader: :export org
+#+name: download pdf via next cloud webdav
+#+header: :var LOGIN=(read-string "Nextcloud Login : ") PASS=(read-passwd "Nextcloud Pass : ")
+#+header: :eval no-export
+#+header: :prologue "(\n"
+#+header: :epilogue ") 2>&1\n:\n"
+#+BEGIN_SRC shell :prologue :wrap '(nil)
+  rm -rf go-in-practive.pdf
+  curl -s -S -u "${LOGIN}:${PASS}" -L \
+    http://nextcloud.ii.nz/remote.php/webdav/iiFiles/Books/Go_in_Practice.pdf \
+    -o go-in-practice.pdf
+  ls -la go-in-practice.pdf
+#+END_SRC
+
+#+RESULTS: download pdf via next cloud webdav
+-rw-r--r-- 1 hippie hippie 9528205 May 28 14:03 go-in-practice.pdf
+
+[[file:go-in-practice.pdf]]
+
+** Access Source Examples
+#+name: clone code examples
+#+header: :results link
+#+header: :file "./go-in-practice/"
+#+header: :wrap '(nil)
+#+header: :eval no-export
+#+BEGIN_SRC shell
+  git clone https://github.com/Masterminds/go-in-practice.git
+#+END_SRC
+
+#+RESULTS: clone code examples
+[[file:./go-in-practice/]]
+
 
 * Front Matter
 
@@ -45,64 +96,36 @@ Given a synopsis of /Go in Practice/ with a focus on the code examples.
 *** 1.2. Noteworthy aspects of Go
 
 **** 1.2.1. Multiple return values
-  :PROPERTIES:
-    :header-args:go+: :tangle /tmp/ch1.2.1.go
-  :END:
 
+***** Direct Linking to code
+You can open these and type ~, x x~ to run  =spacemacs/go-run-main=
+[[file:go-in-practice/chapter1/returns.go][chapter1/returns.go]]
+***** INCLUDING the src
+
+#+INCLUDE "./go-in-practice/chapter1/returns.go" src go
+
+***** Inline Code Execution and output
+
+
+#+NAME: Names
 #+BEGIN_SRC go
-  package main
-  import ("fmt")
-  func Names() (string, string) {
-  return "Foo", "Bar"
-  }
-#+END_SRC
-
-- The ~return "Foo", "Bar"~ returns two values not a single tuple that contains multiple values which is the norm in other languages.
-
-#+BEGIN_SRC go
-func main() {
-  n1, n2 := Names()
-  fmt.Println(n1, n2)
-  n3, _ := Names()
-  fmt.Println(n3)
+func Names() (string, string) {
+return "Foo", "Bar"
 }
 #+END_SRC
 
-- The "underscore" character ~_~ is used to tell the compiler that "I don't care about this variable or it's content"
+#+RESULTS: header
+#+BEGIN_SRC go
 
-#+BEGIN_SRC shell
-go run ch1.2.1.go
 #+END_SRC
 
-#+RESULTS:
-#+begin_EXAMPLE
+#+RESULTS: main
+#+BEGIN_SRC go
 Foo Bar
 Foo
-#+end_EXAMPLE
-
-#+NAME: first
-#+BEGIN_SRC shell
-echo FIRST
 #+END_SRC
 
-#+NAME: second
-#+BEGIN_SRC shell
-echo SECOND
-#+END_SRC
-
-#+BEGIN_SRC shell :noweb yes
-<<first>>
-<<second>>
-echo THHHIRD
-#+END_SRC
-
-#+RESULTS:
-#+begin_EXAMPLE
-FIRST
-SECOND
-THHHIRD
-#+end_EXAMPLE
-
+- The "underscore" character ~_~ is used to tell the compiler that "I don't care about this variable or it's content"
 
 **** 1.2.2. A modern standard library
 
@@ -487,6 +510,14 @@ Go - encoding is UTF-8 internally
 - Test link to PDF: [[docview:go-in-practice.pdf::105][pg105]]
 * Footnotes
 [[file:/usr/local/share/emacs/site-lisp/spacemacs/layers/+lang/go/README.org::*Go%20commands%20(start%20with%20=m=):][Keybindings]]
+** local pdf link to pages
+If you are running in a gui, you can view the local PDF in docview.
+- [[docview:go-in-practice.pdf]]
+- [[docview:go-in-practice.pdf::300]]
+Searches and links to headers don't quite work:
+- [[docview:go-in-practice.pdf:/The%20queue%20template/]]
+You can view it in docview 
+
 
 ** TODO write or find ob-golang so ,, works for org golang blocks
 ** TODO Delve
@@ -500,39 +531,34 @@ May need to run =go set autobuild true= or something similar.
 See [[file:/usr/local/share/emacs/site-lisp/spacemacs/layers/+lang/go/README.org::*Autocomplete][Autocomplete]]
 ** TODO go-use-test-args
 #+BEGIN_SRC elisp
-  ;; go layer cofig
-  (go :variables go-use-test-args "-race -timeout 10s")
+;; go layer cofig
+(go :variables go-use-test-args "-race -timeout 10s")
 #+END_SRC
 
-** [[Go Spacemacs Layer Pre-requisites]] 
+** Go Spacemacs Layer Pre-requisites
 
 #+BEGIN_SRC shell
 (gocode) 2>&1
 echo $?
 #+END_SRC
 
-#+RESULTS:
-#+begin_EXAMPLE
-0
-#+end_EXAMPLE
-
-#+BEGIN_SRC tmate
-  go get -u -v github.com/fatih/gomodifytags
+#+BEGIN_SRC tmate :eval never-export
+go get -u -v github.com/fatih/gomodifytags
 #+END_SRC
 
 
-#+BEGIN_SRC tmate
-  go get -u -v github.com/godoctor/godoctor
-  go install github.com/godoctor/godoctor
+#+BEGIN_SRC tmate :eval never-export
+go get -u -v github.com/godoctor/godoctor
+go install github.com/godoctor/godoctor
 #+END_SRC
 
 
-#+BEGIN_SRC tmate
+#+BEGIN_SRC tmate :eval never-export
   go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 #+END_SRC
 
 
-#+BEGIN_SRC tmate
+#+BEGIN_SRC tmate :eval never-export
   go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/guru

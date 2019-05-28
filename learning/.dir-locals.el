@@ -4,7 +4,7 @@
  (org-mode
   (org-babel-tmate-session-prefix . "")
   (org-babel-tmate-default-window-name . "main")
-  (org-confirm-babel-evaluate . t)
+  (org-confirm-babel-evaluate . nil)
   (org-use-property-inheritance . t)
   (org-file-dir . (file-name-directory buffer-file-name))
   (eval
@@ -40,12 +40,14 @@
           (list
            (cons 'header-args:tmate
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
                   " :results silent "
-                  " :session (concat user-login-name \":\" " item-str ")"
+                  " :session (concat user-login-name \":main\" )"
+                  ;; " :session (concat user-login-name \":\" " "main" ")"
+                  ;; " :session (concat user-login-name \":\" " item-str ")"
                   " :socket " socket
                   " :window " user-login-name
                   " :terminal sakura"
@@ -56,7 +58,7 @@
                   ))
            (cons 'header-args:emacs-lisp
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
@@ -65,7 +67,7 @@
                   ))
            (cons 'header-args:elisp
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
@@ -74,7 +76,7 @@
                   ))
            (cons 'header-args:bash
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
@@ -97,7 +99,7 @@
                   ))
            (cons 'header-args:shell
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :noweb-ref " item-str
                   " :comments org"
                   " :eval no-export"
@@ -107,14 +109,14 @@
                   ))
            (cons 'header-args:json
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :comments org"
                   " :noweb-ref " item-str
                   " :exports both"
                   ))
            (cons 'header-args:yaml
                  (concat
-                  " :noweb yes"
+                  ":noweb yes"
                   " :comments org"
                   " :noweb-ref " item-str
                   " :exports both"
@@ -123,6 +125,11 @@
           )
      (set (make-local-variable 'select-enable-clipboard) t)
      (set (make-local-variable 'select-enable-primary) t)
+     (defun ii-org-confirm-babel-evaluate (lang body)
+       nil ;; allow everything for now
+       ;;(not (string= lang "ditaa"))  ;don't ask for ditaa
+       )
+     (set (make-local-variable 'org-confirm-babel-evaluate) #'ii-org-confirm-babel-evaluate)
      (set (make-local-variable 'start-tmate-command)
           (concat
            "tmate -S "
@@ -266,14 +273,15 @@
      (defun xclip-working ()
        "Quick Check to see if X is working."
        (if (getenv "DISPLAY")
-           (if (runs-and-exits-zero "xset" "q")
+           ;; this xset test is a bit flakey
+           ;; (if (runs-and-exits-zero "xset" "q")
                ;; Using xclip to set an invalid selection is as lightly intrusive
                ;; check I could come up with, and not overwriting anything
                ;; however it seems to hang
                ;; (if (runs-and-exits-zero "xclip" "-selection" "unused")
                ;;     'true)
                'true
-             )
+             ;; )
          )
        )
      (defun populate-x-clipboard ()
@@ -292,11 +300,9 @@
      ;; As we start on other OSes, we'll need to copy this differently
      (if (xclip-working)
          (populate-x-clipboard)
-       (
-        (with-current-buffer (get-buffer-create "start-tmate-command")
-          (insert-for-yank "You will need to copy this manually:\n\n")
-          )
-        )
+       (with-current-buffer (get-buffer-create "start-tmate-command" )
+         (insert-for-yank "You will need to copy this manually:\n\n" )
+         )
        )
      ;; needs to be global, so it's availabel to the other buffer
      (setq tmate-command start-tmate-command)
@@ -306,6 +312,29 @@
         ))
      (switch-to-buffer "start-tmate-command")
      (y-or-n-p "Have you Pasted?")
+     ;; https://www.wisdomandwonder.com/article/10630/how-fast-can-you-tangle-in-org-mode
+     (setq help/default-gc-cons-threshold gc-cons-threshold)
+     (defun help/set-gc-cons-threshold (&optional multiplier notify)
+       "Set `gc-cons-threshold' either to its default value or a
+   `multiplier' thereof."
+       (let* ((new-multiplier (or multiplier 1))
+              (new-threshold (* help/default-gc-cons-threshold
+                                new-multiplier)))
+         (setq gc-cons-threshold new-threshold)
+         (when notify (message "Setting `gc-cons-threshold' to %s"
+                               new-threshold))))
+     (defun help/double-gc-cons-threshold () "Double `gc-cons-threshold'." (help/set-gc-cons-threshold 2))
+     (add-hook 'org-babel-pre-tangle-hook #'help/double-gc-cons-threshold)
+     (add-hook 'org-babel-post-tangle-hook #'help/set-gc-cons-threshold)
+     ;; info:org#Conflicts for org 9 and very recent yas
+     (defun yas/org-very-safe-expand ()
+       (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+
+     (yas/expand)
+     (make-variable-buffer-local 'yas/trigger-key)
+     (setq yas/trigger-key [tab])
+     (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+     (define-key yas/keymap [tab] 'yas/next-field)
      ;; (gui-select-text (concat "rm -fi " socket "; ssh -tAX " ssh-user "@" ssh-host " -L " socket ":" socket " " start-tmate-over-ssh-command))
      ;; (edebug-trace "TRACING socket:%S" socket)
      ;; (edebug-trace "TRACING org-babel-header-args:tmate %S" org-babel-header-args:emacs-lisp)
@@ -327,3 +356,6 @@
 ;; https://www.emacswiki.org/emacs/AutomaticFileHeaders #templates / updates etc
 ;; ^^ based on https://www.emacswiki.org/emacs/download/header2.el
 ;; ;; https://stackoverflow.com/questions/13228001/org-mode-nested-properties
+;; https://www.reddit.com/r/emacs/comments/4154bu/how_to_get_orgmode_to_recognize_markdownstyle/
+;; ^^ https://www.reddit.com/r/emacs/comments/4154bu/how_to_get_orgmode_to_recognize_markdownstyle/cz0bb45/
+;;http://endlessparentheses.com/markdown-style-link-ids-in-org-mode.html

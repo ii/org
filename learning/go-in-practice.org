@@ -45,11 +45,16 @@ Given a synopsis of /Go in Practice/ with a focus on the code examples.
 *** 1.2. Noteworthy aspects of Go
 
 **** 1.2.1. Multiple return values
+  :PROPERTIES:
+    :header-args:go+: :tangle /tmp/ch1.2.1.go
+  :END:
 
 #+BEGIN_SRC go
-func Names() (string, string) {
-return "Foo", "Bar"
-}
+  package main
+  import ("fmt")
+  func Names() (string, string) {
+  return "Foo", "Bar"
+  }
 #+END_SRC
 
 - The ~return "Foo", "Bar"~ returns two values not a single tuple that contains multiple values which is the norm in other languages.
@@ -64,6 +69,39 @@ func main() {
 #+END_SRC
 
 - The "underscore" character ~_~ is used to tell the compiler that "I don't care about this variable or it's content"
+
+#+BEGIN_SRC shell
+go run ch1.2.1.go
+#+END_SRC
+
+#+RESULTS:
+#+begin_EXAMPLE
+Foo Bar
+Foo
+#+end_EXAMPLE
+
+#+NAME: first
+#+BEGIN_SRC shell
+echo FIRST
+#+END_SRC
+
+#+NAME: second
+#+BEGIN_SRC shell
+echo SECOND
+#+END_SRC
+
+#+BEGIN_SRC shell :noweb yes
+<<first>>
+<<second>>
+echo THHHIRD
+#+END_SRC
+
+#+RESULTS:
+#+begin_EXAMPLE
+FIRST
+SECOND
+THHHIRD
+#+end_EXAMPLE
 
 
 **** 1.2.2. A modern standard library
@@ -447,3 +485,64 @@ Go - encoding is UTF-8 internally
 
 
 - Test link to PDF: [[docview:go-in-practice.pdf::105][pg105]]
+* Footnotes
+[[file:/usr/local/share/emacs/site-lisp/spacemacs/layers/+lang/go/README.org::*Go%20commands%20(start%20with%20=m=):][Keybindings]]
+
+** TODO write or find ob-golang so ,, works for org golang blocks
+** TODO Delve
+** TODO go-playground
+
+** TODO look into gocheck
+** TODO go-coverage
+** TODO go-guru
+** TODO gocode => gogetdoc
+May need to run =go set autobuild true= or something similar.
+See [[file:/usr/local/share/emacs/site-lisp/spacemacs/layers/+lang/go/README.org::*Autocomplete][Autocomplete]]
+** TODO go-use-test-args
+#+BEGIN_SRC elisp
+  ;; go layer cofig
+  (go :variables go-use-test-args "-race -timeout 10s")
+#+END_SRC
+
+** [[Go Spacemacs Layer Pre-requisites]] 
+
+#+BEGIN_SRC shell
+(gocode) 2>&1
+echo $?
+#+END_SRC
+
+#+RESULTS:
+#+begin_EXAMPLE
+0
+#+end_EXAMPLE
+
+#+BEGIN_SRC tmate
+  go get -u -v github.com/fatih/gomodifytags
+#+END_SRC
+
+
+#+BEGIN_SRC tmate
+  go get -u -v github.com/godoctor/godoctor
+  go install github.com/godoctor/godoctor
+#+END_SRC
+
+
+#+BEGIN_SRC tmate
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+#+END_SRC
+
+
+#+BEGIN_SRC tmate
+  go get -u -v github.com/mdempsky/gocode
+  go get -u -v github.com/rogpeppe/godef
+  go get -u -v golang.org/x/tools/cmd/guru
+  go get -u -v golang.org/x/tools/cmd/gorename
+  go get -u -v golang.org/x/tools/cmd/goimports
+  go get -u -v golang.org/x/tools/cmd/godoc
+  go get -u -v github.com/zmb3/gogetdoc
+  go get -u -v github.com/cweill/gotests/...
+  go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
+  go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+  go get -u github.com/josharian/impl
+#+END_SRC
+

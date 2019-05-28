@@ -49,6 +49,7 @@ https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 #+END_SRC
 
 #+RESULTS: download pdf via next cloud webdav
+-rw-rw-r-- 1 heyste heyste 9528205 May 29 08:01 go-in-practice.pdf
 -rw-r--r-- 1 hippie hippie 9528205 May 28 14:16 go-in-practice.pdf
 
 [[file:go-in-practice.pdf]]
@@ -56,7 +57,7 @@ https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 ** Access Source Examples
 #+name: clone code examples
 #+header: :results link
-#+header: :file "./go-in-practice/"
+#+header: :file "./go-in-practice/
 #+header: :wrap '(nil)
 #+header: :eval no-export
 #+BEGIN_SRC shell
@@ -65,6 +66,7 @@ https://docs.nextcloud.com/server/13/user_manual/files/access_webdav.html
 
 #+RESULTS: clone code examples
 [[file:./go-in-practice/]]
+
 
 
 * Front Matter
@@ -337,7 +339,7 @@ go test
 #+RESULTS: Listing 1.12 Running go test manually
 #+begin_EXAMPLE
 PASS
-ok  	_/home/hippie/ii/org/learning/go-in-practice/chapter1/hello	0.001s
+ok  	_/home/heyste/ii/org/learning/go-in-practice/chapter1/hello	0.002s
 #+end_EXAMPLE
 
 #+NAME: Listing 1.14 Testing with code coverage
@@ -349,7 +351,7 @@ go test -cover
 #+begin_EXAMPLE
 PASS
 coverage: 33.3% of statements
-ok  	_/home/hippie/ii/org/learning/go-in-practice/chapter1/hello	0.001s
+ok  	_/home/heyste/ii/org/learning/go-in-practice/chapter1/hello	0.002s
 #+end_EXAMPLE
 
 
@@ -491,10 +493,10 @@ Use "go help <topic>" for more information about that topic.
   ;; (setenv "GOPATH" (concat (file-name-directory (buffer-file-name))
               ;; "go-in-practice/chapter1/"))
   ;;(setenv "GOPATH" nil)
-  (compile "go run inigo.go") t)
+  (compile "go run go-in-practice/chapter1/inigo.go") t)
   (sleep-for 2)
   (display-buffer-at-bottom (get-buffer "*compilation*") nil)
-  (browse-url-chromium "http:localhost:4000")  2
+  (browse-url-generic "http:localhost:4000")
 #+END_SRC
 
 # :dir go-in-practice/chapter1/

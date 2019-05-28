@@ -1,0 +1,107 @@
+#+OPTIONS: ^:nil
+* Simple tests
+  :PROPERTIES:
+  :ID:       412a86b1-644a-45b8-9e6d-bdc2b42d7e20
+  :END:
+#+source: simple
+#+BEGIN_SRC go :imports "fmt" :results silent
+    fmt.Printf("%d", 42)
+#+END_SRC
+
+#+source: integer-var
+#+BEGIN_SRC go :var q=12 :imports "fmt" :results silent
+    fmt.Print(q)
+#+END_SRC
+
+#+source: two-variables
+#+BEGIN_SRC go :var q=333 :var p=333 :imports "fmt" :results silent
+    fmt.Print(q+p)
+#+END_SRC
+
+#+source: two-variables2
+#+HEADER: :var q=333
+#+HEADER: :var p=333
+#+BEGIN_SRC go :imports "fmt" :results silent
+    fmt.Print(q+p)
+#+END_SRC
+
+#+source: string-var
+#+BEGIN_SRC go :var q="golang" :imports "fmt" :results silent
+    fmt.Print(q)
+#+END_SRC
+
+#+source: basic
+#+BEGIN_SRC go :results silent
+package main 
+
+import "fmt"
+
+func main() {
+    fmt.Println("hello,ob-go")
+}
+#+END_SRC
+
+* Array
+  :PROPERTIES:
+  :ID:       1e9cf4e3-02df-4f3c-8533-2c0b1ca0a25a
+  :END:
+#+source: array
+#+BEGIN_SRC go :imports "fmt" :results vector :results silent
+for i := 1; i < 3; i++ {
+	fmt.Printf("%d\n", i)
+}
+#+END_SRC
+
+* Matrix
+  :PROPERTIES:
+  :ID:       15000dad-5af1-45e3-ac80-a371335866dc
+  :END:
+#+name: Go-matrix
+| 1 | 2 |
+| 3 | 4 |
+
+#+source: list-var
+#+BEGIN_SRC go :var a='("abc" "def") :imports "fmt" :results silent
+fmt.Printf("%s\n", a[0] + a[1] + string(len(a)))
+#+END_SRC
+
+* Imports
+  :PROPERTIES:
+  :ID:       e1aaec56-f3c6-4187-a003-5530b3ba956d
+  :END:
+#+source: imports
+#+BEGIN_SRC go :imports '("fmt" "math") :results silent
+fmt.Printf("%v", math.Pi)
+#+END_SRC
+
+#+source: imports2
+#+BEGIN_SRC go :imports "math" :results silent
+package main 
+
+import "fmt"
+
+func main() {
+    fmt.Printf("%v", math.Pi)
+}
+#+END_SRC
+* Package
+  :PROPERTIES:
+  :ID:       c44f7afe-d356-4293-ba83-9ac71c7e6049
+  :END:
+
+#+source: package
+#+BEGIN_SRC go :main no :package main :imports "fmt" :results silent
+func main() {
+        fmt.Printf("works")
+}
+#+END_SRC
+
+* Regression tests
+  :PROPERTIES:
+  :ID:       3f63c93d-6f17-478d-9817-e5c24a696689
+  :END:
+
+#+BEGIN_SRC go :imports "fmt" :results silent
+    s := "'h' and 'i'"
+    fmt.Printf("%s\n", s)
+#+END_SRC

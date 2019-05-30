@@ -1,0 +1,7 @@
+  name: github
+  label: GitHub
+  app_id: 
+  app_secret: 
+  args:
+    scope: "user:email"
+    approval_prompt: "Recode.ii.nz GitLab"

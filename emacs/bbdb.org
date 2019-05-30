@@ -1,0 +1,13 @@
+
+[[https://github.com/skarra/ASynK/][skarra/ASynK: Flexible Bi-directional sync for Emacs BBDB, Google Contacts, MS Outlook, MS Exchange, CardDAV]]
+
+[[https://sachachua.com/blog/category/geek/emacs/bbdb/][Sacha Chua - BBDB]]
+#+BEGIN_SRC 
+git clone  --recursive https://github.com/skarra/ASynK.git
+#+END_SRC
+
+
+Looks like we'll need to setup the GMAIL sync via the config.json / config.py
+#+BEGIN_SRC 
+
+#+END_SRC

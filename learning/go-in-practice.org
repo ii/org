@@ -784,6 +784,9 @@ Searches and links to headers don't quite work:
 - [[docview:go-in-practice.pdf:/The%20queue%20template/]]
 You can view it in docview 
 
+#+BEGIN_SRC shell
+sudo apt-get install -y elpa-pdf-tools-server
+#+END_SRC
 
 ** DONE write or find ob-golang so ,, works for org golang blocks
    CLOSED: [2019-05-29 Wed 10:24]

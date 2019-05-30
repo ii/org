@@ -1,0 +1,17 @@
+#+TITLE: Possible Features for Pairing
+* TODO Integrate w/ ReadOnly rendering of buffer
+
+I saw something like this a while back.
+We ran a web server attached directly to the buffer.
+The web server was served from emacs directly.
+Changes to the buffer immediatly showed up in the browser.
+It included color syntax highlighting.
+
+* TODO Startup X number of togetherly urls
+
+When opening a document that has some list of names as a property or var.
+When we run (start-hackmd-replacement).
+It launches a togetherly client for each name.
+Possibly embedding the name into the socket.
+It might also start it in a container, to isolate it away from the main user's desktop.
+

@@ -1,0 +1,29 @@
+* TODO [#A] PDF Tooling
+[[file:/home/usr/local/share/emacs/site-lisp/spacemacs/layers/+readers/pdf/README.org][spacemacs pdf layer]]
+** [[file:/home/usr/local/share/emacs/site-lisp/spacemacs/layers/+readers/pdf/README.org::*PDF%20View][Keybindings]]
+~g t~ goto page
+~, .~ pdf-tools transient state
+~, n~ night mode toggle
+~, s b~ reduce bounding box size, reduce whitespace
+~, a t CLICK~ add text annotation marker
+~, s s~ search pdf for regep
+*** PDFOccur
+~C-o~  pdf-occur-view-occurrence
+~RET~  pdf-occur-goto-occurrence
+~CLICK~ on text annotation icon to edit
+~MOUSE REGION , a m~ create various markup/visual annotations
+** Edit Annotation
+~C-c C-c~ to finish editing the text
+** Outline Mode
+~F~ follow mode (move document as line moves)
+* TODO [#A] iimacs Container
+https://github.com/heyste/iigomacs
+* TODO [#A] Time Tracking
+* TODO [#B] Calendar
+* TODO [#C] BBDB
+* TODO [#C] Mail
+
+* TODO 
+
+* TODO 
+

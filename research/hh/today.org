@@ -1,0 +1,54 @@
+* apisnoop
+** TODO Don't create new data unless needed
+
+If audit-sources.yaml and ./data/apisnoop.py are unchanged from master.
+
+Do nothing.
+
+[[~/apisnoop/][~/apisnoop]]
+[[file:~/apisnoop/audit-sources.yaml][apisnoop/audit-sources.yaml]]
+[[file:~/apisnoop/data-gen][apisnoop/data-gen]]
+
+#+BEGIN_SRC :dir ~/apisnoop/
+  git fetch origin master
+#+END_SRC
+
+#+BEGIN_SRC shell :dir ~/apisnoop/
+  (
+  git diff --quiet origin/master -- audit-sources.yaml  data-gen/
+  ) 2>&1
+  echo $?
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_EXAMPLE
+0
+#+END_EXAMPLE
+
+
+Seems the git fetch master is failing:
+
+https://app.netlify.com/sites/apisnoop/deploys/5cdaf0aa66804e0008cbef2a
+#+BEGIN_EXAMPLE
+4:45:59 AM: + git fetch https://github.com/cncf/apisnoop master
+4:45:59 AM: From https://github.com/cncf/apisnoop
+4:45:59 AM:  * branch            master     -> FETCH_HEAD
+4:45:59 AM: + git fetch https://github.com/cncf/apisnoop pull/249/head
+4:45:59 AM: From https://github.com/cncf/apisnoop
+4:45:59 AM:  * branch            refs/pull/249/head -> FETCH_HEAD
+4:45:59 AM: + git remote -v
+4:45:59 AM: + git branch -av
+4:45:59 AM: * (HEAD detached at FETCH_HEAD) 4ec4676 Try and FETCH_HEAD and refs/$BRANCH
+4:45:59 AM:   master                        de9b836 Merge pull request #178 from cncf/discovery
+#+END_EXAMPLE
+
+* Add tmate to debug builds
+** prow job and LC_*
+
+#+BEGIN_SRC 
+
+#+END_SRC
+* emacs
+** TODO start web interface
+** TODO ask if they want right eye
+** TODO ask for name of togetherly pair

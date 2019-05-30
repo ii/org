@@ -1,3 +1,10 @@
 *~
 learning/go-in-practice
 learning/go-in-practice.pdf
+ii/isorespin/*tpl
+cncf/apisnoop/.env
+cncf/apisnoop/plugins.yaml
+cncf/ci/*service*json
+cncf/ci/cookie
+cncf/ci/*auth-config
+cncf/ci/*-token

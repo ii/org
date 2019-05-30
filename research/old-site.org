@@ -1,0 +1,62 @@
+* Objective
+
+Find old site.
+Original.
+
+* TODO Locate Old Site
+
+** ssh
+
+#+BEGIN_SRC tmate
+ssh hh@ii.nz -p 2222
+#+END_SRC
+*** docker seems to be running on port 80
+#+BEGIN_SRC shell
+ssh hh@ii.nz -p 2222 sudo lsof -i -n -P | grep '*:80'
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_EXAMPLE
+docker-pr 32580 root    4u  IPv6 295442652      0t0  TCP *:80 (LISTEN)
+#+END_EXAMPLE
+*** IP address?
+
+#+BEGIN_SRC shell
+dig ii.nz A \
+| grep -v \; | grep .
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_EXAMPLE
+ii.nz.			39	IN	A	43.243.56.238
+#+END_EXAMPLE
+
+** ci.ii.coop => 139.178.88.146
+https://app.packet.net/devices/877ddb4b-53b2-4cc9-aa44-1dc3c992b104
+*** ci
+#+BEGIN_SRC tmate
+ssh root@139.179.88.146
+#+END_SRC
+*** out-of-band
+
+#+BEGIN_SRC tmate
+ssh 877ddb4b-53b2-4cc9-aa44-1dc3c992b104@sos.sjc1.packet.net
+#+END_SRC
+* Test that this is the old site
+
+Go ahead and add the following to /etc/hosts:
+
+[[file:/sudo:root@p70:/etc/hosts]]
+#+BEGIN_SRC text
+43.243.56.238 ii.nz
+#+END_SRC
+
+#+BEGIN_SRC shell
+curl https://ii.nz
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+* TODO Update DNS

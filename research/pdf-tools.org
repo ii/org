@@ -1,0 +1,26 @@
+* Getting PDF-Tools Working
+
+https://github.com/politza/pdf-tools
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-pdfview)
+(add-to-list 'org-file-apps '("\\.pdf\\'" . (lambda (file link) (org-pdfview-open link))))
+(org-pdfview-open "./go-in-practice.pdf")
+(require 'org-babel-eval-in-repl)
+(define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
+(define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)
+#+END_SRC
+
+** Access Source Examples
+#+name: clone code examples
+#+header: :results link
+#+header: :file "./pdf-tools/"
+#+header: :wrap '(nil)
+#+header: :eval no-export
+#+BEGIN_SRC shell :async
+  git clone https://github.com/politza/pdf-tools/
+#+END_SRC
+
+#+RESULTS: clone code examples
+[[file:./pdf-tools/]]
+

@@ -1,0 +1,141 @@
+#+TITLE: Using the Weekly Agenda to Clock Time
+
+* Set Agenda to specif projects
+    :PROPERTIES:
+    :CLOCK_MODELINE_TOTAL: all
+    :END:
+
+** test
+   :CLOOCKBOOK-hippie:
+   CLOCK: [2019-05-26 Sun 21:20]--[2019-05-26 Sun 21:40] =>  0:20
+   - test
+   :END:
+
+* something                                                          :remote:
+  :PROPERTIES:
+  :Effort:   0:05
+  :END:
+  :CLOCKBOOK-hippie:
+  CLOCK: [2019-05-26 Sun 20:40]--[2019-05-26 Sun 21:11] =>  0:31
+  - Needed to shift to something else.
+  CLOCK: [2019-05-26 Sun 20:30]--[2019-05-26 Sun 20:31] =>  0:01
+  CLOCK: [2019-05-26 Sun 19:25]--[2019-05-27 Mon 06:31] => 11:06
+  :END:
+  :LOGBOOK:
+  :END:
+** else                                                          :cncf:local:
+  :CLOCKBOOK-hippie:
+  CLOCK: [2019-05-26 Sun 17:37]--[2019-05-26 Sun 19:35] =>  1:58
+  CLOCK: [2019-05-26 Sun 20:34]--[2019-05-26 Sun 20:36] =>  0:02
+  CLOCK: [2019-05-26 Sun 20:36]--[2019-05-26 Sun 20:37] =>  0:01
+  :END:
+*** hippies timesheet                                                   :@hh:
+    :CLOOCKBOOK-hippie:
+    CLOCK: [2019-05-25 Sat 21:11]--[2019-05-25 Sat 21:20] =>  0:09
+    - Added an eentry
+    CLOCK: [2019-05-24 Fri 21:11]--[2019-05-24 Fri 21:20] =>  0:09
+    - Added an eentry
+    CLOCK: [2019-05-23 Thu 21:11]--[2019-05-23 Thu 21:20] =>  0:09
+    - Added an eentry
+    CLOCK: [2019-05-26 Sun 21:11]--[2019-05-26 Sun 21:20] =>  0:09
+    - Added an eentry
+    :END:
+    :CLOOCKBOOK-johnnie:
+    CLOCK: [2019-05-26 Sun 21:11]--[2019-05-26 Sun 21:50] =>  0:39
+    - Added an eentry
+    :END:
+
+* Logbooks
+#+BEGIN: clocktable :scope file :block untilnow :maxlevel 2 :emphasise t :link t :
+#+CAPTION: Clock summary at [2019-05-26 Sun 21:46], for now.
+| Headline                      |   Time |      |
+|-------------------------------+--------+------|
+| *Total time*                  | *6:25* |      |
+|-------------------------------+--------+------|
+| [[file:/home/hippie/ii/org/org/clocking.org::Set%20Agenda%20to%20specif%20projects][Set Agenda to specif projects]] |   0:20 |      |
+| \_  [[file:/home/hippie/ii/org/org/clocking.org::test][test]]                      |        | 0:20 |
+| [[file:/home/hippie/ii/org/org/clocking.org::something][something]]                     |   6:05 |      |
+| \_  [[file:/home/hippie/ii/org/org/clocking.org::else][else]]                      |        | 3:12 |
+#+END:
+
+
+
+#+BEGIN: clocktable :scope file :block thisweek :maxlevel 3 :emphasise t :link t :tags t  :fileskip0 t :stepskip0 t :match "@hh" :step day
+
+Daily report: [2019-05-23 Thu]
+| Tags                     | Headline                | Time   |      |      |
+|--------------------------+-------------------------+--------+------+------|
+|                          | *Total time*            | *0:09* |      |      |
+|--------------------------+-------------------------+--------+------+------|
+| remote                   | [[file:/home/hippie/ii/org/org/clocking.org::something][something]]               | 0:09   |      |      |
+| remote, cncf, local      | \_  [[file:/home/hippie/ii/org/org/clocking.org::else][else]]                |        | 0:09 |      |
+| remote, cncf, local, @hh | \_    [[file:/home/hippie/ii/org/org/clocking.org::hippies%20timesheet][hippies timesheet]] |        |      | 0:09 |
+
+Daily report: [2019-05-24 Fri]
+| Tags                     | Headline                | Time   |      |      |
+|--------------------------+-------------------------+--------+------+------|
+|                          | *Total time*            | *0:09* |      |      |
+|--------------------------+-------------------------+--------+------+------|
+| remote                   | [[file:/home/hippie/ii/org/org/clocking.org::something][something]]               | 0:09   |      |      |
+| remote, cncf, local      | \_  [[file:/home/hippie/ii/org/org/clocking.org::else][else]]                |        | 0:09 |      |
+| remote, cncf, local, @hh | \_    [[file:/home/hippie/ii/org/org/clocking.org::hippies%20timesheet][hippies timesheet]] |        |      | 0:09 |
+
+Daily report: [2019-05-25 Sat]
+| Tags                     | Headline                | Time   |      |      |
+|--------------------------+-------------------------+--------+------+------|
+|                          | *Total time*            | *0:09* |      |      |
+|--------------------------+-------------------------+--------+------+------|
+| remote                   | [[file:/home/hippie/ii/org/org/clocking.org::something][something]]               | 0:09   |      |      |
+| remote, cncf, local      | \_  [[file:/home/hippie/ii/org/org/clocking.org::else][else]]                |        | 0:09 |      |
+| remote, cncf, local, @hh | \_    [[file:/home/hippie/ii/org/org/clocking.org::hippies%20timesheet][hippies timesheet]] |        |      | 0:09 |
+
+Daily report: [2019-05-26 Sun]
+| Tags                     | Headline                | Time   |      |      |
+|--------------------------+-------------------------+--------+------+------|
+|                          | *Total time*            | *0:48* |      |      |
+|--------------------------+-------------------------+--------+------+------|
+| remote                   | [[file:/home/hippie/ii/org/org/clocking.org::something][something]]               | 0:48   |      |      |
+| remote, cncf, local      | \_  [[file:/home/hippie/ii/org/org/clocking.org::else][else]]                |        | 0:48 |      |
+| remote, cncf, local, @hh | \_    [[file:/home/hippie/ii/org/org/clocking.org::hippies%20timesheet][hippies timesheet]] |        |      | 0:48 |
+#+END:
+
+
+#+BEGIN: clocktable :scope file :block untilnow :maxlevel 2 :emphasise t :link t
+#+CAPTION: Clock summary at [2019-05-26 Sun 21:05], for now.
+| Tags         | Headline     | Time   |      |
+|--------------+--------------+--------+------|
+|              | *Total time* | *3:42* |      |
+|--------------+--------------+--------+------|
+| remote       | [[file:/home/hippie/ii/org/org/clocking.org::something][something]]    | 3:42   |      |
+| remote, cncf | \_  [[file:/home/hippie/ii/org/org/clocking.org::else][else]]     |        | 2:01 |
+#+END: clocktable
+
+* Footnotes
+
+- [[help:org-clocktable-defaults]] ::[[info:org#The%20clock%20table][info:org#The clock table]] 
+- [[info:org#Resolving%20idle%20time][info:org#Resolving idle time]] :: [[https://sachachua.com/blog/wp-content/uploads/2014/01/2014-01-06-Tracking-time-with-Org-mode.png][Sacha - Tracking-time-with-Org-mode]]
+
+#+BEGIN_EXAMPLE
+   (1) On computers using macOS, idleness is based on actual user
+idleness, not just Emacs’ idle time.  For X11, you can install a utility
+program ‘x11idle.c’, available in the ‘contrib/scripts/’ directory of
+the Org Git distribution, or install the xprintidle package and set it
+to the variable ‘org-clock-x11idle-program-name’ if you are running
+Debian, to get the same general treatment of idleness.  On other
+systems, idle time refers to Emacs idle time only.
+#+END_EXAMPLE
+
+
+#+BEGIN_SRC elisp
+(setq org-clock-clocktable-default-properties '(:maxlevel 4 :scope file))
+#+END_SRC
+
+# Local Variables:
+# eval: (setq-local org-log-into-drawer (concat "LOOGBOOK-" user-login-name))
+# org-clock-continuously t
+# org-log-note-clock-out t
+# org-clock-mode-line-total all
+# eval: (setq org-clock-persist t)
+# eval: (setq org-clock-persist 'history)
+# eval: (setq-local org-clock-into-drawer (concat "CLOOCKBOOK-" user-login-name))
+# End:

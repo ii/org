@@ -1,0 +1,231 @@
+* [[http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html][Drowning in Email; mu4e to the Rescue.]] 
+
+* Configure mbsync
+
+#+BEGIN_SRC shell :var DISPLAY=":0.0" :var SUDO_ASKPASS="/usr/bin/ssh-askpass" :prologue "export SUDO_ASKPASS" :results silent
+sudo apt-get install -y libssl-dev isync
+#+END_SRC
+
+Initialy our =.mbsyncrc= file can use ~ssh-askpass~ via the PassCmd directive.
+Eventually we will configure it to use =~/.emacs.d/.mbsyncpass.gpg= and =~/.authinfo.gpg=
+
+#+BEGIN_src conf
+  # Pass CLEARTEXTSECRET_NOTGOOD
+  PassCmd /usr/bin/ssh-askpass
+  # PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.emacs.d/.mbsyncpass.gpg"
+#+END_src
+
+#+NAME: msync manpage
+#+BEGIN_SRC emacs-lisp
+(man "mbsync(1)")
+#+END_SRC
+** [[http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/][Master your inbox with mu4e and org-mode | Pragmatic Emacs]] 
+
+#+BEGIN_SRC emacs-lisp
+;;store org-mode links to messages
+(require 'org-mu4e)
+;;store link to message if in header view, not to header query
+(setq org-mu4e-link-query-in-headers-mode nil)
+#+END_SRC
+
+~SPC a o l~ while in =mu4u= to store a link and ~, i l~ in org mode to insert w/ title:
+
+[[mu4e:msgid:CAH=y5EfpKtwv4AfMA8m5OcRYNZfsCDftP-F3nEHMDHaHAvteeQ@mail.gmail.com][{cncf-toc} Encouraging diversity through the SIGs]]
+[[mu4e:msgid:CAFQm5ySad+LX37F-ov2F8bZ3fwL1x67tm2yYqV8psxQi06=2UA@mail.gmail.com][Re: {cncf-toc} Encouraging diversity through the SIGs]]
+
+~SPC o c t~ while in =mu4u= to create a todo.
+
+From [[file:~/.spacemacs::("t"%20"TODO"][the org-capture-templates in .spacemacs]]:
+#+BEGIN_SRC emacs-lisp
+  ("t" "TODO"
+   entry (file+headline "~/org/TODO.org" "Inbox")
+   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"
+   )
+#+END_SRC
+
+* [[http://pragmaticemacs.com/emacs/email-templates-in-mu4e-with-yasnippet/][Email templates in mu4e with yasnippet | Pragmatic Emacs]] 
+
+I'm still having some issues with yasnippet... maybe this new 13.0 release
+We also had to work around 13.0 in our [[file:~/.spacemacs::;;%20info:org#Conflicts%20for%20org%209%20and%20very%20recent%20yas][.spacemacs]].
+See info:org#Conflicts for org 9 and very recent yas
+
+I'm not sure I want to deal with the upgrade to yas... I'm going to try and fork
+/ pin yasnippet to 0.12.2
+
+It looks like the 0.12.2.tar => 0.13.0.tar happened at [[https://github.com/d12frosted/elpa-mirror/commit/2820d0624830f50b7c1bd9992f93d5c5f8ca1cac][commit/2820d062 - snapshot 13/05/18 20:00:04]] 
+We probably want all yas* packages to be pinned to around that time.
+Maybe rather than pinning elpa-mirror, we could pin it in our .spacemacs layer config:
+[[file:/home/usr/local/share/emacs/site-lisp/spacemacs/doc/LAYERS.org::*packages.el][Spacemacs LAYERS.org - packages.el]]
+#+BEGIN_SRC emacs-lisp
+      ;; A package recipe
+      (yasnippet :location (recipe
+                            :fetcher github
+                            :repo "joaotavora/yasnippet"
+                            :branch "0.12.2")
+#+END_SRC
+    
+[[https://github.com/joaotavora/yasnippet/blob/0.13.0/NEWS#L10-L15][LINES 10-15 yasnippet/NEWS at 0.13.0 · joaotavora/yasnippet]] 
+Time: [2019-05-31 Fri]
+ 
+#+BEGIN_QUOTE
+Snippets for Yasnippet must now be installed separately.  The
+submodule linking to yasnippet-snippets was removed, as were the
+"classic" snippets that came with the GNU ELPA package.  The latter
+can now be installed via the 'yasnippet-classic-snippets' package from
+GNU ELPA.
+See Github #848, #858, #834, #775.
+#+END_QUOTE
+
+From [[file:~/.spacemacs::(defun%20bjm/mu4e-get-names-for-yasnippet][defun for bjm/mu4e-get-names-for-yasnippet in our .spacemacs]]
+[[file:/home/usr/local/share/emacs/site-lisp/snippets/message-mode/dear::#%20name:%20dear%20name][site-lisp/snippets/message-mode/dear]]
+
+#+BEGIN_SRC snippet
+# -*- mode: snippet -*-
+# name: dear name
+# key: dear
+# --
+Dear ${1:`(bjm/mu4e-get-names-for-yasnippet)`},
+
+$0
+
+Best wishes,
+Hippie
+#+END_SRC
+* [[http://pragmaticemacs.com/emacs/email-attachment-reminders-in-mu4e/][Email attachment reminders in mu4e | Pragmatic Emacs]] 
+[[http://mbork.pl/2016-02-06_An_attachment_reminder_in_mu4e][Marcin Borkowski: 2016-02-06 An attachment reminder in mu4e]]
+* [[http://pragmaticemacs.com/emacs/tweaking-email-contact-completion-in-mu4e/][Tweaking email contact completion in mu4e | Pragmatic Emacs]] 
+* [[http://pragmaticemacs.com/emacs/using-postfix-instead-of-smtpmail-to-send-email-in-mu4e/][Using postfix instead of smtpmail to send email in mu4e | Pragmatic Emacs]] 
+* [[http://pragmaticemacs.com/emacs/undo-send-and-schedule-email-in-mu4e/][Undo-send and schedule email in mu4e | Pragmatic Emacs]] 
+* [[http://pragmaticemacs.com/emacs/even-better-email-contact-completion-in-mu4e/][Even better email contact completion in mu4e | Pragmatic Emacs]] :emacs:mu4e:
+[2019-05-31 Fri]
+[[http://pragmaticemacs.com/emacs/mu4e-delay-is-dead-long-live-mu4e-send-delay/][mu4e-delay is dead, long live mu4e-send-delay | Pragmatic Emacs]]
+Note the author has moved on to mu4e-send-delay which has improvements.
+  #+BEGIN_QUOTE
+ With the code below you can hit a comma to complete the current choice of email
+ address and start searching for the next one. This matches the behaviour of
+ many other email clients like Gmail or Thunderbird.
+
+ This won’t change anybody’s world, but gives you a nice little thrill of
+ efficiency when entering several recipients to an email!
+ #+END_QUOTE
+* TODO more org-capture-templates
+[[https://stackoverflow.com/questions/17254967/using-org-capture-templates-with-mu4e][emacs - Using org-capture-templates with mu4e - Stack Overflow]]
+* other
+#+RESULTS: msync manpage
+: #<buffer *Man 1 mbsync*>
+
+
+[[http://www.djcbsoftware.nl/code/mu/mu4e.html][djcbsoftware / mu4e]]
+[[http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration][Gmail configuration (Mu4e 1.2.0 user manual)]]
+
+[[http://pragmaticemacs.com/emacs/migrating-from-offlineimap-to-mbsync-for-mu4e/][Migrating from offlineimap to mbsync for mu4e | Pragmatic Emacs]]
+[[http://isync.sourceforge.net/mbsync.html][mbsync manual]]
+
+#+BEGIN_SRC shell :var DISPLAY=":0.0" :var SUDO_ASKPASS="/usr/bin/ssh-askpass" :prologue "export SUDO_ASKPASS" :results silent
+sudo apt-get install -y isync
+#+END_SRC
+
+#+BEGIN_SRC shell
+mbsync -V gmail
+mu index
+#+END_SRC
+
+#+BEGIN_SRC shell
+cd $HOME
+ln -s mbsync Maildir
+#+END_SRC
+
+
+#+NAME: ~/.mbsyncrc
+#+BEGIN_src conf
+  # mbsyncrc based on
+  # http://www.ict4g.net/adolfo/notes/2014/12/27/EmacsIMAP.html
+  # ACCOUNT INFORMATION
+  IMAPAccount gmail
+  # Address to connect to
+  Host imap.gmail.com
+  User hh@ii.coop
+  PassCmd /usr/bin/ssh-askpass
+  # Pass ************
+  AuthMechs LOGIN
+  SSLType IMAPS
+  SSLVersions SSLv3
+  # CertificateFile /opt/local/share/curl/curl-ca-bundle.crt
+
+  # THEN WE SPECIFY THE LOCAL AND REMOTE STORAGE
+  # - THE REMOTE STORAGE IS WHERE WE GET THE MAIL FROM (E.G., THE
+  #   SPECIFICATION OF AN IMAP ACCOUNT)
+  # - THE LOCAL STORAGE IS WHERE WE STORE THE EMAIL ON OUR COMPUTER
+
+  # REMOTE STORAGE (USE THE IMAP ACCOUNT SPECIFIED ABOVE)
+  IMAPStore gmail-remote
+  Account gmail
+
+  # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p Maildir/gmail)
+  MaildirStore gmail-local
+  Path ~/mbsync/
+  Inbox ~/mbsync/INBOX
+
+  # CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
+  #
+  # CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
+  # FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
+  #
+  # 1 "*" TO MATCH EVERYTHING
+  # 2 "!DIR" TO EXCLUDE "DIR"
+  # 3 "DIR" TO MATCH DIR
+
+  Channel gmail-inbox
+  Master :gmail-remote:
+  Slave :gmail-local:
+  Patterns "INBOX"
+  Create Both
+  Expunge Both
+  SyncState *
+
+  Channel gmail-trash
+  Master :gmail-remote:"[Gmail]/Bin"
+  Slave :gmail-local:"[Gmail].Bin"
+  Create Both
+  Expunge Both
+  SyncState *
+
+  Channel gmail-sent
+  Master :gmail-remote:"[Gmail]/Sent Mail"
+  Slave :gmail-local:"[Gmail].Sent Mail"
+  Create Both
+  Expunge Both
+  SyncState *
+
+  Channel gmail-all
+  Master :gmail-remote:"[Gmail]/All Mail"
+  Slave :gmail-local:"[Gmail].All Mail"
+  Create Both
+  Expunge Both
+  SyncState *
+
+  Channel gmail-starred
+  Master :gmail-remote:"[Gmail]/Starred"
+  Slave :gmail-local:"[Gmail].Starred"
+  Create Both
+  Expunge Both
+  SyncState *
+
+  # GROUPS PUT TOGETHER CHANNELS, SO THAT WE CAN INVOKE
+  # MBSYNC ON A GROUP TO SYNC ALL CHANNELS
+  #
+  # FOR INSTANCE: "mbsync gmail" GETS MAIL FROM
+  # "gmail-inbox", "gmail-sent", and "gmail-trash"
+  #
+  Group gmail
+  Channel gmail-inbox
+  Channel gmail-sent
+  Channel gmail-trash
+  Channel gmail-all
+  Channel gmail-starred
+#+END_src
+
+
+
+http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration
+  ;; http://pragmaticemacs.com/emacs/how-i-view-my-google-calendar-agenda-in-emacs/

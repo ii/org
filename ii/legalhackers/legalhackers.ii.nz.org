@@ -1,0 +1,331 @@
+# -*- org-use-property-inheritance: t; -*-
+#+TITLE: Setting up gitlab from scratch
+#+AUTHOR: Hippie Hacker
+#+EMAIL: hh@ii.coop
+#+CREATOR: ii.coop
+#+DATE: 20th of February, 2019
+#+PROPERTY: header-args:shell :results output code verbatim replace
+#+PROPERTY: header-args:shell+ :prologue ". /etc/profile.d/homedir-go-path.sh\n. /etc/profile.d/system-go-path.sh\nexec 2>&1\n"
+#+PROPERTY: header-args:shell+ :epilogue ":\n"
+#+PROPERTY: header-args:shell+ :wrap "EXAMPLE :noeval t"
+#+PROPERTY: header-args:shell+ :dir "/ssh:root@139.178.88.146:/root/"
+#+PROPERTY: header-args:tmate  :socket (symbol-value 'socket)
+#+PROPERTY: header-args:tmate+ :session (concat (user-login-name) ":" (nth 4 (org-heading-components)))
+#+NOPROPERTY: header-args:tmate+ :prologue (concat "cd " org-file-dir "\n")
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+STARTUP: showeverything
+
+* Preparing to use the Gitlab Chart
+
+We found some decent documentation over 
+
+https://gitlab.com/charts/gitlab/blob/master/doc/installation/README.md
+** find my_ip
+#+NAME: my_ip
+#+BEGIN_SRC shell
+curl -4 https://ifconfig.co
+#+END_SRC
+
+#+RESULTS: my_ip
+#+BEGIN_EXAMPLE :noeval t
+139.178.88.146
+#+END_EXAMPLE
+
+
+* Deploy Using the Gitlab Chart
+  
+** Get Chart for gitlab
+
+#+NAME: Get Chart for gitlab
+#+BEGIN_SRC tmate
+helm repo add gitlab https://charts.gitlab.io/
+helm repo update
+#+END_SRC
+** Getting our secrets
+:PROPERTIES:
+:header-args:shell+: :dir (symbol-value 'org-file-dir)
+:END:
+
+
+IN this section, we setup a secrets.env that looks similar to this:
+
+#+NAME: secrets.env
+#+BEGIN_SRC shell :noeval
+SMTP_USER_NAME="postmaster@recode.ii.nz"
+SMTP_PASSWORD="apassword"
+OMNIAUTH_GITHUB_APP_ID=dexxxxxxxxxxxxxxxx888a
+OMNIAUTH_GITHUB_APP_SECRET=27exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx814
+OMNIAUTH_GOOGLE_APP_ID=75xxxxxxx011-mo0xxxxxxxxxxxxxxxxxxv77vo.apps.googleusercontent.com
+OMNIAUTH_GOOGLE_APP_SECRET=gcPxxxxxxxxxxxxxoJaOM
+#+END_SRC
+
+*** User Name for SMTP
+
+We use mailgun for now, until there is a smtp.ii.nz
+
+#+NAME: smtp_user_name
+#+BEGIN_SRC shell :results output silent
+. secrets.env ; echo -n $SMTP_USER_NAME
+#+END_SRC
+
+#+NAME: smtp_password
+#+BEGIN_SRC shell :results output silent
+. secrets.env ; echo -n $SMTP_PASSWORD
+#+END_SRC
+
+*** Github Oauth
+#+NAME: omniauth_github_app_id
+#+BEGIN_SRC shell :results output silent
+. secrets.env ; echo -n $OMNIAUTH_GITHUB_APP_ID
+#+END_SRC
+
+#+NAME: omniauth_github_app_secret
+#+BEGIN_SRC shell :results output silent
+. secrets.env ; echo -n $OMNIAUTH_GITHUB_APP_SECRET
+#+END_SRC
+
+*** Google Oauth
+
+** Configure the Chart
+#+NAME: tramp link to legalhackers.ii.nz.yaml
+#+BEGIN_SRC elisp :results raw
+(concat "[[/ssh:" ssh-user-host ":/root/legalhackers.ii.nz.yaml]]")
+#+END_SRC
+
+#+RESULTS: tramp link to legalhackers.ii.nz.yaml
+[[/ssh:root@139.178.88.146:/root/legalhackers.ii.nz.yaml]]
+
+#+NAME: The Config
+#+BEGIN_SRC yaml :tangle (concat "/ssh:" ssh-user-host ":legalhackers.ii.nz.yaml")
+# Global chart properties
+global:
+  hosts:
+    domain: legalhackers.ii.nz
+    externalIP: 139.178.88.146
+  # Outgoing email server settings
+  smtp:
+    enabled: true
+    address: smtp.mailgun.org
+    port: 2525
+    user_name: "postmaster@legalhackers.ii.nz"
+    password:
+      secret: "FOOBARBAZ"
+      key: password
+    #domain: legalhackers.ii.nz
+    authentication: "plain"
+    starttls_auto: false
+    openssl_verify_mode: "peer"
+# Email persona used in email sent by GitLab
+  email:
+   from: 'gitlab@legalhackers.ii.nz'
+   display_name: GitLab@legalhackers.ii.nz
+   reply_to: 'hh@ii.coop'
+   subject_suffix: ' | ii.nz'
+  time_zone: NZST
+  timeout: 600
+certmanager-issuer:
+  email: legalhackers@ii.nz
+gitlab:
+  migrations:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-rails-ce
+  sidekiq:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ce
+  sidekiq:
+    image:
+     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ce
+  sidekiq:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce
+  omniauth:
+    enabled: yes
+    autoSignInWithProvider: 
+    allowSingleSignOn: ['github', 'google_oauth2']
+    blockAutoCreatedUsers: false
+    providers:
+      - key: 'github'
+        app_id: "babeface"
+        app_secret: "deadbeef"
+      - key: 'google_oauth2'
+        app_id: "babeface"
+        app_secret: "deadbeef"
+    syncProfileAttributes: ['email']
+#+END_SRC
+
+** Deploy Gitlab on Kubernetes 
+#+NAME: Deploy Gitlab on Kubernetes
+#+BEGIN_SRC tmux :session br:gitlab
+helm upgrade --install gitlab gitlab/gitlab --values ../recode.gitlab.yaml
+#+END_SRC
+* Monitor the Progress of your gitlab installation
+
+** See how the run
+   
+
+
+#+NAME: see how the run
+#+BEGIN_SRC tmux :session br:gitlab
+helm status gitlab
+#+END_SRC
+
+#+NAME: describe minio pod
+#+BEGIN_SRC shell
+kubectl describe pod/`kubectl get pod -l app=minio -l component=app --all-namespaces -o jsonpath='{..metadata.name}'`
+#+END_SRC
+
+#+RESULTS: describe minio pod
+#+BEGIN_EXAMPLE :noeval t
+Name:               gitlab-minio-c64f9694b-c7thl
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               ci.ii.coop/139.178.88.146
+Start Time:         Wed, 20 Feb 2019 08:57:28 +0000
+Labels:             app=minio
+                    chart=minio-0.4.3
+                    component=app
+                    heritage=Tiller
+                    pod-template-hash=c64f9694b
+                    release=gitlab
+Annotations:        <none>
+Status:             Running
+IP:                 10.244.0.55
+Controlled By:      ReplicaSet/gitlab-minio-c64f9694b
+Init Containers:
+  configure:
+    Container ID:  docker://a82fab87e073c4f3bcf2464e8039b522cb384729602d2d258d648ad5938f53ed
+    Image:         busybox:latest
+    Image ID:      docker-pullable://busybox@sha256:061ca9704a714ee3e8b80523ec720c64f6209ad3f97c0ff7cb9ec7d19f15149f
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      /config/configure
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 20 Feb 2019 08:57:36 +0000
+      Finished:     Wed, 20 Feb 2019 08:57:36 +0000
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        50m
+    Environment:  <none>
+    Mounts:
+      /config from minio-configuration (rw)
+      /minio from minio-server-config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-l49mg (ro)
+Containers:
+  minio:
+    Container ID:  docker://3defd10b673983d6d222f6062196b9c6a760c9c43af144432bb6cd028ed40c83
+    Image:         minio/minio:RELEASE.2017-12-28T01-21-00Z
+    Image ID:      docker-pullable://minio/minio@sha256:3611f1644cf5447e2f3639b4212ade26155f6a0632bef155c4d6510811c1fe1d
+    Port:          9000/TCP
+    Host Port:     0/TCP
+    Args:
+      -C
+      /tmp/.minio
+      --quiet
+      server
+      /export
+    State:          Running
+      Started:      Wed, 20 Feb 2019 09:09:28 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 20 Feb 2019 09:04:13 +0000
+      Finished:     Wed, 20 Feb 2019 09:04:13 +0000
+    Ready:          True
+    Restart Count:  7
+    Requests:
+      cpu:        100m
+      memory:     128Mi
+    Liveness:     tcp-socket :9000 delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /export from export (rw)
+      /podinfo from podinfo (rw)
+      /tmp/.minio from minio-server-config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-l49mg (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  podinfo:
+    Type:  DownwardAPI (a volume populated by information about the pod)
+    Items:
+      metadata.labels -> labels
+  export:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  gitlab-minio
+    ReadOnly:   false
+  minio-configuration:
+    Type:                Projected (a volume that contains injected data from multiple sources)
+    ConfigMapName:       gitlab-minio-config-cm
+    ConfigMapOptional:   <nil>
+    SecretName:          gitlab-minio-secret
+    SecretOptionalName:  <nil>
+  minio-server-config:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  Memory
+  default-token-l49mg:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-l49mg
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason            Age                   From                 Message
+  ----     ------            ----                  ----                 -------
+  Warning  FailedScheduling  19m (x11 over 19m)    default-scheduler    pod has unbound immediate PersistentVolumeClaims
+  Normal   Scheduled         19m                   default-scheduler    Successfully assigned default/gitlab-minio-c64f9694b-c7thl to ci.ii.coop
+  Normal   Pulled            19m                   kubelet, ci.ii.coop  Container image "busybox:latest" already present on machine
+  Normal   Created           19m                   kubelet, ci.ii.coop  Created container
+  Normal   Started           19m                   kubelet, ci.ii.coop  Started container
+  Normal   Pulling           17m (x4 over 19m)     kubelet, ci.ii.coop  pulling image "minio/minio:RELEASE.2017-12-28T01-21-00Z"
+  Normal   Pulled            17m (x4 over 19m)     kubelet, ci.ii.coop  Successfully pulled image "minio/minio:RELEASE.2017-12-28T01-21-00Z"
+  Normal   Created           17m (x4 over 19m)     kubelet, ci.ii.coop  Created container
+  Normal   Started           17m (x4 over 19m)     kubelet, ci.ii.coop  Started container
+  Warning  BackOff           8m56s (x50 over 18m)  kubelet, ci.ii.coop  Back-off restarting failed container
+#+END_EXAMPLE
+
+*#+NAME: describe minio pod
+#+BEGIN_SRC tmate
+kubectl describe pod/`kubectl get pod -l app=minio -l component=app --all-namespaces -o jsonpath='{..metadata.name}'`
+#+END_SRC
+
+* Get root password
+
+#+NAME: get root password
+#+BEGIN_SRC tmux :session br:gitlab
+kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath={.data.password} | base64 --decode ; echo
+#+END_SRC
+
+** TODO email
+** TODO SMTP OUTGOING
+
+
+* Footnotes
+# Local Variables:
+# eval: (set (make-local-variable 'ssh-user-host) "root@139.178.88.146")
+# eval: (set (make-local-variable 'org-file-dir) (file-name-directory buffer-file-name))
+# eval: (set (make-local-variable 'user-buffer) (concat user-login-name "." (file-name-base buffer-file-name)))
+# eval: (set (make-local-variable 'tmpdir) (make-temp-file (concat "/dev/shm/" user-buffer "-") t))
+# eval: (set (make-local-variable 'socket) (concat "/tmp/" user-buffer ".iisocket"))
+# eval: (set (make-local-variable 'select-enable-clipboard) t)
+# eval: (set (make-local-variable 'select-enable-primary) t)
+# eval: (set (make-local-variable 'start-tmate-command) (concat "tmate -S " socket " new-session -A -s " user-login-name " -n main \\\"tmate wait tmate-ready \\&\\& tmate display -p \\'#{tmate_ssh}\\' \\| xclip -i -sel p -f \\| xclip -i -sel c \\&\\& bash --login\\\""))
+# eval: (xclip-mode 1) 
+# eval: (gui-select-text (concat "ssh -tAX " ssh-user-host " -L " socket ":" socket " " start-tmate-command))
+# eval: (xclip-mode 1) 
+# org-babel-tmate-session-prefix: ""
+# org-babel-tmate-default-window-name: "main"
+# org-confirm-babel-evaluate: nil
+# org-use-property-inheritance: t
+# End:

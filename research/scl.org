@@ -1,0 +1,117 @@
+* 2019 KubeConEU - SCL-intro
+** kubeadm
+   1 THEN others for control plane
+** config changes for v1beta2
+@ross
+Incremental changes, only one X
+certificate-key, key with which you will upload / download encrypted certificates
+Streamlined the X usage.
+Fixed a small bug
+PR to ignore some light errors
+** addons
+specific cluster addons
+things that are managed as part of the lifecycle
+meets every other tuesday, opposite to sig-cluster-lifecycle meeting
+operators to run those addons,
+3 meetings 
+ - intro
+ - proposal for two implementations
+ - kubebuilder w/ declarative work (w/ Jeff)
+ - operator sdk
+ ^^^^^ not that far apart
+Operators to run your addons!
+** lucas / component config work
+- [ ] not here
+* ClusterAPI
+* Reference implementation
+- [ ] How to not couple it with kubeadm
+ in a certain sense
+my masters are not machines.. I use the phases
+a bunch of flags, te generate a bunch of certs and kubeconfigs all at once.
+It's really nitpicky thing
+whitelist mechanism for flags blocks me
+the flags always overwrite the config
+^^^^ been a problem for a while
+component config is coming that should over-ride legacy... but it's not there yet
+We can do either provide the config, is the default answer.
+Config should be generic enough to solve all your problems to plumb any options through, if not
+generic extraargs
+should be enough to plumb to the indivial copm
+input kubeconfigdir signing key
+... where it outputs kubeconfigs
+it's not part of the spec for v1beta1
+if you ppassed the flag, it would say... your passing a flag that incompatible with the config
+it's not available in the config.
+Manually whitelisting.... is a pain
+maybe an anti pattern than a bug
+APIFields should be generic enough to generate metadata related to each cluster.
+If you think of your 
+Difference between the default implementation and the 
+Generic API specification
+with Default implementation w/ hooks etc
+Reference vs Default.... something that can work / be tested
+** not tied to
+*** Control Plane
+machines, so a pod based control plane is possible
+*** Worker Nodes
+default would be kubeadm... but be able to support other distributions that don't support kubeadm
+** consumer consumption problem
+core cluster API / default
+Something that just works
+people that aer outside... not a provider
+they get confused, they just want something that works
+*** reference implementation
+reference user that wants' to use GCP
+they use it and it works
+
+Escape hooks are the montra
+composible model, the tools are not so opinionated taht you get locked incompatible
+** @jason be careful
+when talking about clusterapi
+it's not meant to be the end-user install experienc... or what it's like to manage an api
+it shouldbe a building block so that higher level tools can provide a user friendly experience
+so that organizations can have/implement opinioations for themselves
+** samsung / creating extra clusterapi implementations
+user experince / developer experience (creating for end pusers)
+create a cluster should be a simple command
+** Use Cases should be part of the conversation
+Most calls in the reference implementation are noops
+** same cluster definition across all providers
+if that same definition isn't used across all providers
+... it's a choice of the provider to not follow the spec
+operators can have their own machine sizes
+... maybe take  look later on
+let's not take the abstraction too far
+- [ ] bare metal
+- [X] cloud providers
+
+  
+
+* [ ] v1Xbeta                                                          :talk:
+  version of the control plane
+- [ ] machine object...
+kubelet version is here
+- [ ]  cluster object
+samsung kubelet version it here
+* remaining
+
+- [ ] image-builder
+- [ ] kubeadm types... alternatives?
+- [ ] versioned kubeadm types / versioning hellscape
+- [ ] difference between reference implementation and provider implementation
+Leave it open for some interesting use cases
+- [ ] being able to use th emachine set  / versus managing single machines
+- [ ] How to move forward with workstreams
+One things I learned from robert,
+the luster aPI has a lot of histery and interconnected parts
+That's really interesting, that correlates with other items
+datamodel / etc
+other modelsare contentions.... move forward so we can means to individual items
+KEPs
+metaKeps - clusterapi repo, we could have a lot of the discussions in comments
+- we want to collapse them... broad feedback is too many meetings
+need to parralize things, rather than bikeshed on a topic
+focused conversations have a place,
+comment on a document in github.... node-lifecycle is not as contentious
+interwoven with exension mechanism
+* footnotes

@@ -1,0 +1,7 @@
+#+TITLE: NextCloud
+
+Both of these are open source, and providing them as on-prem or hosted in NZ would be useful.
+Particularly when paired with a phone.
+
+* [[https://nextcloud.com/talk/][Nextcloud Talk: Private communication, anywhere – Nextcloud]]
+* [[https://nextcloud.com/groupware/][Nextcloud Groupware: Productivity on the go – Nextcloud]]

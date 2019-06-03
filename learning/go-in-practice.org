@@ -89,7 +89,7 @@ date
 ** 
 
 * Front Matter
-
+  
 ** Table of Contents
 
 - Foreword
@@ -201,8 +201,6 @@ Go - encoding is UTF-8 internally
   - Includes support for common cryptography protocols, SHA, TLS, AES and HMAC
 - Data Encoding
   - packages -> turn a JSON string into instantiated objects
-
-
 
 **** 1.2.3. Concurrency with goroutines and channels
 
@@ -521,7 +519,7 @@ Use "go help <topic>" for more information about that topic.
   (compile "go run go-in-practice/chapter1/inigo.go") t)
   (sleep-for 2)
   (display-buffer-at-bottom (get-buffer "*compilation*") nil)
-  (browse-url-generic "http:localhost:4000")
+  (browse-url-generic "http://localhost:4000")
 #+END_SRC
 
 # :dir go-in-practice/chapter1/
@@ -774,6 +772,7 @@ ls -la inigo
 
 
 - Test link to PDF: [[docview:go-in-practice.pdf::105][pg105]]
+
 * Footnotes
 [[file:/usr/local/share/emacs/site-lisp/spacemacs/layers/+lang/go/README.org::*Go%20commands%20(start%20with%20=m=):][Keybindings]]
 ** local pdf link to pages

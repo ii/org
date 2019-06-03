@@ -1,5 +1,10 @@
+#+TITLE: Exploring mu4e
+* Keybindings
+[[info:mu4e#Keybindings][info:mu4e#Keybindings]]
+[[info:mu4e#MSGV%20Keybindings][info:mu4e#MSGV Keybindings]]
 * [[http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html][Drowning in Email; mu4e to the Rescue.]] 
-
+I tend to be the guy on the right, looking forward to lisp forms like the person
+on the left.
 * Configure mbsync
 
 #+BEGIN_SRC shell :var DISPLAY=":0.0" :var SUDO_ASKPASS="/usr/bin/ssh-askpass" :prologue "export SUDO_ASKPASS" :results silent
@@ -19,6 +24,7 @@ Eventually we will configure it to use =~/.emacs.d/.mbsyncpass.gpg= and =~/.auth
 #+BEGIN_SRC emacs-lisp
 (man "mbsync(1)")
 #+END_SRC
+
 ** [[http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/][Master your inbox with mu4e and org-mode | Pragmatic Emacs]] 
 
 #+BEGIN_SRC emacs-lisp
@@ -43,7 +49,10 @@ From [[file:~/.spacemacs::("t"%20"TODO"][the org-capture-templates in .spacemacs
    )
 #+END_SRC
 
-* [[http://pragmaticemacs.com/emacs/email-templates-in-mu4e-with-yasnippet/][Email templates in mu4e with yasnippet | Pragmatic Emacs]] 
+* TODO [[http://pragmaticemacs.com/emacs/email-templates-in-mu4e-with-yasnippet/][Email templates in mu4e with yasnippet | Pragmatic Emacs]] 
+
+I can manually call ~M-x yas-expand~ when I'm ready for completion... but it should probably come when I hit tab.
+Maybe we can bind this to an unused key within message-mode for now?
 
 I'm still having some issues with yasnippet... maybe this new 13.0 release
 We also had to work around 13.0 in our [[file:~/.spacemacs::;;%20info:org#Conflicts%20for%20org%209%20and%20very%20recent%20yas][.spacemacs]].
@@ -91,12 +100,12 @@ $0
 Best wishes,
 Hippie
 #+END_SRC
-* [[http://pragmaticemacs.com/emacs/email-attachment-reminders-in-mu4e/][Email attachment reminders in mu4e | Pragmatic Emacs]] 
+* TODO [[http://pragmaticemacs.com/emacs/email-attachment-reminders-in-mu4e/][Email attachment reminders in mu4e | Pragmatic Emacs]] 
 [[http://mbork.pl/2016-02-06_An_attachment_reminder_in_mu4e][Marcin Borkowski: 2016-02-06 An attachment reminder in mu4e]]
-* [[http://pragmaticemacs.com/emacs/tweaking-email-contact-completion-in-mu4e/][Tweaking email contact completion in mu4e | Pragmatic Emacs]] 
-* [[http://pragmaticemacs.com/emacs/using-postfix-instead-of-smtpmail-to-send-email-in-mu4e/][Using postfix instead of smtpmail to send email in mu4e | Pragmatic Emacs]] 
-* [[http://pragmaticemacs.com/emacs/undo-send-and-schedule-email-in-mu4e/][Undo-send and schedule email in mu4e | Pragmatic Emacs]] 
-* [[http://pragmaticemacs.com/emacs/even-better-email-contact-completion-in-mu4e/][Even better email contact completion in mu4e | Pragmatic Emacs]] :emacs:mu4e:
+* TODO [[http://pragmaticemacs.com/emacs/tweaking-email-contact-completion-in-mu4e/][Tweaking email contact completion in mu4e | Pragmatic Emacs]] 
+* TODO [[http://pragmaticemacs.com/emacs/using-postfix-instead-of-smtpmail-to-send-email-in-mu4e/][Using postfix instead of smtpmail to send email in mu4e | Pragmatic Emacs]] 
+* TODO [[http://pragmaticemacs.com/emacs/undo-send-and-schedule-email-in-mu4e/][Undo-send and schedule email in mu4e | Pragmatic Emacs]] 
+* TODO [[http://pragmaticemacs.com/emacs/even-better-email-contact-completion-in-mu4e/][Even better email contact completion in mu4e | Pragmatic Emacs]] :emacs:mu4e:
 [2019-05-31 Fri]
 [[http://pragmaticemacs.com/emacs/mu4e-delay-is-dead-long-live-mu4e-send-delay/][mu4e-delay is dead, long live mu4e-send-delay | Pragmatic Emacs]]
 Note the author has moved on to mu4e-send-delay which has improvements.
@@ -109,11 +118,8 @@ Note the author has moved on to mu4e-send-delay which has improvements.
  efficiency when entering several recipients to an email!
  #+END_QUOTE
 * TODO more org-capture-templates
-[[https://stackoverflow.com/questions/17254967/using-org-capture-templates-with-mu4e][emacs - Using org-capture-templates with mu4e - Stack Overflow]]
-* other
-#+RESULTS: msync manpage
-: #<buffer *Man 1 mbsync*>
-
+  [[https://stackoverflow.com/questions/17254967/using-org-capture-templates-with-mu4e][emacs - Using org-capture-templates with mu4e - Stack Overflow]]
+* Setup
 
 [[http://www.djcbsoftware.nl/code/mu/mu4e.html][djcbsoftware / mu4e]]
 [[http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration][Gmail configuration (Mu4e 1.2.0 user manual)]]
@@ -184,7 +190,7 @@ ln -s mbsync Maildir
   SyncState *
 
   Channel gmail-trash
-  Master :gmail-remote:"[Gmail]/Bin"
+  Master :gmail-remote:"[Gmail]/Trash"
   Slave :gmail-local:"[Gmail].Bin"
   Create Both
   Expunge Both

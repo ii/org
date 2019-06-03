@@ -1,0 +1,50 @@
+#+TITLE: nEXT browser
+
+I poked around, but the UX responsiveness left me a bit sad. I think something
+may be broken in the rendering... as the pages display for a short while, thes
+disappear.
+
+I think it's a good idea, but the New Out Of Box Software ([[https://www.raspberrypi.org/downloads/noobs/][NOOBS)]] should at
+least display pages you visit. Maybe it's a recent bug.
+
+* [[https://news.ycombinator.com/item?id=20064589][Next browser – web browser in Common LISP | Hacker News]] 
+Time: [2019-06-03 Mon 03:01]
+
+ #+BEGIN_QUOTE
+I didn't spend time trying this but when I played with the Next Browser about a
+month ago it occurred to me that one could mix in application code with a local
+web server component and a web interface to combine browsing and a custom
+application in one app. One possible app idea might be a research tool that
+allowed annotating material on the web - really, anything app that used web
+content.
+#+END_QUOTE
+
+* [[https://github.com/atlas-engineer/next/issues/195][A question about workflow · Issue #195 · atlas-engineer/next]]
+This is a really nice writeup about workflow and what is possible.
+
+* [[https://next.atlas.engineer/download][Next Download]]
+
+- It's around 500MB! Wow.
+- The directions give you a lzip (which it isn't clear how to unpack)
+- It unpacks to gnu/store with links in usr/local
+
+ [[https://next.atlas.engineer/static/release/next-linux-gtk-webkit.tar.lz][next-linux-gtk-webkit.tar.lz]] 
+ It also supports being built via guix
+
+** It uses lzip, which is currently uncommon
+#+BEGIN_SRC shell
+sudo apt-get install -y lzip
+#+END_SRC
+
+** Download
+#+BEGIN_SRC shell
+wget https://next.atlas.engineer/static/release/next-linux-gtk-webkit.tar.lz
+#+END_SRC
+** Unpack the GUIX ./gnu/store
+#+BEGIN_SRC shell
+tar xvf next-linux-gtk-webkit.tar.lz
+#+END_SRC
+
+#+BEGIN_SRC shell
+./usr/local/bin/next
+#+END_SRC

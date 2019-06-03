@@ -1,0 +1,47 @@
+#+TITLE: Brother MGC 9140CDN Printer
+
+* Drivers!
+[[https://support.brother.com/g/b/downloadtop.aspx?c=eu_ot&lang=en&prod=mfc9140cdn_eu_as_cn][Downloads | MFC-9140CDN | Others | Brother]]
+
+I ususally click on Linux (deb) but that may vary for you!
+
+Driver Install Tool
+
+[[https://support.brother.com/g/b/downloadend.aspx?c=eu_ot&lang=en&prod=mfc9140cdn_eu_as_cn&os=128&dlid=dlf006893_000&flang=4&type3=625&dlang=true][Driver Install Tool for Linux in English]]
+
+- [ ] [[https://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.2.1-1.gz][linux-brprinter-installer-2.2.1-1.gz]]
+- [ ] [[https://download.brother.com/welcome/dlf100405/mfc9140cdnlpr-1.1.2-1.i386.deb][mfc9140cdnlpr-1.1.2-1.i386.deb]]
+- [ ] [[https://download.brother.com/welcome/dlf100407/mfc9140cdncupswrapper-1.1.4-0.i386.deb][mfc9140cdncupswrapper-1.1.4-0.i386.deb]]
+
+Scarnning tools: [[https://support.brother.com/g/s/id/linux/en/download_scn.html#brscan4]] 
+
+- [ ] [[https://download.brother.com/welcome/dlf006645/brscan4-0.4.7-1.amd64.deb][brscan4-0.4.7-1.amd64.deb]] 
+- [ ] [[https://download.brother.com/welcome/dlf006652/brscan-skey-0.2.4-1.amd64.deb][brscan-skey-0.2.4-1.amd64.deb]]
+- [ ] [[https://download.brother.com/welcome/dlf006654/brother-udev-rule-type1-1.0.2-0.all.deb][brother-udev-rule-type1-1.0.2-0.all.deb]] 
+
+#+BEGIN_SRC shell
+brsaneconfig4 -a name=Brother model=MFC-9140CDN ip=192.168.1.199
+#+END_SRC
+
+#+BEGIN_SRC shell
+sudo apt-get install -y xsane
+#+END_SRC
+
+I did a test scan with xsane, but won't write any direction for now.
+XSane's interface does not look very friendly.
+
+
+#+BEGIN_SRC shell
+sudo dpkg -i mfc9140cdnlpr-1.1.2-1.i386.deb
+sudo dpkg -i mfc9140cdncupswrapper-1.1.4-0.i386.deb
+#+END_SRC
+#+BEGIN_EXAMPLE
+lpadmin -p MFC9140CDN -E -v 
+dnssd://Brother%20MFC-9140CDN._ipp._tcp.local/?uuid=e3248000-80ce-11db-8000-30055cca89c5
+ -P 
+/usr/share/cups/model/Brother/brother_mfc9140cdn_printer_en.ppd
+
+#+END_EXAMPLE
+
+  
+** 

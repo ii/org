@@ -1,0 +1,25 @@
+* setup 
+
+#+BEGIN_SRC emacs-lisp
+  ;;capture todo items using C-c c t
+  (setq ii-org-file-dir (file-name-directory buffer-file-name))
+  (setq ii-org-file-todo (concat ii-org-file-dir "TODO.org"))
+  (setq org-agenda-files (list ii-org-file-dir))
+  (setq org-capture-templates '(
+               ("t" "todo" entry (file+headline ,(concat ii-org-file-dir "TODO.org") "Tasks")
+                "* TODO [#A] %?")
+               ))
+#+END_SRC
+
+#+RESULTS:
+| t | todo | entry | (file+headline (, (concat ii-org-file-dir TODO.org)) Tasks) | * TODO [#A] %? |
+
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates nil)
+#+END_SRC
+
+#+RESULTS:
+
+
+[[http://pragmaticemacs.com/emacs/how-i-view-my-google-calendar-agenda-in-emacs/][How I view my google calendar agenda in Emacs | Pragmatic Emacs]]

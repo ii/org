@@ -1,0 +1,189 @@
+* Inbox
+** [[http://pragmaticemacs.com/emacs/even-better-email-contact-completion-in-mu4e/][Even better email contact completion in mu4e | Pragmatic Emacs]] :mu4e:emacs:
+ Time: [2019-05-31 Fri]
+  #+BEGIN_QUOTE
+ with the code below you can hit a comma to complete the current choice of email
+ address and start searching for the next one. This matches the behaviour of
+ many other email clients like Gmail or Thunderbird.
+
+ This won’t change anybody’s world, but gives you a nice little thrill of
+ efficiency when entering several recipients to an email!
+ #+END_QUOTE
+** [[http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html][Drowning in Email; mu4e to the Rescue.]]                              :aoeu:
+ Time: [2019-05-31 Fri]
+  #+BEGIN_QUOTE
+ Check out the mu4e shortcuts:
+ n/p go to next, previous message
+ RET open the message at point in the message view
+ s search
+ #+END_QUOTE
+** [[http://thereisonlyxul.org/][thereisonlyxul.org - Because we are the agents of our own salvation!?body]] 
+ Captured On: [2019-06-03 Mon 02:11]
+ This has email, web, calendar, irc, chat, etc clients based on a web browser.
+** [[https://www.forbes.com/sites/kateoflahertyuk/2019/05/30/google-just-gave-2-billion-chrome-users-a-reason-to-switch-to-firefox/#2abefbe1751f][Google Just Gave 2 Billion Chrome Users A Reason To Switch To Firefox]] :google:user:centric:
+ Time: [2019-06-03 Mon]
+  #+BEGIN_QUOTE
+ Many have complained about the move, which effectively takes control away from the user and creates an incentive to use other services instead.
+ #+END_QUOTE
+
+- [[https://news.ycombinator.com/item?id=20074653][Hacker News Thread]]
+
+The article recommends Brave and Pi-Hole, as well.
+
+For folks looking for simplest anti ads and tracking browser should consider
+[[https://news.ycombinator.com/item?id=15049171][Firefox Focus]] instead of Brave. It is light and works like a breeze on
+lowest of configurations.
+
+And folks using Android not bothered enough to setup Pi-Hole should consider
+using Intra with nextdns or adguard-dns [1].
+
+I've installed Intra for friends and family on their phones, on their
+AndroidTVs... It takes a quick one minute setup and another minute to show them
+how to use it. Esp, nextdns' analytics dashboard is a real eye-opener for them.
+When they actually see the results, they start taking notice and are bothered
+enough to figure out how to blacklist additional domains.
+
+Google is  rapidly becoming  persona non-grata  in my  view. There  is something
+really, for the lack of a better word,  scummy about it in the last year or two.
+We partnered  with them on  their DialogueFlow platform (voice  recognition) for
+Google  Home integration  and voice  command  intent handling  and they  totally
+screwed us over. I won't/can't go into  the specifics but it was bizarre; we had
+no recourse except taking a near trillion dollar company to court. We decided it
+was not worth it and wrote off the cost and took a hit but never again.
+
+** [[https://gitlab.com/fdroid/rfp/issues/171#note_30410376][Firefox Focus (#171) · Issues · F-Droid / Requests For Packaging · GitLab]] :google:fdroid:
+ Time: [2019-06-03 Mon]
+  #+BEGIN_QUOTE
+ proprietary library: com.google.android.gms:play-services-analytics.
+ #+END_QUOTE
+
+
+It's interesting:
+- to see how F-Droid uses gitlab for packaging
+- the conversation around inclusion of apps, and finding ones that use google services
+** [[https://news.ycombinator.com/item?id=20051049][Most people don't realise this, but on Android, setting private-dns]] :android:phone:
+ time: [2019-06-03 mon]
+
+#+BEGIN_QUOTE
+ Most people don't realise this, but on Android, setting private-dns [0] or
+ using local VPN apps like blockada / dns66 or intra+nextdns [1] /
+ intra+adguard-dns [2] would block ads even within apps, provided they aren't
+ doing their own name resolution [3]. It allows one to use Chrome for websites
+ that don't work well or at all with Firefox+plugins; in addition to helping
+ bypass censorship.
+
+ [0] https://news.ycombinator.com/item?id=19208004
+
+ [1] https://news.ycombinator.com/item?id=20012687
+
+ [2] https://news.ycombinator.com/item?id=18788410
+
+ [3] https://news.ycombinator.com/item?id=19258717
+#+END_QUOTE
+** [[https://storm.apache.org/index.html][Apache Storm]]  :apisnoop:database:
+ Time: [2019-06-03 Mon 02:32]
+
+This might be of use to process audit logs in real time.
+
+  #+BEGIN_QUOTE
+ Why use Storm? Apache Storm is a free and open source distributed realtime
+ computation system. Storm makes it easy to reliably process unbounded streams
+ of data, doing for realtime processing what Hadoop did for batch processing.
+ Storm is simple, can be used with any programming language, and is a lot of fun
+ to use!
+
+ Storm has many use cases: realtime analytics, online machine learning,
+ continuous computation, distributed RPC, ETL, and more. Storm is fast: a
+ benchmark clocked it at over a million tuples processed per second per node. It
+ is scalable, fault-tolerant, guarantees your data will be processed, and is
+ easy to set up and operate.
+
+ Storm integrates with the queueing and database technologies you already use. A
+ Storm topology consumes streams of data and processes those streams in
+ arbitrarily complex ways, repartitioning the streams between each stage of the
+ computation however needed. Read more in the tutorial.
+ #+END_QUOTE
+** [[https://news.ycombinator.com/item?id=20073832][Storm 2.0.0 released | Hacker News]] :clojure:programming:
+ Time: [2019-06-03 Mon 02:34]
+
+They seemed to have mode away from clojure as it was difficult to onboard folks
+to write it for an open source project. I wonder what the onboarding process was like?
+
+ #+BEGIN_QUOTE
+ I can attest to this fact, as part of a unicorn upstart with dev offices in Sao
+ Paulo and Berlin. Clojure onboarding has never been a major roadblock for new
+ engineers. And we never hire asking for "X years of lang experience". Almost
+ everyone in the (~300 strong) engineering team started with zero-to-little
+ Clojure background.
+ #+END_QUOTE
+** [[https://javapipe.com/blog/iptables-ddos-protection/][How To Build Your Own DDoS Protection With Linux & IPtables in 2019]] :iptables:network:firewall:
+ Time: [2019-06-03 Mon 02:38]
+  #+BEGIN_QUOTE
+ This guide will teach you how to:
+
+ Select the best iptables table and chain to stop DDoS attacks
+ Tweak your kernel settings to mitigate the effects of DDoS attacks
+ Use iptables to block most TCP-based DDoS attacks
+ Use iptables SYNPROXY to block SYN floods
+
+ #+END_QUOTE
+** [[https://gitlab.com/fdroid/rfp/blob/master/.issuebot.py][.issuebot.py · F-Droid / Requests For Packaging · GitLab]] :gitlab:ci:iiphone:
+ Captured On: [2019-06-03 Mon 02:47]
+FDriod seems to have some bots built in.
+Worth looking at at some point.
+** [[https://news.ycombinator.com/item?id=20070558][Advice for writing your first tech book, from an O’Reilly author | Hacker News]] :writing:blogging:
+ Time: [2019-06-03 Mon 02:49]
+  #+BEGIN_QUOTE
+ Thank you, this is very timely: recently I got a cold email from an acquisition editor too and been researching this fascinating topic of writing tech books. :)
+ Some more helpful resources I found:
+
+ - Advice to Prospective Book Authors from Scott Meyers (of Effective C++ fame): https://www.aristeia.com/authorAdvice.html
+
+ - "I wrote a book" by Tryggvi Björgvinsson: https://dev.to/trickvi/i-wrote-a-book-lfg
+
+ - "Writing a technical book" by Ian Miell: https://zwischenzugs.com/2016/05/15/writing-a-technical-book...
+
+ - Then there are some good discussion about this topic on HN. You can try searching by keywords like "ask hn + writing a book", e.g.: https://news.ycombinator.com/item?id=14300932
+ #+END_QUOTE
+
+
+ These might be useful articles as we move towards publishing more often.
+** [[https://github.com/intoli/remote-browser][intoli/remote-browser: A low-level browser automation framework built on top of the Web Extensions API standard.]] :browsers:automation:
+ Time: [2019-06-03 Mon 03:03]
+  #+BEGIN_QUOTE
+ Remote Browser is a library for controlling web browsers like Chrome and Firefox programmatically using JavaScript. You've likely heard of similar browser automation frameworks before, such as Puppeteer and Selenium. Much like these other projects, Remote Browser can be used to accomplish a wide variety of tasks relating to UI testing, Server Side Rendering (SSR), and web scraping. What makes Remote Browser different from these other libraries is that it's built using standard cross-browser compatible technologies, and its primary goal is to facilitate interactions with existing APIs rather than to create a new one of its own.
+
+
+ #+END_QUOTE
+** [[https://next.atlas.engineer/download][nEXT]] :opensource:voting:community:participation:
+ Time: [2019-06-03 Mon 03:04]
+
+They did ask for my email, in exchange for emailing me a ballot once a month to
+'vote' on the future.
+
+  #+BEGIN_QUOTE
+ Download Next 1.2.2 (Beta 2019-05-21) Next is a community driven project. In
+ order to make Next the best it can be, we need your support, feedback, and
+ vision. Claim your vote below and decide the future of Next!
+
+ (P.S. We'll use your email to send out the ballots, a maximum of once per
+ month. We'll never share your email with anyone. All participation is
+ completely anonymous.)
+
+
+ #+END_QUOTE
+** [[https://python-epc.readthedocs.io/en/latest/][EPC (RPC stack for Emacs Lisp) for Python — Python EPC 0.0.5 documentation]] :python:emacs:lisp:server:
+ Time: [2019-06-03 Mon 05:59]
+  #+BEGIN_QUOTE
+ EPC is an RPC stack for Emacs Lisp and Python-EPC is its server side and client side implementation in Python. Using Python-EPC, you can easily call Emacs Lisp functions from Python and Python functions from Emacs. For example, you can use Python GUI module to build widgets for Emacs (see examples/gtk/server.py for example).
+ #+END_QUOTE
+
+
+ This could be used to create a website that drives emacs in the background... possibly per user.
+** [[https://python-epc.readthedocs.io/en/latest/][EPC (RPC stack for Emacs Lisp) for Python — Python EPC 0.0.5 documentation]] :emacs:server:webinterface:
+ Time: [2019-06-03 Mon 09:32]
+  #+BEGIN_QUOTE
+ EPC is an RPC stack for Emacs Lisp and Python-EPC is its server side and client side implementation in Python. Using Python-EPC, you can easily call Emacs Lisp functions from Python and Python functions from Emacs. For example, you can use Python GUI module to build widgets for Emacs (see examples/gtk/server.py for example).
+ #+END_QUOTE
+**  [[https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware#tools][Plugins, Tools and Hardware · hakimel/reveal.js Wiki?body]] 
+ Captured On: [2019-06-03 Mon 09:38]

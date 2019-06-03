@@ -1,0 +1,127 @@
+#+TITLE: org-protocol / aka calling org from outside
+
+[[https://orgmode.org/worg/org-contrib/org-protocol.html#orgef3bed8][org-protocol.el – Intercept calls from emacsclient to trigger custom actions]]
+
+* list of protocols
+ 
+[[help:org-protocol-protocol-alist]]
+[[help:org-protocol-protocol-alist-default]]
+
+(("org-capture" :protocol "capture" :function org-protocol-capture :kill-client t)
+ ("org-store-link" :protocol "store-link" :function org-protocol-store-link)
+ ("org-open-source" :protocol "open-source" :function org-protocol-open-source))
+
+* Bookmarklets
+
+#+NAME: O store-link
+#+BEGIN_SRC javascript
+javascript:location.href='org-protocol://store-link?url='+ encodeURIComponent(location.href)+'&title='+ encodeURIComponent(document.title);
+#+END_SRC
+
+After store-link, use ~, i l~ to past link and page title.
+
+#+NAME: O-Capture p
+#+BEGIN_SRC javascript
+javascript:location.href='org-protocol://capture?template=p&url='+ encodeURIComponent(location.href)+'&title='+ encodeURIComponent(document.title)+'?body='+encodeURIComponent(window.getSelection())
+#+END_SRC
+
+#+NAME: capture-p
+#+BEGIN_SRC emacs-lisp
+                ("p"
+                 "Paragraph"
+                 entry
+                 (file+headline "~/ii/org/agenda/notes.org" "Inbox")
+                 ;; "* [[%:link][%:description]] %^G\nSource: %u, %c\n #+BEGIN_QUOTE\n%initial\n#+END_QUOTE\n\n\n%?"
+                 "* [[%:link][%:description]] %^G\nTime: %u\n #+BEGIN_QUOTE\n%:initial\n#+END_QUOTE\n\n\n%?"
+                 )
+#+END_SRC
+
+#+NAME: O-Capture L
+#+BEGIN_SRC javascript
+javascript:location.href='org-protocol://capture?template=L&url='+ encodeURIComponent(location.href)+'&title='+ encodeURIComponent(document.title)+'?body='+encodeURIComponent(window.getSelection())
+#+END_SRC
+
+#+NAME: capture-L
+#+BEGIN_SRC emacs-lisp
+                ("L"
+                 "Capture a Link"
+                 entry
+                 (file+headline "~/ii/org/agenda/notes.org" "Inbox")
+                 "* %? [[%:link][%:description]] \nCaptured On: %U")
+#+END_SRC
+
+* Getting browsers to launch emaicsclient in for org-protocol:// URIs
+#+BEGIN_SRC shell
+cat > "${HOME}/.local/share/applications/org-protocol.desktop" << EOF
+[Desktop Entry]
+Name=org-protocol
+Exec=emacsclient %u
+Type=Application
+Terminal=false
+Categories=System;
+MimeType=x-scheme-handler/org-protocol;
+EOF
+#+END_SRC
+
+* Capture Templates
+
+We put this in our .spacemacs 
+
+#+NAME: main
+#+BEGIN_SRC emacs-lisp :noweb yes :results silent
+  (setq org-capture-templates
+        (quote (
+          <<default-web-template>>
+          <<capture-p>>
+          <<capture-L>>
+                ;; ... more templates here ...
+                )))
+#+END_SRC
+
+#+NAME: default-web-template
+#+BEGIN_SRC emacs-lisp
+                ("w"
+                 "Default template"
+                 entry
+                 (file+headline "~/org/capture.org" "Notes")
+                 "* %^{Title}\n\n  Source: %u, %c\n\n  %i"
+                 :empty-lines 1)
+#+END_SRC
+
+* org-capture-extension
+https://github.com/sprig/org-capture-extension
+
+[[https://www.youtube.com/watch?v=Dk_v6O3106w#action=share][YouTube: (50) Org protocol capture from web page]]
+[[https://www.youtube.com/watch?v=G2xjwxEj-c8#action=share][Demo: org-protocol://open-source://some/path - YouTube]]
+
+** New Style:
+
+#+BEGIN_SRC shell :epilogue ") 2>&1\n:" :prologue "(\n" :async yes
+emacsclient -n "org-protocol://capture?template=p&url=URL&title=TITLE&body=BODY"
+#+END_SRC
+
+#+RESULTS:
+
+
+** Old Style:
+#+BEGIN_SRC shell :epilogue ") 2>&1\n:" :prologue "(\n" :async yes
+emacsclient -n "org-protocol://capture:/p/URL/TITLE/TEXT"
+#+END_SRC
+
+#+RESULTS:
+
+#+NAME: Old Style *Warnings*
+#+BEGIN_EXAMPLE
+Warning (emacs): Please update your Org Protocol handler to deal with new-style links.
+#+END_EXAMPLE
+
+#+NAME: Both Styles - *Messages*
+#+BEGIN_EXAMPLE
+executing Shell code block...
+"emacs" #<buffer *emacs*> "/home/usr/local/stow/emacs-26.2/bin/emacs-26.2" "-Q -l /usr/local/stow/emacs-26.2/share/emacs/site-lisp/elpa/26.2/develop/async-20190503.656/async.elc -batch -f async-batch-invoke <none>"
+Greedy org-protocol handler.  Killing client.
+No server buffers remain to edit
+Code block evaluation complete.
+#+END_EXAMPLE
+
+

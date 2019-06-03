@@ -1,0 +1,70 @@
+* gcalcli
+
+[[https://github.com/insanum/gcalcli][insanum/gcalcli: Google Calendar Command Line Interface]]
+
+#+BEGIN_SRC shell :var DISPLAY=":0.0" :var SUDO_ASKPASS="/usr/bin/ssh-askpass" :prologue "export SUDO_ASKPASS" :results silent
+sudo apt install -y gcalcli
+#+END_SRC
+
+** Create New gcalcli google project
+
+#+NAME: ~/.gcalclirc
+#+BEGIN_SRC text
+  --client-id=xxxxxxxxxxxxxxx.apps.googleusercontent.com
+  --client-secret=xxxxxxxxxxxxxxxxx
+#+END_SRC
+[[file:~/.gcalclirc]]
+[[https://github.com/brndnmtthws/conky][brndnmtthws/conky: Light-weight system monitor for X.]]
+* agenda
+#+BEGIN_SRC shell :results code 
+gcalcli agenda 
+#+END_SRC
+
+#+RESULTS:
+#+begin_src shell
+Tue Jun 04   5:00am  AWS Cluster API Meeting (weekly)
+             6:00am  sigs.k8s.io/kind weekly meeting
+             6:00am  sigs.k8s.io/kind weekly meeting
+             9:00am  apisnoop checkin
+             9:00am  [sig-api-machinery] Public Bug Scrub / Issues & PR Triage
+
+Wed Jun 05   4:00am  SIG-cluster-lifecycle bi-weekly meeting
+             7:00am  SIG Architecture: Conformance Definition
+             7:00am  Cluster API Provider Implementers' office hours (US West Coast)
+             8:00am  SIG Testing Weekly
+            10:00am  Dr Newburn in Rotorua
+
+Thu Jun 06   2:30am  Meet Our Contributors - Ask Us Anything!
+             3:00am  Kubespray Office Hours
+             4:00am  kubeadm office hours
+             6:00am  SIG API Machinery Bi-Weekly Meeting
+             7:00am  Packet/ii Meeting
+             7:30am  Curate Business Networking Group
+             9:00am  apisnoop checkin
+            12:00pm  Book Review - Better Work Together
+            12:00pm  Book Review - Better Work Together
+            12:00pm  Book Review - Better Work Together
+
+Fri Jun 07   3:00am  [KubernetesTesting] - Weekly Sync Up
+             5:00am  Kubernetes Weekly Community Meeting
+             6:00am  Bi-weekly SIG Architecture Meeting
+             8:00am  [sig-api-machinery] Public Bug Scrub / Issues & PR Triage
+#+end_src
+
+#+BEGIN_SRC shell :results code 
+gcalcli --nocolor agenda 
+#+END_SRC
+
+#+RESULTS:
+#+begin_src shell
+
+Thu May 30   4:00am  kubeadm office hours
+             7:30am  Curate Business Networking Group
+             9:00am  apisnoop checkin
+
+Fri May 31   3:00am  [KubernetesTesting] - Weekly Sync Up
+             5:00am  Kubernetes Weekly Community Meeting
+             8:00am  [sig-api-machinery] Public Bug Scrub / Issues & PR Triage
+
+Sat Jun 01   2:30am  testing-commons office hours
+#+end_src

@@ -1,0 +1,7 @@
+#+TITLE: MMU 2.0 Upgrade
+
+The upgrade anouncement:
+[[https://blog.prusaprinters.org/multi-material-upgrade-2-0-is-here/?utm_source=Prusa3D.com&utm_campaign=ea380c68f8-EMAIL_CAMPAIGN_2018_09_13_11_20&utm_medium=email&utm_term=0_4199f6d18b-ea380c68f8-123411613][Multi Material Upgrade 2.0 is here! - Prusa Printers]]
+
+Shipping information is available at:
+[[https://help.prusa3d.com/article/6OdtbKF1bw-shippingtable][The Original Prusa 3D Printers - Knowledge base - Shipping information]]

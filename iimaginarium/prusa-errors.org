@@ -1,0 +1,42 @@
+#+TITLE: Fixing Presa Self Test Errors
+
+* [[https://help.prusa3d.com/article/sVQHD6vtfm-bearings-maintenance][Regular maintenance: Bearings, Fans, Extruder driver gear, Electronics & PEI.]]
+
+- [ ] 
+** Electronics
+It is good practice to check and eventually reconnect the electrical connectors
+on the mini RAMBo board or EINSY RAMBo board. Do so after the first 50 hours of
+printing and then every 150-200 hours.
+** [[https://help.prusa3d.com/article/0SeHT5uEBp-mk-3-einsy-mini-ram-bo-electronics-wiring][MK3 & MK3S EINSY miniRAMBo electronics wiring]] 
+** [[https://help.prusa3d.com/article/6Gtws6Yqjg-pei-print-surface-preparation][PEI print surface preparation]] 
+   
+[[https://youtu.be/GE-lrRbU124?t=598][Original Prusa i3 MK3 guide for a new user - YouTube]]
+** [[https://manual.prusa3d.com/Guide/8.+Electronics+assembly+(B3-R2+design)/513][8. Electronics assembly (B3/R2 design) - Prusa3D]] 
+This may help walk through reconnecting the wiring.
+May help to walk through this in reverse.
+
+I printed out this on paper so we could walk through this on our existing printers.
+I also reached out to Prusa to see where our MMU2.0S upgrads were coming.
+They said that everyone was entitled to them, and would auto-ship.
+
+* Selftest
+[[https://help.prusa3d.com/article/FuqoSUgFRe-self-test-mk-3][Knowledge base - Selftest (MK3 and MK3S)]]
+* Front print fan? Wiring error
+
+#+BEGIN_EXAMPLE
+Self Test Error !
+Please check :
+Front print fan?
+Wiring error        █
+#+END_EXAMPLE
+
+* Heater/Thermistor Not Connected
+
+#+BEGIN_EXAMPLE
+Self Test Error !
+Please check :
+Heater/Thermistor
+Not connected
+#+END_EXAMPLE
+
+

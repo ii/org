@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Setting up Kind
 #+AUTHOR: Hippie Hacker and Stephen Heywood
 #+EMAIL: hh@ii.coop and stephen@ii.coop

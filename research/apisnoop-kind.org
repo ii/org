@@ -1,4 +1,4 @@
-#+NAME: generating definitions for API kinds with apisnoop
+#+TITLE: generating definitions for API kinds with apisnoop
 #+PROPERTY: header-args:shell+ :dir ~/apisnoop
 
 * snooping

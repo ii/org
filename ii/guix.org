@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Setting up Guix on Debian/Ubuntu
 #+AUTHOR: Devan Carpenter and Hippie Hacker
 #+EMAIL: devan@ii.coop and hh@ii.coop

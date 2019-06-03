@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Filter out deprecated api fields from coverage info #35
 #+AUTHOR: Hippie Hacker
 #+EMAIL: hh@ii.coop
@@ -7,7 +6,6 @@
 #+DATE: August 29nd, 2018
 #+LPROPERTY: header-args:tmate :session ii:MAIN
 #+PROPERTY: header-args:tmate :socket "/tmp/target.i.socket"
-# :async
 
 #+NAME: Start Shell
 #+BEGIN_SRC shell :results none :var socket="/tmp/target.i.socket"
@@ -280,6 +278,8 @@ At this point I was unsure how to get at the keys you see here:
 
 * Footnotes
 
+# -*- org-use-property-inheritance: t; -*-
+# :async
 # eval: (require (quote ob-async))
 # Local Variables:
 # eval: (require 'ox-md)

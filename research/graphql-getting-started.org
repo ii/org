@@ -1,3 +1,4 @@
+#+TITLE: Getting Started with GraphQL
 #+STARTUP: content
 #+STARTUP: showeverything
 * [[https://www.howtographql.com/graphql-js/1-getting-started/][Getting Started]]

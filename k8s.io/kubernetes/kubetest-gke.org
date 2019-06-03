@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Kubetest w/ GKE
 #+AUTHOR: Hippie Hacker
 #+EMAIL: hh@ii.coop

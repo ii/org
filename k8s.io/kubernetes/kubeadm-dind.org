@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Debugging kubeadm-dind-audit-logging
 #+AUTHOR: Hippie Hacker
 #+EMAIL: hh@ii.coop

@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Identifying API usage patterns with Applied Anthropology
 #+AUTHOR: Hippie Hacker / Zach Mandeville
 #+EMAIL: hh@ii.coop / zz@ii.coop
@@ -518,6 +517,7 @@ see-also:
   - KEP-15
 ---
 #+END_SRC
+# -*- org-use-property-inheritance: t; -*-
 # Local Variables:
 # org-babel-tmux-session-prefix: ""
 # org-babel-tmate-session-prefix: "rt-"

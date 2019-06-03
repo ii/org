@@ -1,3 +1,4 @@
+#+TITLE: Bulding GraphQL servers in golang - gqlgen
 # -*- eval: (setq-local default-directory "~/gqlgen-todos"); -*-
 # -*- eval: (setq-local compile-command "go run server/server.go"; -*-
 # -*- github-username: "hh"; -*-

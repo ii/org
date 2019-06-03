@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Setting up gitlab from scratch
 #+AUTHOR: Hippie Hacker
 #+EMAIL: hh@ii.coop

@@ -1,3 +1,4 @@
+#+TITLE: Installing the Packet CLI
 * [[https://github.com/packethost/packet-cli#installation][Upstream Documentaton]]
 https://www.packet.com/developers/libraries/
 * Installing [[https://github.com/packethost/packet-cli/releases][PacketCLI releases]]

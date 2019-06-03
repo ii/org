@@ -1,4 +1,3 @@
-# -*- org-use-property-inheritance: t; -*-
 #+TITLE: Howto Setup a remote ii socket / pair session
 #+AUTHOR: Hippie Hacker
 #+EMAIL: hh@ii.coop

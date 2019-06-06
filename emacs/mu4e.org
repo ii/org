@@ -235,3 +235,7 @@ ln -s mbsync Maildir
 
 http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration
   ;; http://pragmaticemacs.com/emacs/how-i-view-my-google-calendar-agenda-in-emacs/
+* FIXME
+** TODO In message mode N is bound to evil search
+** TODO Sent emails need to be flagged differently
+My expectiations when syncing with GMail would be that the email would show up in ~ALL MAIL~

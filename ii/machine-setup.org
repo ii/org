@@ -193,7 +193,26 @@ cat <<EOF > ~/.gitconfig
         lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
         create-pull-request = !sh -c 'stash pull-request $0'
         lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[gitlab "gitlab.ii.coop/api/v4"]
+	user = hh
+[github]
+	user = hh
+[commit]
+	template = /home/hippie/.config/COMMIT_EDITMSG.co-authored
 EOF
+#+END_SRC
+
+#+NAME: ~/.config/COMMIT_EDITMSG.co-authored
+#+BEGIN_SRC text
+
+
+
+# Co-Authored-By: Zach! <zz@ii.coop>
+# Co-Authored-By: Devan Carpenter <devan@ii.coop>
+# Co-Authored-By: Stephen Heywood <stephen@ii.coop>
+# Co-Authored-By: Josmar Hart <jay@ii.coop>
+# Co-Authored-By: Brenda Peel <brenda@ii.coop>
+# Co-Authored-By: David Bollen <david@ii.coop>
 #+END_SRC
 
 * Footnotes

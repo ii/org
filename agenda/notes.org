@@ -187,3 +187,26 @@ They did ask for my email, in exchange for emailing me a ballot once a month to
  #+END_QUOTE
 **  [[https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware#tools][Plugins, Tools and Hardware · hakimel/reveal.js Wiki?body]] 
  Captured On: [2019-06-03 Mon 09:38]
+** [[https://www.reddit.com/r/emacs/comments/98edn4/mu4e_gmail_help_me_improve_my_workflow/][mu4e + gmail. help me improve my workflow : emacs]] :emacs:mu4e:mail:
+ Time: [2019-06-04 Tue 12:23]
+  #+BEGIN_QUOTE
+ Couple of "killing features" I got out of the box are:
+ being able to write messages in org-mode format (with source code snippets, tables, headings, LaTeX, etc) and it would automatically export it as html
+
+ being able to "capture" an email as todo task and have a link to it and to be able to jump to it from org-agenda
+ #+END_QUOTE
+** [[http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/][A Complete Guide to Email in Emacs using Mu and Mu4e]] :mu4e:multiple:email:
+ Time: [2019-06-04 Tue 12:25]
+  #+BEGIN_QUOTE
+ I mentioned above that I have two different email addresses and rely on mu4e to manage them both.
+ #+END_QUOTE
+**  [[https://dylanconlin.svbtle.com/exposing-gmails-categories-to-imap][Exposing Gmail’s Categories to IMAP?body]] 
+ Captured On: [2019-06-04 Tue 12:26]
+**  [[https://github.com/larsmagne/meme][larsmagne/meme: An Emacs meme generator?body]] 
+ Captured On: [2019-06-05 Wed 11:04]
+ This could be fun
+**  [#C] [[https://blog.hypriot.com/post/setup-kubernetes-raspberry-pi-cluster/][Setup Kubernetes on a Raspberry Pi Cluster easily the official way! · Docker Pirates ARMed with explosive stuff?body]] 
+ Captured On: [2019-06-05 Wed 11:04]
+ Might be fun to setup on the local pis
+* TODO respond to this email
+[[mu4e:msgid:CAPsbZLaLJ_kr0qvCJsRzv5GUAGXFhK0KW=S+bG2urUi=QF7A5g@mail.gmail.com][Thank You for Speaking at KubeCon + CloudNativeCon Europe]]

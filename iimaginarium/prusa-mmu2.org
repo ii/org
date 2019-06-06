@@ -5,3 +5,9 @@ The upgrade anouncement:
 
 Shipping information is available at:
 [[https://help.prusa3d.com/article/6OdtbKF1bw-shippingtable][The Original Prusa 3D Printers - Knowledge base - Shipping information]]
+
+The orders have been shipped!
+* TODO Need to print out the upgrade parts:
+[[mu4e:msgid:20190603074037.1959377672.swift@shop.prusa3d.com][{Prusa Research} Shipped #1]]
+[[mu4e:msgid:20190603074037.1959377672.swift@shop.prusa3d.com][{Prusa Research} Shipped #2]]
+[[https://www.dhl.com/en/express/tracking.html?AWB=7446398956&brand=DHL][DHL Tracking]]

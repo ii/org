@@ -12,13 +12,17 @@
  ("org-open-source" :protocol "open-source" :function org-protocol-open-source))
 
 * Bookmarklets
+** org-store-link (os-l)
+This doesn't "capture" but allows you to ~, i l~ to past link and page title.
 
 #+NAME: O store-link
 #+BEGIN_SRC javascript
 javascript:location.href='org-protocol://store-link?url='+ encodeURIComponent(location.href)+'&title='+ encodeURIComponent(document.title);
 #+END_SRC
+** org-capture-paragraph (oc-p)
 
-After store-link, use ~, i l~ to past link and page title.
+This allows you to capture the simplest text rendition of the text, the title and link, as well as give you the opportunity to add tags.
+
 
 #+NAME: O-Capture p
 #+BEGIN_SRC javascript
@@ -35,7 +39,7 @@ After store-link, use ~, i l~ to past link and page title.
                  "* [[%:link][%:description]] %^G\nTime: %u\n #+BEGIN_QUOTE\n%:initial\n#+END_QUOTE\n\n\n%?"
                  )
 #+END_SRC
-
+** Simple capture the link! (oc-l)
 #+NAME: O-Capture L
 #+BEGIN_SRC javascript
 javascript:location.href='org-protocol://capture?template=L&url='+ encodeURIComponent(location.href)+'&title='+ encodeURIComponent(document.title)+'?body='+encodeURIComponent(window.getSelection())
@@ -49,10 +53,12 @@ javascript:location.href='org-protocol://capture?template=L&url='+ encodeURIComp
                  (file+headline "~/ii/org/agenda/notes.org" "Inbox")
                  "* %? [[%:link][%:description]] \nCaptured On: %U")
 #+END_SRC
+** Push selected text through pandoc html2org before capture (oc-H)
+This of course requires pandoc.
 
 #+NAME: oc-H
 #+begin_src javascript
-javascript:location.href = 'org-protocol://capture-html?template=w&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title || "[untitled page]") + '&body=' + encodeURIComponent(function () {var html = ""; if (typeof document.getSelection != "undefined") {var sel = document.getSelection(); if (sel.rangeCount) {var container = document.createElement("div"); for (var i = 0, len = sel.rangeCount; i < len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());} html = container.innerHTML;}} else if (typeof document.selection != "undefined") {if (document.selection.type == "Text") {html = document.selection.createRange().htmlText;}} var relToAbs = function (href) {var a = document.createElement("a"); a.href = href; var abs = a.protocol + "//" + a.host + a.pathname + a.search + a.hash; a.remove(); return abs;}; var elementTypes = [['a', 'href'], ['img', 'src']]; var div = document.createElement('div'); div.innerHTML = html; elementTypes.map(function(elementType) {var elements = div.getElementsByTagName(elementType[0]); for (var i = 0; i < elements.length; i++) {elements[i].setAttribute(elementType[1], relToAbs(elements[i].getAttribute(elementType[1])));}}); return div.innerHTML;}());
+javascript:location.href = 'org-protocol://capture-html?template=w&url='+ encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title || "[untitled page]") + '&body=' + encodeURIComponent(function () {var html = ""; if (typeof document.getSelection != "undefined") {var sel = document.getSelection(); if (sel.rangeCount) {var container = document.createElement("div"); for (var i = 0, len = sel.rangeCount; i < len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());} html = container.innerHTML;}} else if (typeof document.selection != "undefined") {if (document.selection.type == "Text") {html = document.selection.createRange().htmlText;}} var relToAbs = function (href) {var a = document.createElement("a"); a.href = href; var abs = a.protocol + "//" + a.host + a.pathname + a.search + a.hash; a.remove(); return abs;}; var elementTypes = [['a', 'href'], ['img', 'src']]; var div = document.createElement('div'); div.innerHTML = html; elementTypes.map(function(elementType) {var elements = div.getElementsByTagName(elementType[0]); for (var i = 0; i < elements.length; i++) {elements[i].setAttribute(elementType[1], relToAbs(elements[i].getAttribute(elementType[1])));}}); return div.innerHTML;}());
 #+end_src
 
 #+NAME: o-sl
@@ -75,6 +81,8 @@ update-desktop-database ~/.local/share/applications/
 #+END_SRC
 
 #+RESULTS:
+#+begin_EXAMPLE
+#+end_EXAMPLE
 * register-protocol
   #+begin_src shell
   gconftool-2 -s /desktop/gnome/url-handlers/org-protocol/command "$HOME/.local/bin/emacsclient %s" --type String

@@ -1,1 +1,17 @@
-
+* Why does it auto create a right eye?
+ [[file:~/ii/org/.dir-locals.el::(eval]] 
+ #+begin_src emacs-lisp
+   (if (xclip-working)
+       (populate-x-clipboard)
+     (populate-terminal-clipboard)
+     )
+   (switch-to-buffer "start-tmate-sh")
+   (y-or-n-p "Have you Pasted?")
+ #+end_src
+[[info:emacs#Locals][info:emacs#Locals]] 
+Buffer local variables are specific to a loaded file
+[[info:emacs#Specifying%20File%20Variables][info:emacs#Specifying File Variables]]
+Variables can be spoecified inside the files themeselves
+[[info:emacs#Directory%20Variables][info:emacs#Directory Variables]]
+~.dir-locals.el~ files allow specify local variables in subfolers
+* 

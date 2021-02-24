@@ -4,41 +4,78 @@
 #+HTML_HEAD_EXTRA: <link rel='stylesheet' href='aesthetic/main.css' />
 
 * Introduction
-Welcome to part one of our "New Contributor Summit" guide, where we learn how to
-run, customize, test, and contribute to [[dfn:Kubernetes][Kubernetes]].
+Welcome to part one of our "New Contributor Summit" guide. In this series we will learn how to run, customize, test, and contribute to [[dfn:Kubernetes][Kubernetes]].
 
-We start the guides with the assumption you are just getting started, and have little to zero knowledge of how to work with kubernetes.  Each guie will then get more advanced.
+This first part assumes you are getting started on this path, and have little to no knowledge of running Kubernetes.  You will want some familiarity with the [[dfn:Terminal][terminal]] though.
+
 * Agenda
 In this session, we tackle:
 - hardware and OS requirements to run Kubernetes
-- installing the tools to get started
+- Setting up your environment
 - github and your git configuration
-- copying down your own version of the Kubernetes codebase
-- the workflow for contributing changes back.
+- forking and cloning Kubernetes
+- the workflow for contributing changes back to Kubernetes.
 * Hardware and OS Requirements
-Kubernetes can run on linux, mac, windows, or within [[dfn:Docker][Docker]]
-** Hardware Requirements
+Kubernetes can run on linux, mac, windows, or within [[dfn:Docker][Docker]].
 # [[mn:1][If using Docker for Mac (or Windows), dedicate the Docker system multiple CPU cores and 6GB RAM]]
-kubernetes is a large project, will require a lot of computing power
+It is a large project, and will require a lot of computing power. Whichever system you use, ensure that it has at least:
 - 8GB of RAM
-- at least 50gb of free disk space
+- 50gb or more of free disk space
 - multiple cores
-*  Installing prerequisites
-What you need to install, and how to install it, will change depending on the type of system you are using.
-** If you are running Linux
-No additional considerations are needed!
-** Mac
-With macs, you will want to have a mac package manager and then use that to install some necessary prerequisites.
-*** Install Brew
-This is a package manager for mac that you run in the command line. You can
-download and install it from the [[https://brew.sh][brew homepage]]
-*** Install Dependencies
-We'll use brew to install these.
+* Setting up your environment
+To get started, you will want to configure your computer to be able to build and run Kubernetes.  The way you configure it will change depending on if you are using Linux, Mac, or Windows.
+** On linux
+This one is easy, there's no additional configuration needed!
+** On Mac
+Kubernetes assumes you have a set of GNU command line tools installed, which don't come natively with the Mac.  So you will want to install a package manager, called Brew, then use this to install the GNU tools.
+***  Install Brew
+The easiest way to install is from the [[https://brew.sh][brew homepage]]
+
+After installed, you should be able to run this command in the terminal:
+
+#+BEGIN_SRC shell
+brew -v
+#+END_SRC
+
+And see output similar to:
+
+#+RESULTS:
+#+begin_example
+Homebrew 2.7.5
+Homebrew/homebrew-core (git revision 33c47; last commit 2021-01-17)
+Homebrew/homebrew-cask (git revision 4dc8d; last commit 2021-01-17)
+#+end_example
+
+*** Install GNU tools
+Kubernetes expects to find a set of GNU command line tools.
+
+Install them now by entering this command in the terminal:
+
 #+begin_src shell
 brew install coreutils ed findutils gawk gnu-sed gnu-tar grep make
 #+end_src
-*** Setup your .bashrc
-Add this snippet to the bottom of your ~.bashrc~
+*** Check which shell you're using
+We want to add a code snippet to your shell's initialization script, the name of which changes depending on your shell.
+
+type:
+#+BEGIN_SRC shell
+echo $SHELL
+#+END_SRC
+
+You will likely see either
+
+#+RESULTS:
+#+begin_example
+/bin/bash
+#+end_example
+or
+#+RESULTS:
+#+begin_example
+/bin/zsh
+#+end_example
+*** Add code snippet to init script
+Add the below script to the bottom of your ~\~/.bashrc~ or ~\~/.zshrc~ file, depending on if you're using ~bash~ or ~zsh~ respectively.
+
 #+begin_src
 GNUBINS="$(find /usr/local/opt -type d -follow -name gnubin -print)"
 
@@ -49,100 +86,38 @@ done
 
 export PATH
 #+end_src
+
+This scripts ensure your computer can find the tools we just installed.
+
+With all this set, you're reading to move forward!
 *** Check out official docs
 You can find them here: [[https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#setting-up-macos][k8s/community/development.md]]
+
 ** Windows
-*** If on windows 10
-setup the linux subsystem
-[[https://docs.microsoft.com/en-us/windows/wsl/install-win10][read the installaction instructions]]
-*** If on < windows 10
-Switch to a virtual machine running linux
-[[https://www.vagrantup.com/docs/installation][install vagrant]]
-*** Additional Details
-[[https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#setting-up-windows][read official docs]]
+For windows, you basically want to run Linux from within windows, which is simple to do on Windows 10 onward
+
+If you're on Windows 10, you want ot set up the linux subsystem.  This has more steps than can fit in this guide, but
+there are good installation instructions [[https://docs.microsoft.com/en-us/windows/wsl/install-win10][read the installaction instructions]]
+
+If youa re not on windows 10, then you'll want to run this all on a virtual machine.  Vagrant is a good option for this, and the instructions for installing it can be read here: [[https://www.vagrantup.com/docs/installation][install vagrant]]
 * Software Prerequisites
+With your environment setup, you can now install the software we'll use for working with kubernetes: Docker, Git, SSH, and Go.
 ** Docker
-*** What is docker
-- a container engine
-- allows you to bundle and package
-Docker is a set of platform as a service (PaaS) products that use OS-level virtualization to deliver software in packages called containers.
-Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels.
-All containers are run by a single operating system kernel and therefore use fewer resources than virtual machines.
-*** Check if you have docker installed
-The operating-system independent way to check whether Docker is running is to ask Docker, using the docker info command.
-You can also use operating system utilities, such as
-#+begin_src
-shell sudo systemctl is-active docker
-#+end_src
-or
-#+begin_src
-sudo status docker
-#+end_src
-or
-#+begin_src
-sudo service docker status
-#+end_src
- or checking the service status using Windows utilities.
- Finally, you can check in the process list for the `dockerd` process, using commands like
- #+begin_src
- ps
- #+end_src
- or
- #+begin_src
- top
- #+end_src
+First, check if you have Docker already installed, by running the command:
+#+BEGIN_SRC shell
+docker info
+#+END_SRC
 
-*** Installing docker
-*Docker Engine is available on a variety of Linux platforms, macOS and Windows 10 through Docker Desktop, and as a static binary installation.
-Find your preferred operating system below.
-
-**** MacOS
-Instruction for MacOS [[https://docs.docker.com/docker-for-mac/install/][install]]
-
-**** Linux
-Instuctions for
-Debain [[https://docs.docker.com/engine/install/debian/][install]]
-Fedora [[https://docs.docker.com/engine/install/fedora/][install]]
-Ubuntu [[https://docs.docker.com/engine/install/ubuntu/][install]]
-
-**** Windows
-Docker Desktop for Windows is the Community version of Docker for Microsoft Windows.
-You can download Docker Desktop for Windows from Docker Hub to [[https://docs.docker.com/docker-for-windows/install/][install]]
-
-
+If it says ~docker command not found~, you will want to install docker desktop from their[[https://www.docker.com/products/docker-desktop][ homepage]].
 ** Git
-*** What is git
-GitHub provides hosting for software development and version control using Git.
-It offers the distributed version control and source code management (SCM) functionality of Git, plus its own features.
-It provides access control and several collaboration features such as bug tracking, feature requests, task management and continuous integration.
-
-*** Check if you have git installed
-*** Installing git
 In a terminal window run
 `git --version`
 If it is installed you will get a message like `git version 2.25.1`
-
-**** Mac
-[[https://github.com/git-guides/install-git#install-git-on-mac][Installing on macOS]]
-
-**** Linux
-[[https://github.com/git-guides/install-git#install-git-on-linux][Installing on Linux]]
-
-**** Windows
-[[https://github.com/git-guides/install-git#install-git-on-windows][Installing on Windows]]
-
-*** Configure git
-To use get you need a Github account.
-If you do not have an account yet go to the [[https://github.com/][Github]] website to sign up.
-You'll need:
-- name
-- email
-- password
-
-preparing for working with the k8s repo.
+Otherwise, you will want to install it!:
+- [[https://github.com/git-guides/install-git#install-git-on-mac][Installing on macOS]]
+- [[https://github.com/git-guides/install-git#install-git-on-linux][Installing on Linux]]
+- [[https://github.com/git-guides/install-git#install-git-on-windows][Installing on Windows]]
 ** Go
-*** What is go
-Go or [[https://golang.org/][Golang]] as it is also known is an open source programming language that makes it easy to build simple, reliable, and efficient software.
 *** Installing go
 We want to make check is Go is installed and what version.
 Open Command Prompt / CMD ot Terminal window, execute the command to check the Go version. Make sure you have the latest version of Go.
@@ -166,6 +141,15 @@ This will create to files in the .ssh directory. Your private key id_rsa. and pu
 
 * Github configuration
 ** Signing up for github account
+** Configure git
+To use get you need a Github account.
+If you do not have an account yet go to the [[https://github.com/][Github]] website to sign up.
+You'll need:
+- name
+- email
+- password
+
+preparing for working with the k8s repo.
 ** Uploading your SSH Key
 ** Signing the CNCF CLA
 * Forking and Cloning K8s

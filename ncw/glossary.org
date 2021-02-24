@@ -1,11 +1,29 @@
 #+TITLE: Glossary
-#+PURPOSE: each heading is a term, the body is its definition
+#+PURPOSE: each heading is a term,  add the definition within the property drawer
 
 * Docker
 :PROPERTIES:
 :DEFINITION: Containerization software that lets you package programs, and the hardware required to run them, into self-contained virtual machines. This makes them easier to share, copy, and run on different computers.
 :END:
+* Git
+:PROPERTIES:
+:DEFINITION: Git is a version control system, that lets you track and move through historical versions of your code, along with collaborative tools for working on code together.
+:END:
+
+* Go
+:PROPERTIES:
+:DEFINITION: A programming language. The majority of Kubernetes is written in Go.
+:END:
 * Kubernetes
 :PROPERTIES:
 :DEFINITION: A container orchestration platform intended to simplify the management of complex infrastructure. see its <a href='https://kubernetes.io'>homepage</a>
+:END:
+
+* SSH
+:PROPERTIES:
+:DEFINITION: Short for secure shell. It is a way of using keys to be able to access remote machines from your local computer, and a highly secure method of confirming your identity with these remote machines.
+:END:
+* Terminal
+:PROPERTIES:
+:DEFINITION: Also known as the command line, a program on your computer for talking directly to the computer using written commands. <a href='https://www.digitalocean.com/community/tutorials/an-introduction-to-the-linux-terminal' target="_blank">Digital Ocean has a nice introduction</a>
 :END:

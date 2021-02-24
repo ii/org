@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-24 Wed 15:52 -->
+<!-- 2021-02-25 Thu 11:14 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Session 01</title>
@@ -228,8 +228,7 @@
 <h2 id="orgd3e1d71">Introduction</h2>
 <div class="outline-text-2" id="text-orgd3e1d71">
 <p>
-Welcome to part one of our &ldquo;New Contributor Summit&rdquo; guide, where we learn how to
-run, customize, test, and contribute to <span class='glossary-term'
+Welcome to part one of our &ldquo;New Contributor Summit&rdquo; guide. In this series we will learn how to run, customize, test, and contribute to <span class='glossary-term'
                                 onclick='this.classList.toggle("visible")'>
                             Kubernetes
                            <span class='glossary-term_inner'>
@@ -239,10 +238,17 @@ run, customize, test, and contribute to <span class='glossary-term'
 </p>
 
 <p>
-We start the guides with the assumption you are just getting started, and have little to zero knowledge of how to work with kubernetes.  Each guie will then get more advanced.
+This first part assumes you are getting started on this path, and have little to no knowledge of running Kubernetes.  You will want some familiarity with the <span class='glossary-term'
+                                onclick='this.classList.toggle("visible")'>
+                            terminal
+                           <span class='glossary-term_inner'>
+                             Also known as the command line, a program on your computer for talking directly to the computer using written commands. <a href='https://www.digitalocean.com/community/tutorials/an-introduction-to-the-linux-terminal' target="_blank">Digital Ocean has a nice introduction</a>
+                           </span>
+                          </span> though.
 </p>
 </div>
 </section>
+
 <section id="outline-container-orgd85efe4" class="outline-2">
 <h2 id="orgd85efe4">Agenda</h2>
 <div class="outline-text-2" id="text-orgd85efe4">
@@ -251,10 +257,10 @@ In this session, we tackle:
 </p>
 <ul class="org-ul">
 <li>hardware and OS requirements to run Kubernetes</li>
-<li>installing the tools to get started</li>
+<li>Setting up your environment</li>
 <li>github and your git configuration</li>
-<li>copying down your own version of the Kubernetes codebase</li>
-<li>the workflow for contributing changes back.</li>
+<li>forking and cloning Kubernetes</li>
+<li>the workflow for contributing changes back to Kubernetes.</li>
 </ul>
 </div>
 </section>
@@ -268,23 +274,113 @@ Kubernetes can run on linux, mac, windows, or within <span class='glossary-term'
                            <span class='glossary-term_inner'>
                              Containerization software that lets you package programs, and the hardware required to run them, into self-contained virtual machines. This makes them easier to share, copy, and run on different computers.
                            </span>
-                          </span>
+                          </span>.
 </p>
-</div>
-<div id="outline-container-orgfc752ce" class="outline-3">
-<h3 id="orgfc752ce">Hardware Requirements</h3>
-<div class="outline-text-3" id="text-orgfc752ce">
+
 <p>
-kubernetes is a large project, will require a lot of computing power
+It is a large project, and will require a lot of computing power. Whichever system you use, ensure that it has at least:
 </p>
 <ul class="org-ul">
 <li>8GB of RAM</li>
-<li>at least 50gb of free disk space</li>
+<li>50gb or more of free disk space</li>
 <li>multiple cores</li>
 </ul>
 </div>
+</section>
+<section id="outline-container-org2d42664" class="outline-2">
+<h2 id="org2d42664">Setting up your environment</h2>
+<div class="outline-text-2" id="text-org2d42664">
+<p>
+To get started, you will want to configure your computer to be able to build and run Kubernetes.  The way you configure it will change depending on if you are using Linux, Mac, or Windows.
+</p>
+</div>
+<div id="outline-container-org76a511b" class="outline-3">
+<h3 id="org76a511b">On linux</h3>
+<div class="outline-text-3" id="text-org76a511b">
+<p>
+This one is the easiest: there&rsquo;s no additional configuration needed!
+</p>
+</div>
+</div>
+<div id="outline-container-org105f55f" class="outline-3">
+<h3 id="org105f55f">On Mac</h3>
+<div class="outline-text-3" id="text-org105f55f">
+<p>
+Kubernetes assumes you have a set of GNU command line tools installed, which don&rsquo;t come natively with the Mac.  So you will want to install a package manager, called Brew, then use this to install the GNU tools.
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="orgebc6b3e"></a><b><b>Install Brew</b></b><br>
+<div class="outline-text-4" id="text-orgebc6b3e">
+<p>
+The easiest way to install is from the <a href="https://brew.sh">brew homepage</a>
+</p>
+
+<p>
+After installed, you should be able to run this command in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">brew -v
+</pre>
+</div>
+
+<p>
+And see output similar to:
+</p>
+
+<pre class="example">
+Homebrew 2.7.5
+Homebrew/homebrew-core (git revision 33c47; last commit 2021-01-17)
+Homebrew/homebrew-cask (git revision 4dc8d; last commit 2021-01-17)
+</pre>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgd4e1a8d" class="outline-3">
+<h3 id="orgd4e1a8d">Install GNU tools</h3>
+<div class="outline-text-3" id="text-orgd4e1a8d">
+<p>
+In your terminal, enter the following command
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">brew install coreutils ed findutils gawk gnu-sed gnu-tar <span style="color: #fabd2f;">grep</span> <span style="color: #fabd2f;">make</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li><b><b>Setup your shell init script</b></b></li>
+</ul>
+
+<p>
+Lastly, you want your computer to know how to find these tools, which we can do by adding a code snippet
+to the end of your .bashrc.
+Add this snippet to the bottom of your <code>.bashrc</code>
+</p>
+<pre class="example">
+GNUBINS="$(find /usr/local/opt -type d -follow -name gnubin -print)"
+
+for bindir in ${GNUBINS[@]}
+do
+  export PATH=$bindir:$PATH
+done
+
+export PATH
+</pre>
+</div>
+<ul class="org-ul">
+<li><a id="org50d30c1"></a>Check out official docs<br>
+<div class="outline-text-4" id="text-org50d30c1">
+<p>
+You can find them here: <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#setting-up-macos">k8s/community/development.md</a>
+</p>
+</div>
+</li>
+</ul>
 </div>
 </section>
+
 <section id="outline-container-org5b5a51e" class="outline-2">
 <h2 id="org5b5a51e">Installing prerequisites</h2>
 <div class="outline-text-2" id="text-org5b5a51e">
@@ -300,9 +396,9 @@ No additional considerations are needed!
 </p>
 </div>
 </div>
-<div id="outline-container-org960a343" class="outline-3">
-<h3 id="org960a343">Mac</h3>
-<div class="outline-text-3" id="text-org960a343">
+<div id="outline-container-org686f5b5" class="outline-3">
+<h3 id="org686f5b5">Mac</h3>
+<div class="outline-text-3" id="text-org686f5b5">
 <p>
 With macs, you will want to have a mac package manager and then use that to install some necessary prerequisites.
 </p>
@@ -344,8 +440,8 @@ export PATH
 </pre>
 </div>
 </li>
-<li><a id="org50d30c1"></a>Check out official docs<br>
-<div class="outline-text-4" id="text-org50d30c1">
+<li><a id="org2be5deb"></a>Check out official docs<br>
+<div class="outline-text-4" id="text-org2be5deb">
 <p>
 You can find them here: <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#setting-up-macos">k8s/community/development.md</a>
 </p>
@@ -353,9 +449,9 @@ You can find them here: <a href="https://github.com/kubernetes/community/blob/ma
 </li>
 </ul>
 </div>
-<div id="outline-container-org845b87f" class="outline-3">
-<h3 id="org845b87f">Windows</h3>
-<div class="outline-text-3" id="text-org845b87f">
+<div id="outline-container-org2947d6b" class="outline-3">
+<h3 id="org2947d6b">Windows</h3>
+<div class="outline-text-3" id="text-org2947d6b">
 </div>
 <ul class="org-ul">
 <li><a id="org187c6b3"></a>If on windows 10<br>
@@ -460,8 +556,8 @@ Instruction for MacOS <a href="https://docs.docker.com/docker-for-mac/install/">
 </div>
 </li>
 
-<li><a id="orgefc9f15"></a>Linux<br>
-<div class="outline-text-5" id="text-orgefc9f15">
+<li><a id="org1976ed3"></a>Linux<br>
+<div class="outline-text-5" id="text-org1976ed3">
 <p>
 Instuctions for
 Debain <a href="https://docs.docker.com/engine/install/debian/">install</a>
@@ -471,8 +567,8 @@ Ubuntu <a href="https://docs.docker.com/engine/install/ubuntu/">install</a>
 </div>
 </li>
 
-<li><a id="org5ec08ec"></a>Windows<br>
-<div class="outline-text-5" id="text-org5ec08ec">
+<li><a id="orge8d9cbe"></a>Windows<br>
+<div class="outline-text-5" id="text-orge8d9cbe">
 <p>
 Docker Desktop for Windows is the Community version of Docker for Microsoft Windows.
 You can download Docker Desktop for Windows from Docker Hub to <a href="https://docs.docker.com/docker-for-windows/install/">install</a>
@@ -511,24 +607,24 @@ If it is installed you will get a message like `git version 2.25.1`
 </div>
 
 <ul class="org-ul">
-<li><a id="org686f5b5"></a>Mac<br>
-<div class="outline-text-5" id="text-org686f5b5">
+<li><a id="org2fb8112"></a>Mac<br>
+<div class="outline-text-5" id="text-org2fb8112">
 <p>
 <a href="https://github.com/git-guides/install-git#install-git-on-mac">Installing on macOS</a>
 </p>
 </div>
 </li>
 
-<li><a id="org1976ed3"></a>Linux<br>
-<div class="outline-text-5" id="text-org1976ed3">
+<li><a id="org5fe514a"></a>Linux<br>
+<div class="outline-text-5" id="text-org5fe514a">
 <p>
 <a href="https://github.com/git-guides/install-git#install-git-on-linux">Installing on Linux</a>
 </p>
 </div>
 </li>
 
-<li><a id="org2947d6b"></a>Windows<br>
-<div class="outline-text-5" id="text-org2947d6b">
+<li><a id="org8d5bd9f"></a>Windows<br>
+<div class="outline-text-5" id="text-org8d5bd9f">
 <p>
 <a href="https://github.com/git-guides/install-git#install-git-on-windows">Installing on Windows</a>
 </p>
@@ -686,7 +782,7 @@ Outline of session 2.  You have all the requirements, now we will build and hack
 </article>
 <div id="postamble" class="status">
 <p class="author">Author: ii friend</p>
-<p class="date">Created: 2021-02-24 Wed 15:52</p>
+<p class="date">Created: 2021-02-25 Thu 11:14</p>
 </div>
 </body>
 </html>

@@ -63,7 +63,7 @@ Though if i missed something, or it's confusing, lemme know!
 #+include: ../ncw/session-03.org
 
 * Learning :@learning:
-** Learning Update: Introuction to gRPC
+** Learning Update: Introduction to gRPC
 :PROPERTIES:
 :EXPORT_FILE_NAME: grpc-learning
 :EXPORT_DATE: 2021-03-09

@@ -1,15 +1,15 @@
 +++
-title = "gRPC Introduction"
+title = "Learning Update: Introuction to gRPC Introduction"
 author = ["Zach Mandeville"]
 date = 2021-03-09
-lastmod = 2021-03-10T12:06:10+13:00
+lastmod = 2021-03-10T12:12:12+13:00
 categories = ["learning"]
 draft = false
 weight = 2001
-summary = "Updates on our Learning gRPC"
+summary = "An update on an ii member's journey on learning gRPC"
 [menu.main]
   weight = 2001
-  identifier = "grpc-introduction"
+  identifier = "learning-update-introuction-to-grpc-introduction"
 +++
 
 ## Prelude {#prelude}

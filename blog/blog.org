@@ -63,12 +63,12 @@ Though if i missed something, or it's confusing, lemme know!
 #+include: ../ncw/session-03.org
 
 * Learning :@learning:
-** gRPC Introduction
+** Learning Update: Introuction to gRPC
 :PROPERTIES:
 :EXPORT_FILE_NAME: grpc-learning
 :EXPORT_DATE: 2021-03-09
 :EXPORT_HUGO_MENU: :menu "main"
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary "Updates on our Learning gRPC"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary "An update on an ii member's journey on learning gRPC"
 :EXPORT_AUTHOR: Zach Mandeville
 :END:
 *** Prelude

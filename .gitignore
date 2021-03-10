@@ -9,3 +9,6 @@ cncf/ci/cookie
 cncf/ci/*auth-config
 cncf/ci/*-token
 .env
+.DS_Store
+.orgids
+blog/public

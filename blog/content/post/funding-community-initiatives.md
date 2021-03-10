@@ -1,5 +1,6 @@
 +++
 title = "funding community initiatives"
+author = ["Hippie Hacker"]
 date = 2016-09-14
 weight = 2002
 lastmod = "Wed Sep 14 04:29:06 NZST 2016"

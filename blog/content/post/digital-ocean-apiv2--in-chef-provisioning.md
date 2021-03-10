@@ -2,6 +2,7 @@
 title = "Digital Ocean APIv2  in chef-provisioning"
 date = 2015-10-30
 weight = 2011
+author = ["Hippie Hacker"]
 lastmod = "Fri Oct 30 03:54:18 NZDT 2015"
 summary = "Digital ocean is sunsetting api v1 on November 9th.  It's taken a while, but @geemus released support in fog v1.35.0"
 +++

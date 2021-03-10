@@ -2,6 +2,7 @@
 title = "helping blind youth to see the stars"
 date = 2016-09-05
 weight = 2007
+author = ["Hippie Hacker"]
 lastmod = "Mon Sep 05 08:18:28 NZST 2016"
 summary = "We got together with people who create and code at the osos.nz to innovate together on opensource projects"
 +++

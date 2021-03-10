@@ -2,6 +2,7 @@
 title = "Pushing vagrant speed with squid for all http + https traffic"
 date = 2015-12-19
 weight = 2008
+author = ["Hippie Hacker"]
 lastmod = "Sat Dec 19 05:50:25 NZDT 2015"
 summary = "docker run proxy exports an https certificate AND three ports for http / https proxying"
 +++

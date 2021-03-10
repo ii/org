@@ -1,6 +1,6 @@
 +++
 title = "New Contributor Summit Session 01"
-author = ["ii friend"]
+author = ["Zach Mandeville"]
 date = 2021-02-05
 lastmod = 2021-02-05T15:56:17+13:00
 section = "post"

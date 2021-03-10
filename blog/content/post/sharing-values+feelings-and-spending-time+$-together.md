@@ -2,6 +2,7 @@
 title = "sharing values+feelings and spending time+$ together"
 date = 2016-09-12
 weight = 2003
+author = ["Hippie Hacker"]
 lastmod = "Mon Sep 12 12:39:07 NZST 2016"
 summary = "Friday, ii hosted the first #chilliforchange and spent some time asking our community to finish a few sentences: I want x, I value y, I feel z..."
 +++

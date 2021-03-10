@@ -2,6 +2,7 @@
 title = "5 Dollar USB Gadgets for Everyone"
 date = 2015-12-06
 weight = 2010
+author = ["Hippie Hacker"]
 lastmod = "Sun Dec 06 00:10:35 NZDT 2015"
 summary =  "In my work trying to create devices that can install OSes from scratch on computers and flash phones and embedded IoT devices, I'm always looking for things that can support being both a usb host and a usb gadget."
 +++

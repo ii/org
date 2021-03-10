@@ -69,7 +69,7 @@ Though if i missed something, or it's confusing, lemme know!
 :EXPORT_DATE: 2021-03-09
 :EXPORT_HUGO_MENU: :menu "main"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary "An update on an ii member's journey on learning gRPC"
-:EXPORT_AUTHOR: Zach Mandeville
+:EXPORT_AUTHOR: Zach Mandeville, Caleb Woodbine
 :END:
 *** Prelude
 As I continue my career in code, I've come to find the most important part of my

@@ -13,6 +13,11 @@ footnoteReturnLinkContents = "^"
 [outputs]
   section = ["JSON", "HTML"]
 
+[taxonomies]
+ author = "author"
+ tag = "tags"
+ category = "categories"
+
 [[params.nav]]
   identifier = "tags"
   name = "Tags"

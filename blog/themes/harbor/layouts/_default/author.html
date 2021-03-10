@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    {{ partial "head.html" . }}
+    <style>
+     header {
+       max-width: 700px;
+       padding: 0 15px 2rem 15px;
+       margin: auto;
+       line-height: 1.7;
+       border-bottom: 1px solid gray;
+     }
+     header h1 {
+       font-size: 3rem;
+     }
+     header div.bio {
+       font-size: 1.2rem;
+       font-style: italic;
+     }
+     div.container[role='main'] h2 {
+       text-align: center;
+       font-size: 3rem;
+       margin-top: 0;
+       padding: 0;
+     }
+     ul {
+       padding: 0;
+       margin: 0;
+     }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav">
+        {{ if .Site.Params.logo }}
+        <a href="{{ "" | absLangURL }}" class="nav-logo">
+          <img
+            src="{{ .Site.BaseURL }}images/{{ .Site.Params.logo.url }}"
+            width="{{ .Site.Params.logo.width }}"
+            height="{{ .Site.Params.logo.height }}"
+            alt="{{ .Site.Params.logo.alt }}"
+          />
+        </a>
+        {{ end }}
+
+        <ul class="nav-links">
+          {{ range .Site.Params.nav }}
+          {{ if .icon }}
+          <li>
+            <a href="{{ .url | relLangURL }}" id="{{ .name }}"
+            ><em class="{{ .icon }}"></em
+                                     ></a>
+          </li>
+          {{ else }}
+          <li>
+            <a href="{{ .url | relLangURL }}" id="{{ .name }}">{{ .name }}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    </nav>
+
+    <header>
+      <h1>{{ .Params.name }}</h1>
+      <div class='bio'>
+        {{ .Content  }}
+      </div>
+    </header>
+    <div class='container' role='main'>
+      <h2 class='main'>Articles </h2>
+      <ul>
+        {{ range .Pages }}
+        {{ partial "h3preview.html" . }}
+        {{ end }}
+      </ul>
+    </div>
+    {{ partial "footer.html" }}
+  </body>
+</html>

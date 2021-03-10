@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+    {{ range .Data.Pages }}
+    <h2>{{ .Params.name }}</h2>
+    {{end}}
+    {{ partial "footer.html" . }}
+  </body>
+</html>

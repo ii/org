@@ -1,6 +1,6 @@
 #+TITLE: Cluster-API + Talos + Equinix Metal
-#+AUTHOR: Caleb Woodbine <caleb@ii.coop>
-#+AUTHOR: Andrew Rynhard <andrew@rynhard.io>
+#+AUTHOR: Caleb Woodbine
+#+AUTHOR: Andrew Rynhard
 #+DATE: 21st of Janurary 2020
 #+PROPERTY: header-args:tmate+ :dir . :window capi-talos-metal
 

@@ -28,6 +28,11 @@ Navigate to the blog post, and iwth your point somewhere in that post hit ~,eHH~
 Anywhere in the file hit ~,eHA~.  This will create, or overwrite if it exists, markdown files in content/posts for every blog post with a proper property drawer, each named what's set in that drawer.
 ** That's it! enjoy!!
 Though if i missed something, or it's confusing, lemme know!
+* Tasks
+** TODO about page shows list of ii humans
+*** TODO List of humans only includes ii people, no guest authors
+*** TODO List includes bio and picture
+*** TODO If human has articles, list includes link to articles
 * Guides :@guides:
 ** Deploying Talos to Equinix                                                                                           :kubernetes:equinix:talos:org:
 :PROPERTIES:

@@ -1,74 +1,197 @@
-+++
-title = "Thank You Dan Kohn"
-date = 2021-03-19
++++ 
+title = "Thank You Dan Kohn" 
+date = 2021-03-19 
 author = ["Riaan Kleinhans"]
-lastmod = "Fri Mar 06 17:06:13 NZDT 2021"
-summary =  "He believed in ii, and in all of us."
+lastmod = "Fri Mar 06 17:06:13 NZDT 2021" 
+summary = "He believed in ii, and in
+all of us." 
 +++
 
-This story is all about relationships and how that is the currency behind all things that make this world move forward. It is also about the visionary leadership of a friend dear to us all.
+This is a story about relationships, and how they are the currency that moves
+this world forward. It is a story about ii's relationship with Dan Kohn, and how
+his visionary leadership and friendship changed our world, and the open source
+community.
 
-In the year 2015 Hippie Hacker was working at [Chef.io](https://www.chef.io/) as a consultant. One of the assignments Hippie was working on was with [Maritime Telecommunications Network](https://en.wikipedia.org/wiki/Maritime_Telecommunications_Network) (MTN). This was a turning point towards Kubernetes where we are today, through relationships and also friendships built at that time. Through this assignment, Hippie Hacker met Aaron Crickenberger, who was working for MTN chief innovation officer Bob Wise.
+## Ships, Servers, and Friends
 
-Together they did some amazing things, deploying hands-off over the internet network booting of servers that was then managed by Chef software. They spent several weeks together to make this magic happen. And in this way, relationships and kinship were forged.
+In 2015, Hippie Hacker consulted for [Chef.io](https://www.chef.io/), with one
+of his assignments involving the [Maritime Telecommunications
+Network](https://en.wikipedia.org/wiki/Maritime_Telecommunications_Network)
+(MTN). Through this assignment, Hippie met Aaron Crickenburger, who at the time
+worked for MTN Chief innovation officer Bob Wise.
 
-During this time Hippie was preparing a presentation about the work he was doing with the [Marine Reach](https://marinereach.com/) vessels. He asked Bob and his team if he could show them his presentation for some feedback from a live audience. The team really resonated with Hippie’s passion for the things he was involved in with Marine Reach.
+Aaron and Hippie did amazing things together, deploying hands-off,
+over-the-internet, network booting of servers that were then mananged by Chef
+software. They spent several weeks together making this happen and through this
+developed a friendship that, in the rippling effect of relationships, would
+influence the direction of Kubernetes today.
 
-Later Hippie, while he was living in Portland, did some more work with the MTN team. Bob shipped servers to him to allow him to do some more work on the network booting for the cruise ship industry.
+<!-- NOTE:
+I am not sure where this anecdote fits into the story about Dan, Kubernetes, and ii.  
+In the interest of having a clear narrative, I edited it out.
 
-Shortly after that Bob and Aaron left MTN, and Hippie returned from the USA to New Zealand, with the servers still stranded in the USA. After working up some courage Hippie asked Bob if he had some money available to relocate the servers to New Zealand. Bob said that he could not help with money, but would introduce him to someone that could help.
-Bob told [Dan Kohn](https://en.wikipedia.org/wiki/Dan_Kohn) all about who Hippie was, the work he was doing, and the things that are important to him. Bob introduced them and that was the start of another important relationship on this journey. The servers were relocated and they are used as part of the infrastructure for Hippie's vision.
+During this time Hippie was preparing a presentation about the work he was doing
+with the [Marine Reach](https://marinereach.com/) vessels. He asked Bob and his
+team if he could show them his presentation for some feedback from a live
+audience. The team really resonated with Hippie’s passion for the things he was
+involved in with Marine Reach. -->
 
-At this time Hippie was doing some work for [Balena](https://www.balena.io/) with [Denver Williams](https://github.com/denverwilliams) which allowed the “image pull and networking boot” he was working on before in new ways. This inspired Hippie to use this technology with Kubernetes, pulling down the images and installing [Gitlab](https://about.gitlab.com/) on top of it. He showed this to Dan, who thought it was a great way to use Kubernetes. 
+During the MTN project, Bob shipped servers to Hippie's home in Portland,
+Oregon, to help with the network-botting work. When Hippie later moved to
+Aotearoa New Zealand, he was unable to bring the servers with them. He asked Bob
+if he had money availble to help relocate the servers to his new home. Bob said
+he would not be able to help with funds, but would introduce Hippie to someone who
+could help. This person was [Dan Kohn](https://en.wikipedia.org/wiki/Dan_Kohn).
+Bob introduced the two of them, telling Dan about Hippie's work and values. A
+relationship was formed, the servers were relocated, and are still used as part
+of the infrastructure for Hippie's vision.
 
-Impressed by Hippie’s innovative approach Dan asked him if he would like to join the CNCF to help demonstrate what the organization is capable of. Hippie jumped in to help create a [Demo of CNCF technologies](https://github.com/cncf/demo/) This however did not get much traction.
+## Balena and Cross-Cloud
 
-The demo was however foundational in exploring some ideas which evolved into the next project Hippie supported the CNCF with. Dan's vision was to get all cloud providers actively engaged in the cloud-native experience and they started work on [Cross-Cloud](https://github.com/crosscloudci/cross-cloud) to find ways to more concretely show the work of the CNCF with a frontend at [CNCF.CI](https://cncf.ci/) showing all projects that were available on all the participating cloud providers. [Taylor Carpenter](https://github.com/taylor), a long time friend, continued the project with [vulk.coop](https://vulk.coop) team and Hippie was ready to take on new challenges with Dan.
+Now in Aotearoa New Zealand, Hippie began doing work for [Balena](https://www.balena.io/)
+with [Denver Williams](https://github.com/denverwilliams). This technology
+enabled the "image pull and networking boot" in new, exciting ways. Inspired,
+Hippie set to use this technology with Kubernetes, by pulling down the images
+and installing [Gitlab](https://about.gitlab.com) on top of it. He showed a demo
+of this to Dan who, impressed by this innovative approach to using Kubernetes,
+asked Hippie if he'd like to join the CNCF to help demonstrate what the
+orginzation is capable of. Hippie jumped in, helping to create a [Demo of CNCF
+technologies](https://github.com/cncf/demo/).
 
-In 2017 Hippie attended his first CloudNativeCon + KubeCon Europe in Berlin, Germany. Dan was starting on the road to reshaping the world of open source and how it would be consumed. He was instrumental in creating a conformance standard for [Kubernetes](https://en.wikipedia.org/wiki/Kubernetes) and the Kubernetes Certified Service Provider program which was introduced to the opensource world at this conference. 
+While the demo did not get much traction, it was foundational in expoloring
+ideas which evolved into Hippie's next project with CNCF. Dan had a vision to
+get all cloud providers actively engaged in the cloud-native experience. This
+vision manifested as [Cross-Cloud](https://github.com/crosscloudci/cross-cloud),
+a way to concretely show the work of CNCF through a web
+frontend([cncf.ci](https://cncf.ci/)) that showed all the projects available on
+particpating cloud providers. [Taylor Carpenter](https://github.com/taylor), a
+long time friend, continued the project with the [vulk.coop](https://vulk.coop)
+team and Hippie moved on to tackle new challenges with Dan.
 
-Almost a year later in February 2018 [Kenichi Omichi](https://github.com/oomichi) dug into the Kubernetes log and found that Kubernetes had 481 API’s and tests covered only 53 endpoints, which is 11%. Dan knew that if the CNCF wanted to ensure that the [Certified Kubernetes brand](https://github.com/cncf/k8s-conformance/pulls#certified-kubernetes) would be meaningful they had to invest in test development to get that numbers much higher. 
+## The start of Conformance
 
-The importance of the Kubernetes Conformance program soon had high visibility, but was in danger of being meaningless. There were two issues, firstly a very low test coverage of the API and secondly, a difficulty in measuring the coverage without a lot of manual data mining.
+In 2017 Hippie attended his first CloudNativeCon + KubeCon Europe in Berlin,
+Germany. It was here that Dan introduced the Kubernetes conformance standard,
+and the Kubernetes Certified Service Provider program.
 
-This time Hippie paired with [Rohan Fletcher](https://github.com/rohfle). During a discussion with Hippie and Rohan, Dan showed them a disk usage graph for OSX and proposed following that model as the right way to visually show the Conformance coverage of the Kubernetes API.
+A year later, in February 2018 [Kenichi Omichi](https://github.com/oomichi) dug
+into the Kubernetes logs and found that Kubernetes had 481 API endpoints only 53
+of them were covered by tests. Dan knew that for the [Certified Kubernetes
+brand](https://github.com/cncf/k8s-conformance/pulls#certified-kubernetes) to
+have meaning, they needed to invest to make sure test coverage was much higher.
+The problem was not just a lack of tests, but a lack of visibility--it required
+heavy, manual data mining just to calculate coverage in the first place.
 
-![disk_graph](/images/blog_image/disk_graph.png "The actual screenshot Dan shared to show his vision")
-The actual screenshot Dan shared to show his vision
+To find a solution to this problem, Hippie paired with [Rohan
+Fletcher](https://github.com/rohfle). During a discussion with Hippie and Rohan,
+Dan showed them a disk usage graph for OSX and proposed they use a similar graph
+to visualize Conformance coverage of the Kubernetes API.
 
-Rohan started on the project to create what is today known as [APISnoop](https://apisnoop.cncf.io/). A visual display, giving clear insight into the lay of the land of Kubernetes Conformance that was eagerly expected by the community when it was introduced at KubeCon Europe in May 2018.
+![disk_graph](/images/blog_image/disk_graph.png "The actual screenshot Dan
+shared to show his vision") The actual screenshot Dan shared to show his vision
 
-In 2018 [Zach Mandeville](https://github.com/zachmandeville) joined the team and took over the magic behind the tool. At that point there was no instrumentation and cover was determined by looking at the test logs, audit logs showing the hits from the e2e binary, but still, it was difficult to determine which test hit specific endpoints. Zach did a lot of writing, rewriting, and changes not only to APISnoop but also driving updates of underlying Kubernetes logging until a clear signal could be distinguished from the noise.
+## APISnoop
 
-At about the same time Hippie’s team started creating a tool to measure and show the cover of conformance, a separate effort was started for filling in the backlog of conformance tests.
+Rohan started on the project to create what would be
+[APISnoop](https://apisnoop.cncf.io/): a visual insight into Kubernetes test
+coverage. This project was well-received by the community when it was introduced
+at Kubecon Europe 2018.
 
-After about a year APISnoop showed very little movement on the graph, as the test writing efforts yielded very little results. Within character, Dan started looking at other ways to get the conformance cover increasing at a rate that would satisfy his vision.
+That same year, [Zach Mandeville](https://github.com/zachmandeville) joined the
+team and took over development of APISnoop. At that point there was no real
+automation for generating Snoop's data. Much was still done by manually looking
+for tests in audit event logs. Zach did a lot of the writing, rewriting, and
+architectural changes to APISnoop, along with driving updates of underlying
+Kubernetes logging so that clear coverage information could be distinguished
+from noise.
 
-By this time Hippie and his team at [ii](https://ii.coop/) had been looking at the Kubernetes API and all its underlying parts, logs, specs, and much more for almost a year. It was a logical fit for them to step up to the plate and get the graph to move up in the right direction.
+While APISnoop worked to show gaps in Conformance coverage, a separate effort
+was started to fill those gaps withq tests. Unfortunately, this effort was slow
+going. After about a year, APISnoop showed very little movement on the graph, as
+the test writing efforts yielded very little results. Within character, Dan
+started to look for other ways to get an increase in coverage happening at a
+rate that satisfied his vision.
 
-The writing of tests was a learning experience for everyone in ii, as well as the contributors in the Kubernetes community. Initially, a lot of work was put into creating tests that cover all the requirements and then shared with the community once it was ready for approval to merge into the test repo. Iron sharpens iron and together the stakeholder figure out the shape of conformance testing. However, this initially resulted in a lot of lost time in writing and rewriting tests.
+Since Hippie and his team had been looking at the Kubernetes API and all its
+underlying parts for almost a year, it was a logical fit for them to step up to
+the test-writing efforts, and work to increase the test writing velocity.
 
-Hippie and the ii team came up with the mock test concept, using org-mode in their own flavor of [Emacs (Humacs)](https://www.humacs.org/) using a test writing template, running on a Kubernetes cluster. Zach developed SnoopDB out of APISnoop that is deployed on the same Kubernetes cluster. This allowed for live testing and probing of the Kubernetes API, getting immediate feedback about the success of any test concept. Mock tests with their proven results were then presented at the SIG Architecture Conformance sub-project meetings as Issues for initial approval before creating the actual tests and pull requests. The Kubernetes project is a complex organism, with a vast community and diverse [Special Interest Groups](https://github.com/kubernetes/community) (SIG’s), conformance cuts across all these organizational levels. Getting consensus is an equally complex task that requires a lot of collaboration. 
+## Test-Writing
 
-The method that Hippie’s team developed helped to increase the velocity of test writing. The tools and methods are continually being improved and developed to encouraging co-operation between test writers. This resulted in the creation of [Sharing.io](https://pair.sharing.io/) for collaboration, it also brought into being their unique [Kind+APISnoop](https://github.com/cncf/apisnoop/tree/main/kind) combination that allows anyone to access the power of APISnoop locally.
+The writing of tests was a learning experience for everyone in ii, as well as
+the contributors in the Kubernetes community. Initially, the process was to
+quietly work on tests, ensuring they fit all known requirements and then, once
+they seemed ready, to share it with the community through a PR. These PR's
+invariably sparked feedback and needed revisions, and could lead to discussions
+on whether the particular test meaningfully changed the coverage at all. The
+process for writing, rewriting, and collaborating on tests was slower than
+desired.
 
-Dan was always pushing the bar higher, continually expecting better and clearer results out of APISnoop to make it a well-used tool throughout the Kubernetes community. This allowed Zach to continually improve the functionality of APISnoop, changing it from a static page with the current status of conformance, to a multi-faceted tool with several ways to view the current data as well as historical data per release. This allows the user to appreciate the progress being made towards reaching 100% conformance test cover.
+Hippie and the ii team-- notably Devan Carpenter, [Caleb
+Woodbine](https://github.com/bobymcbobs), and [Stephen
+Heywood](https://github.com/heyste)-- came up with the mock test concept, using
+org-mode in their own flavor of [Emacs (Humacs)](https://www.humacs.org/)
+deployed on a Kubernetes cluster. Zach decoupled the APISNoop database from the
+app , so that it could be deployed to the cluster and used as part of a
+test-writing environment. This allowed for tighter feedback loops, with test
+writers able to immediately see whether their mock test hit the endpoints they
+expected. These mock tests, along with their projected results as calculated by
+APISnoop, were then presented at the SIG Architecture Conformance sub-project
+meetings for initial approval, before creating the actual tests and pull
+requests.
 
-![1_15Cover](/images/blog_image/1_15Cover.png "1.15 Cover")
-Test Cover 1.15 
+The Kubernetes project is a complex organism, with a vast community and diverse
+[Special Interest Groups](https://github.com/kubernetes/community) (SIG’s).
+Conformance cuts across all these organizational levels, and reaching consensus
+on it is an equally complex task. The collaborative test-writing method of
+Hippie’s team helped increase the velocity and transparency of test writing.
 
-![1_21Cover](/images/blog_image/1_21cover.png "1.21 Cover")
-Test cover 1.21
+<!-- Note: am not sure if this section fits fully into the flow of the essay. If
+we want to publicize sharing.io, it might be served better in its own blog post.
+--> <!-- These tools and methods are continually being improved to encouraging
+--> <!-- co-operation between test writers. One recent iteration is the creation
+of --> <!-- [Sharing.io](https://pair.sharing.io/) for collaboration, it also
+brought into --> <!-- being their unique --> <!--
+[Kind+APISnoop](https://github.com/cncf/apisnoop/tree/main/kind) combination -->
+<!-- that allows anyone to access the power of APISnoop locally. -->
 
-A page was also added to visually track conformance progress across releases and visually show the progress in eliminating technical debt.
+## Iterations and Automations
+
+Dan was always pushing the bar higher, continually expecting better and clearer
+results out of APISnoop so it would be a well-used tool throughout the
+Kubernetes community. This inspired Zach and ii to continually improve its
+functionality, changing APISnoop from a static page showing only the current
+status of conformance, to a multi-faceted tool with multiple ways to view not
+just the current data, but the historical progress of Conformance. Hippie
+developed a unique Kind+APISnoop combination that allowed anyone to access the
+querying power of APISnoop locally.
+
+![1_15Cover](/images/blog_image/1_15Cover.png "1.15 Cover") Test Cover 1.15
+
+![1_21Cover](/images/blog_image/1_21cover.png "1.21 Cover") Test cover 1.21
 
 ![alt_text](/images/blog_image/Conformance-progress.png "conformance-progress")
 Conformance Progress graph
 
-All the added conformance test cover was great news and added the expected prestige and value of the Certified Kubernetes brand. At the same time, it was making life increasingly difficult for [Taylor Waggoner](https://github.com/taylorwaggoner) at the CNCF managing the Conformance Certification process. 
+The increased conformance coverage was great news, and added the expected value
+to the Certified Kubernetes brand. At the same time, it was making life
+increasingly difficult for [Taylor Waggoner](https://github.com/taylorwaggoner)
+at the CNCF to manage the Conformance Certification process. All pull requests
+for certification had to be manually verified to ensure it contained all tests,
+but the list of conformance tests kept growing with each release.
 
-All pull requests for certification had to be manually verified to ensure it contained the correct data, but the list of conformance tests kept growing with each release. Dan approached Hippie and requested that the process should be automated, and in 2020 the CNCF CI Bot was created by [Berno Kleinhans ](https://github.com/bernokl)and [Rob Kielty](https://github.com/RobertKielty). This allowed for the automatic checking and labeling of conformance pull requests, speeding up the process and making the human effort required less. 
+Dan approached Hippie and requested the process to be automated, and in 2020 the
+CNCF CI Bot was created by [Berno Kleinhans ](https://github.com/bernokl)and
+[Rob Kielty](https://github.com/RobertKielty). This allowed for the automatic
+checking and labeling of conformance pull requests, speeding up the process and
+reducing the human effort needed.
 
-The Kubernetes conformance journey up to this day was an eventful one, built around relationships and community cooperation, with many different contributors playing their part to help move this forward. All of this was made possible by the extraordinary vision and leadership of a friend dear to everyone in the Kubernetes community, Dan Kohn.
+## Thank you
+
+The Kubernetes Conformance journey up to this day is an eventful one, built
+around relationships and community cooperation, with many different contributors
+playing their part to help move this forward. All of this was made possible by
+the extraordinary vision and leadership of a friend dear to everyone in the
+Kubernetes community: Dan Kohn.
 
 ![Dan_Kohn](/images/blog_image/dan_kohn.jpg "Dan Kohn")

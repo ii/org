@@ -3,8 +3,7 @@ title = "Thank You Dan Kohn"
 date = 2021-03-19 
 author = ["Riaan Kleinhans"]
 lastmod = "Fri Mar 06 17:06:13 NZDT 2021" 
-summary = "He believed in ii, and in
-all of us." 
+summary = "He believed in ii, and in all of us." 
 +++
 
 This is a story about relationships, and how they are the currency that moves

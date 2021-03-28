@@ -36,14 +36,14 @@ audience. The team really resonated with Hippie’s passion for the things he wa
 involved in with Marine Reach. -->
 
 During the MTN project, Bob shipped servers to Hippie's home in Portland,
-Oregon, to help with the network-botting work. When Hippie later moved to
-Aotearoa New Zealand, he was unable to bring the servers with them. He asked Bob
-if he had money availble to help relocate the servers to his new home. Bob said
-he would not be able to help with funds, but would introduce Hippie to someone who
-could help. This person was [Dan Kohn](https://en.wikipedia.org/wiki/Dan_Kohn).
-Bob introduced the two of them, telling Dan about Hippie's work and values. A
-relationship was formed, the servers were relocated, and are still used as part
-of the infrastructure for Hippie's vision.
+Oregon, to help with the network-booting work. When Hippie later moved to
+Aotearoa New Zealand, he was unable to bring the servers with them. Hippie then
+asked bob if he had any money available to help relocate the servers to Aotearoa
+New Zealand. Bob introduced Hippie to someone who could help. This person was
+[Dan Kohn](https://en.wikipedia.org/wiki/Dan_Kohn). Bob introduced the two of
+them, telling Dan about Hippie's work and values. A relationship was formed, the
+servers were relocated, and are still used as part of the infrastructure for
+Hippie's vision.
 
 ## Balena and Cross-Cloud
 
@@ -51,7 +51,7 @@ Now in Aotearoa New Zealand, Hippie began doing work for [Balena](https://www.ba
 with [Denver Williams](https://github.com/denverwilliams). This technology
 enabled the "image pull and networking boot" in new, exciting ways. Inspired,
 Hippie set to use this technology with Kubernetes, by pulling down the images
-and installing [Gitlab](https://about.gitlab.com) on top of it. He showed a demo
+and installing [GitLab](https://about.gitlab.com) on top of it. He showed a demo
 of this to Dan who, impressed by this innovative approach to using Kubernetes,
 asked Hippie if he'd like to join the CNCF to help demonstrate what the
 orginzation is capable of. Hippie jumped in, helping to create a [Demo of CNCF
@@ -63,7 +63,7 @@ get all cloud providers actively engaged in the cloud-native experience. This
 vision manifested as [Cross-Cloud](https://github.com/crosscloudci/cross-cloud),
 a way to concretely show the work of CNCF through a web
 frontend([cncf.ci](https://cncf.ci/)) that showed all the projects available on
-particpating cloud providers. [Taylor Carpenter](https://github.com/taylor), a
+participating cloud providers. [Taylor Carpenter](https://github.com/taylor), a
 long time friend, continued the project with the [vulk.coop](https://vulk.coop)
 team and Hippie moved on to tackle new challenges with Dan.
 
@@ -105,7 +105,7 @@ Kubernetes logging so that clear coverage information could be distinguished
 from noise.
 
 While APISnoop worked to show gaps in Conformance coverage, a separate effort
-was started to fill those gaps withq tests. Unfortunately, this effort was slow
+was started to fill those gaps with tests. Unfortunately, this effort was slow
 going. After about a year, APISnoop showed very little movement on the graph, as
 the test writing efforts yielded very little results. Within character, Dan
 started to look for other ways to get an increase in coverage happening at a
@@ -129,7 +129,7 @@ desired.
 Hippie and the ii team-- notably Devan Carpenter, [Caleb
 Woodbine](https://github.com/bobymcbobs), and [Stephen
 Heywood](https://github.com/heyste)-- came up with the mock test concept, using
-org-mode in their own flavor of [Emacs (Humacs)](https://www.humacs.org/)
+org-mode in their own flavor of [Emacs (Humacs)](http://humacs.org/)
 deployed on a Kubernetes cluster. Zach decoupled the APISNoop database from the
 app , so that it could be deployed to the cluster and used as part of a
 test-writing environment. This allowed for tighter feedback loops, with test
@@ -141,7 +141,7 @@ requests.
 
 The Kubernetes project is a complex organism, with a vast community and diverse
 [Special Interest Groups](https://github.com/kubernetes/community) (SIG’s).
-Conformance cuts across all these organizational levels, and reaching consensus
+Conformance works across all these organizational levels, and reaching consensus
 on it is an equally complex task. The collaborative test-writing method of
 Hippie’s team helped increase the velocity and transparency of test writing.
 

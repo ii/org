@@ -72,6 +72,63 @@ Though if i missed something, or it's confusing, lemme know!
 :END:
 #+include: ../ncw/session-03.org
 
+** How ii makes APISnoop releases :kubernetes:apisnoop:cncf:
+:PROPERTIES:
+:EXPORT_FILE_NAME: how-ii-makes-apisnoop-releases
+:EXPORT_DATE: 2021-04-22
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary "Document with intent on knowledge share: The process APISnoop goes through to build images and understanding tags role"
+:EXPORT_AUTHOR: Berno Kleinhans
+:END:
+*** This is how ii makes apisnoop releases
+*** Starting repo and the tags we have:
+https://github.com/cncf/apisnoop/tags
+*** Prow definition:
+https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/k8s-staging-apisnoop.yaml
+These are postsubmit jobs…
+#+BEGIN_SRC yaml
+  decorate: true
+      branches:
+        - ^main$
+#+END_SRC
+#+BEGIN_SRC yaml
+containers:
+          - image: gcr.io/k8s-testimages/image-builder:v20210302-aa40187
+            command:
+              - /run.sh
+            args:
+              # this is the project GCB will run in, which is the same as the GCR images are pushed to.
+              - --project=k8s-staging-apisnoop
+              - --scratch-bucket=gs://k8s-staging-apisnoop-gcb
+              - --env-passthrough=PULL_BASE_REF
+              - apps/snoopdb
+#+END_SRC
+Postsubmit example at the bottom
+https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#custom-substitutions
+*** Jobs:
+https://prow.k8s.io/?job=apisnoop-push-snoopdb-images
+*** Logs
+https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/apisnoop-push-snoopdb-images/1384977461019676672
+*** GCB Requires a promotion process
+This file contains the images to tag mapping
+https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml
+**** Some information om image promotion process
+https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme
+Trying not to repeat here is my tldr;
+- Our project has a s
+
+  * Idee is om hier te verduidelik hoe ons die dokument se stappe hier onder toepas om ons image gebou te kry, noggal nifty
+  * Hoop om vanaand na aand ete vir paar ure te kom sit en werk, laat weet my hoe dit vir jou uitwerk
+**** Information on how our tags are used
+https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme
+*** Promotion Definitions
+**** Presubmits
+I am not 100% how this gets used
+TODO: Get additional information
+https://github.com/kubernetes/test-infra/blob/master/config/jobs/kubernetes/sig-release/cip/container-image-promoter.yaml#L1
+**** Postsubmits
+https://github.com/kubernetes/test-infra/blob/master/config/jobs/kubernetes/wg-k8s-infra/trusted/releng/releng-trusted.yaml#L3
+*** Promotion Jobs
+https://prow.k8s.io/?job=post-k8sio-image-promo
 * Learning :@learning:
 ** Learning Update: Introduction to gRPC
 :PROPERTIES:

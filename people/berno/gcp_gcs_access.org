@@ -1,5 +1,7 @@
 #+TITLE: Gcp Gcs Access
 * check gsutil auth
+First we can get the list of authorized users
+The current active user is shown by the *
 #+BEGIN_SRC shell
 gcloud auth list 2>&1
 :
@@ -7,9 +9,10 @@ gcloud auth list 2>&1
 
 #+RESULTS:
 #+begin_example
-         Credentialed Accounts
-ACTIVE             ACCOUNT
-,*                  bb@ii.coop
+              Credentialed Accounts
+ACTIVE  ACCOUNT
+        bb@ii.coop
+,*       reporting@apisnoop.iam.gserviceaccount.com
 
 To set the active account, run:
     $ gcloud config set account `ACCOUNT`
@@ -25,6 +28,7 @@ gcloud config set project apisnoop
 #+end_example
 
 * create bucket for logs
+Next we are going to create a bucket for us to store our logs in
 #+BEGIN_SRC shell
 gsutil mb gs://bb-apisnoop-logs 2>&1
 :
@@ -35,9 +39,9 @@ gsutil mb gs://bb-apisnoop-logs 2>&1
 Creating gs://bb-apisnoop-logs/...
 #+end_example
 
-* set pormissions to allow gcs permissions to the bucket
+* set permissions to allow gcs permissions to the bucket
 https://download.huihoo.com/google/gdgdevkit/DVD1/developers.google.com/storage/docs/accesslogs.html
-
+Give cloud-stage-analytics access to my bucket
 #+BEGIN_SRC shell
 gsutil acl ch -g cloud-storage-analytics@google.com:W gs://bb-apisnoop-logs/ 2>&1
 :
@@ -92,9 +96,19 @@ gsutil ls -la gs://bb-apisnoop-logs/
 #+BEGIN_SRC tmate
 gsutil cp -r gs://bb-apisnoop-logs/ .
 #+END_SRC
+Make the schema to upload the storageanalysis to
+#+BEGIN_SRC tmate
+wget http://storage.googleapis.com/pub/cloud_storage_usage_schema_v0.json
+#+END_SRC
+#+BEGIN_SRC tmate
+bq mk --table storageanalysis.usage cloud_storage_usage_schema_v0.json
+#+END_SRC
 Manually load one of the logs so we can look at it in bigQuery
 #+BEGIN_SRC tmate
 bq load --skip_leading_rows=1 storageanalysis.usage gs://bb-apisnoop-logs/*
+#+END_SRC
+#+BEGIN_SRC tmate
+bq load --skip_leading_rows=1 --autodetect storageanalysis.usage gs://bb-apisnoop-logs/apisnoop_usage_*
 #+END_SRC
 
 #+BEGIN_SRC tmate
@@ -123,8 +137,10 @@ Waiting on bqjob_r56b6fb5ec7f3e7bf_00000178ce711e86_1 ... (0s) Current status: D
 #+END_EXAMPLE
 
 #+BEGIN_SRC tmate
-SELECT time_micros as timestamp, cs_method FROM [storageanalysis.usage] where cs_object="containers/images/sha256:f91914f4e2b0beff949c98a78c5103a496ae185cbc2996ad7e1f307f7d13e771"
+SELECT time_micros as timestamp, cs_method FROM [storageanalysis.usage] where cs_object="containers/images/sha256:9e54886a08632b8793b59d3118d1b7daecb03a40b58ff40fe4bfe18741bfcddc"
 #+END_SRC
+This did not work
+TODO: learn more about bq sql
 #+BEGIN_SRC tmate
 SELECT time_micros as timestamp, cs_method FROM [storageanalysis.usage] where cs_object like "containers/images/sha256"
 #+END_SRC
@@ -137,6 +153,15 @@ gcloud auth activate-service-account reporting@apisnoop.iam.gserviceaccount.com 
 
 * Now I test if I can get the logs
 Lets try a quick copy with gsutil cp
+Toggle between users
+gcloud config set account bb@ii.coop
+gcloud config set account reporting@apisnoop.iam.gserviceaccount.com
+#+BEGIN_SRC tmate
+gcloud config set account bb@ii.coop
+#+END_SRC
+#+BEGIN_SRC tmate
+gcloud auth list
+#+END_SRC
 #+BEGIN_SRC tmate
 gsutil cp -r gs://bb-apisnoop-logs/ .
 #+END_SRC
@@ -233,3 +258,7 @@ uniqueId: '107647515244251504832'
 #+end_example
 Nothing new.
 Is it because it is a not an authenticated user? I think when it was added it potentially should not have had allAuthenticatedUsers added.
+
+Yay, it just took time for the permission to be taken. If I now run cp as that user it works.
+
+* Give serviceAccount log access

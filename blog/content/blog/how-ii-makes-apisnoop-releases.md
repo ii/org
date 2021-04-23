@@ -2,7 +2,7 @@
 title = "How ii makes APISnoop releases"
 author = ["Berno Kleinhans"]
 date = 2021-04-22
-lastmod = 2021-04-24T08:30:07+12:00
+lastmod = 2021-04-24T08:56:49+12:00
 tags = ["kubernetes", "apisnoop", "cncf"]
 categories = ["guides"]
 draft = false
@@ -12,27 +12,29 @@ summary = "Document with intent on knowledge share: The process APISnoop goes th
 
 ## This is how ii makes apisnoop releases {#this-is-how-ii-makes-apisnoop-releases}
 
+In this post we will capture the details involved in building and promoting a image from the apisnoop repo
 
-## Starting repo and the tags we have: {#starting-repo-and-the-tags-we-have}
+
+## Repo and the tags we have: {#repo-and-the-tags-we-have}
 
 <https://github.com/cncf/apisnoop/tags>
 
 
-## Overview of image publish jobs and how we can use them to promote our images: [test-infra-config/jobs/image-pushing/README](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#image-pushing-jobs) {#overview-of-image-publish-jobs-and-how-we-can-use-them-to-promote-our-images-test-infra-config-jobs-image-pushing-readme}
+## Overview of image publish jobs and how we can use them to promote our images {#overview-of-image-publish-jobs-and-how-we-can-use-them-to-promote-our-images}
 
-<https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#image-pushing-jobs>
+Documentation: [test-infra-config/jobs/image-pushing/README](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#image-pushing-jobs)
 
--   We set up a [GCR](https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#managing-kubernetes-container-registries) to build our images in (<https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#managing-kubernetes-container-registries>)
--   We set up a image promoter [promoter](https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#image-promoter)  (<https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#image-promoter>)
+-   We set up a [GCR](https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#managing-kubernetes-container-registries) to build our images
+-   We set up a image [promoter](https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#image-promoter)
 
 
 ## Prow definition of image-build for apisnoop: {#prow-definition-of-image-build-for-apisnoop}
 
-Use the [documentation](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md)
-The use of this template is very restricted [prow-config-template](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#prow-config-template)  (<https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#prow-config-template>)
+-   Use this [documentation](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md), the  [prow-config-template](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#prow-config-template)  is very strict.
+-   This the postsubmit job we defined in
+    [test-infra/config/jobs/image/pushing/k8s-staging-apisnoop.yaml](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/k8s-staging-apisnoop.yaml)
 
-These are postsubmit jobs we defined [test-infra/config/jobs/image/pushing/k8s-staging-apisnoop.yaml](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/k8s-staging-apisnoop.yaml)
-<https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/k8s-staging-apisnoop.yaml>
+<!--listend-->
 
 ```yaml
   decorate: true
@@ -57,7 +59,6 @@ containers:
 ## The cloudbuild.yaml this job runs {#the-cloudbuild-dot-yaml-this-job-runs}
 
 [cncf/apisnoop/apps/snoopdb/cloudbuild.yaml](https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/cloudbuild.yaml)
-<https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/cloudbuild.yaml>
 
 ```yaml
 steps:
@@ -77,38 +78,35 @@ options:
 ## Prow jobs to build/push snoopdb: {#prow-jobs-to-build-push-snoopdb}
 
 Where you can find the above job in prow: [prow-apisnoop-push-snoopdb-images](https://prow.k8s.io/?job=apisnoop-push-snoopdb-images)
-<https://prow.k8s.io/?job=apisnoop-push-snoopdb-images>
 
 
 ## Logs {#logs}
 
 Logs for the above [prow-logs-apisnoop-push-snoopdb-images](https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/apisnoop-push-snoopdb-images/1384977461019676672)
-<https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/apisnoop-push-snoopdb-images/1384977461019676672>
 
 
 ## GCB Requires a promotion process {#gcb-requires-a-promotion-process}
 
 Some information om image [promotion process](https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme)
-<https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme>
+
+-   Make changes to k8s.io.k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml
+-   Create PR that will then trigger a check that k8s-ci-robot gets 'Job succeeded'
+-   The merged PR will trigger the promotion 'post-k8sio-cip'
+-   Promoted images can be viewed on [k8s-artifacts-prod](https://console.cloud.google.com/gcr/images/k8s-artifacts-prod)
+
 Options for using tags [tags-custom-substitutions](https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#custom-substitutions)
-<https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#custom-substitutions>
-This file contains the image metadata [k8s.io/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml](https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml)
-<https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml>
+Apisnoop image file that holds our metadata: [k8s.io/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml](https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml)
 
 
 ## Promotion Definitions {#promotion-definitions}
 
-
-### Presubmits {#presubmits}
-
-I am not 100% how this gets used
-TODO: Get additional information
-<https://github.com/kubernetes/test-infra/blob/master/config/jobs/kubernetes/sig-release/cip/container-image-promoter.yaml#L1>
+Infra promotor:
 
 
-### Postsubmits {#postsubmits}
+### [Presubmits](https://github.com/kubernetes/test-infra/blob/master/config/jobs/kubernetes/sig-release/cip/container-image-promoter.yaml#L1) {#presubmits}
 
-<https://github.com/kubernetes/test-infra/blob/master/config/jobs/kubernetes/wg-k8s-infra/trusted/releng/releng-trusted.yaml#L3>
+
+### [Postsubmits](https://github.com/kubernetes/test-infra/blob/master/config/jobs/kubernetes/wg-k8s-infra/trusted/releng/releng-trusted.yaml#L3) {#postsubmits}
 
 
 ## Promotion Jobs {#promotion-jobs}

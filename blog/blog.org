@@ -82,9 +82,16 @@ Though if i missed something, or it's confusing, lemme know!
 *** This is how ii makes apisnoop releases
 *** Starting repo and the tags we have:
 https://github.com/cncf/apisnoop/tags
-*** Prow definition:
+*** Overview of image publish jobs and how we can use them to promote our images: [[https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#image-pushing-jobs][test-infra-config/jobs/image-pushing/README]]
+https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#image-pushing-jobs
+- We set up a [[https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#managing-kubernetes-container-registries][GCR]] to build our images in (https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#managing-kubernetes-container-registries)
+- We set up a image promoter [[https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#image-promoter][promoter]]  (https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/README.md#image-promoter)
+*** Prow definition of image-build for apisnoop:
+Use the [[https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md][documentation]]
+The use of this template is very restricted [[https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#prow-config-template][prow-config-template]]  (https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#prow-config-template)
+
+These are postsubmit jobs we defined [[https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/k8s-staging-apisnoop.yaml][test-infra/config/jobs/image/pushing/k8s-staging-apisnoop.yaml]]
 https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/k8s-staging-apisnoop.yaml
-These are postsubmit jobs…
 #+BEGIN_SRC yaml
   decorate: true
       branches:
@@ -102,24 +109,35 @@ containers:
               - --env-passthrough=PULL_BASE_REF
               - apps/snoopdb
 #+END_SRC
-Postsubmit example at the bottom
-https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#custom-substitutions
-*** Jobs:
+*** The cloudbuild.yaml this job runs
+[[https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/cloudbuild.yaml][cncf/apisnoop/apps/snoopdb/cloudbuild.yaml]]
+https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/cloudbuild.yaml
+#+BEGIN_SRC yaml
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/snoopdb:$_GIT_TAG',
+           '--build-arg', 'IMAGE_ARG=gcr.io/$PROJECT_ID/snoopdb:$_GIT_TAG',
+           './postgres']
+images:
+  - 'gcr.io/$PROJECT_ID/snoopdb:$_GIT_TAG'
+substitutions:
+  _GIT_TAG: '12345'
+options:
+  substitution_option: 'ALLOW_LOOSE'
+#+END_SRC
+*** Prow jobs to build/push snoopdb:
+Where you can find the above job in prow: [[https://prow.k8s.io/?job=apisnoop-push-snoopdb-images][prow-apisnoop-push-snoopdb-images]]
 https://prow.k8s.io/?job=apisnoop-push-snoopdb-images
 *** Logs
+Logs for the above [[https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/apisnoop-push-snoopdb-images/1384977461019676672][prow-logs-apisnoop-push-snoopdb-images]]
 https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/apisnoop-push-snoopdb-images/1384977461019676672
 *** GCB Requires a promotion process
-This file contains the images to tag mapping
+Some information om image [[https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme][promotion process]]
+https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme
+Options for using tags [[https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#custom-substitutions][tags-custom-substitutions]]
+https://github.com/kubernetes/test-infra/blob/master/config/jobs/image-pushing/README.md#custom-substitutions
+This file contains the image metadata [[https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml][k8s.io/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml]]
 https://github.com/kubernetes/k8s.io/blob/main/k8s.gcr.io/images/k8s-staging-apisnoop/images.yaml
-**** Some information om image promotion process
-https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme
-Trying not to repeat here is my tldr;
-- Our project has a s
-
-  * Idee is om hier te verduidelik hoe ons die dokument se stappe hier onder toepas om ons image gebou te kry, noggal nifty
-  * Hoop om vanaand na aand ete vir paar ure te kom sit en werk, laat weet my hoe dit vir jou uitwerk
-**** Information on how our tags are used
-https://github.com/kubernetes/k8s.io/tree/main/k8s.gcr.io#readme
 *** Promotion Definitions
 **** Presubmits
 I am not 100% how this gets used

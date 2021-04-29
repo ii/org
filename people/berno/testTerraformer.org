@@ -1,0 +1,41 @@
+#+TITLE: Test Terraformer
+* Check gsutil auth
+#+BEGIN_SRC shell
+gcloud auth list 2>&1
+:
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+              Credentialed Accounts
+ACTIVE  ACCOUNT
+,*       bb@ii.coop
+        reporting@apisnoop.iam.gserviceaccount.com
+
+To set the active account, run:
+    $ gcloud config set account `ACCOUNT`
+
+#+end_example
+* Repo we are working with
+git clone https://github.com/GoogleCloudPlatform/terraformer 2>&1
+* Install terrraformer
+This did not did not end up working. I tried installing latest and 0.8.11
+
+terraformer import google --resources=gcs --project=apisnoop
+2021/04/29 16:15:38 unknown flag: --resources
+#+BEGIN_SRC tmate
+export PROVIDER={google,aws,kubernetes,all}
+curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest | grep tag_name | cut -d '"' -f 4)/terraformer-${PROVIDER}-linux-amd64
+chmod +x terraformer-${PROVIDER}-linux-amd64
+sudo cp terraformer-${PROVIDER}-linux-amd64 /usr/local/bin/terraformer
+#+END_SRC
+#+BEGIN_SRC tmate
+export PROVIDER={all,google,aws,kubernetes}
+curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/tags/0.8.11 | grep tag_name | cut -d '"' -f 4)/terraformer-${PROVIDER}-linux-amd64
+chmod +x terraformer-${PROVIDER}-linux-amd64
+sudo cp terraformer-${PROVIDER}-linux-amd64 /usr/local/bin/terraformer
+#+END_SRC
+* Import GCS for apisnoop
+#+BEGIN_SRC tmate
+terraformer import google --resources=gcs --projects=apisnoop
+#+END_SRC

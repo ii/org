@@ -16,16 +16,17 @@ To login, run:
 #+end_example
 * Repo we are working with
 git clone https://github.com/GoogleCloudPlatform/terraformer 2>&1
-* Install terrraformer - Failed! Why?
-This did not did not end up working. I tried installing latest and 0.8.11
-terraformer import google --resources=gcs --project=apisnoop
-2021/04/29 16:15:38 unknown flag: --resources
+* Install terrraformer - This took a bit of tweaking
+I am not sure why it did not initially work,
+I think I might not have run terraform init or something similar.
+I tried to
 #+BEGIN_SRC tmate
 export PROVIDER={google,aws,kubernetes,all}
 curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest | grep tag_name | cut -d '"' -f 4)/terraformer-${PROVIDER}-linux-amd64
 chmod +x terraformer-${PROVIDER}-linux-amd64
 sudo cp terraformer-${PROVIDER}-linux-amd64 /usr/local/bin/terraformer
 #+END_SRC
+Only use this one if you want a version that is not latest.
 #+BEGIN_SRC tmate
 export PROVIDER={google,aws,kubernetes,all}
 curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/tags/0.8.11 | grep tag_name | cut -d '"' -f 4)/terraformer-${PROVIDER}-linux-amd64
@@ -50,7 +51,9 @@ terraform {
 #+BEGIN_SRC tmate
 terraform init
 #+END_SRC
-* Install terrafarmer from source
+* Install terrafarmer from source -- Did not need this at the end
+When the above did not work initially I went through these steps.
+They turned out not to be necessary
 #+BEGIN_SRC tmate
 git clone https://github.com/GoogleCloudPlatform/terraformer
 #+END_SRC

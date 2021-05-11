@@ -2,7 +2,7 @@
 title = "Creating an e2e test for Conformance"
 author = ["Stephen Heywood"]
 date = 2021-05-11
-lastmod = 2021-05-11T14:30:00+13:00
+lastmod = 2021-05-11T16:30:00+13:00
 categories = ["kubernetes"]
 draft = false
 summary = "Finding untested stable endpoints and creating an e2e test for conformance."
@@ -14,9 +14,21 @@ Since the 1.19 release of Kubernetes, the gap in e2e conformance tested endpoint
 
 ![img](/images/2021/apisnoop-progress.png)
 
-The process starts by using [APIsnoop](https://github.com/cncf/apisnoop) to identify a set of untested endpoints that are part of the stable API endpoints. During this process various groups or patterns of endpoints are discovered. One such group of endpoints are &ldquo;DaemonSetStatus&rdquo;. The journey starts with exploring these endpoints, creates an e2e test that exercises each endpoint before it&rsquo;s merged into the K8s repo.
+The process starts by using [APIsnoop](https://github.com/cncf/apisnoop) (which uses a postgres database containing audit logs from e2e test runs) to identify a set of untested endpoints that are part of the stable API endpoints. During this process various groups or patterns of endpoints are discovered. One such group of endpoints are &ldquo;DaemonSetStatus&rdquo;. The journey starts with exploring these endpoints, creates an e2e test that exercises each endpoint before it&rsquo;s merged into the K8s repo.
 
-APIsnoop results for untested &ldquo;DaemonSetStatus&rdquo; endpoints
+APIsnoop results for untested &ldquo;DaemonSetStatus&rdquo; endpoints in [untested_stable_endpoints table](https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/tables-views-functions.org#untested_stable_endpoints)
+
+```
+    SELECT
+      endpoint,
+      path,
+      kind
+      FROM testing.untested_stable_endpoint
+      where eligible is true
+      and endpoint ilike '%DaemonSetStatus'
+      order by kind, endpoint desc;
+```
+
 
 ```
                 endpoint                  |                           path                                |    kind
@@ -79,15 +91,18 @@ Here are three possible ways use to connect an API endpoint to a resource in a c
     
     The Service status e2e test followed similar ideas and patterns from [/test/e2e/auth/certificates.go](https://github.com/kubernetes/kubernetes/blob/31030820be979ea0b2c39e08eb18fddd71f353ed/test/e2e/auth/certificates.go#L356-L383) and [test/e2e/network/ingress.go](https://github.com/kubernetes/kubernetes/blob/31030820be979ea0b2c39e08eb18fddd71f353ed/test/e2e/network/ingress.go#L1091-L1127)
 
-
-
 # Writing an e2e test
-
 
 ## Initial Exploration
 
-Using [literate programming](https://github.com/apisnoop/ticket-writing/blob/create-daemonset-status-lifecycle-test/Appsv1DaemonSetStatusLifecycleTest.org) (via[ pair](https://github.com/sharingio/pair)) to both test and document the explorations of the endpoints, it provides a clear outline that should be easily replicated and validated by others as needed. Once completed, the document is converted into markdown which becomes a GitHub [issue](https://github.com/kubernetes/kubernetes/issues/100437). This issue provides a starting point to discuss the endpoints, the approach taken to test them or whether they are [eligible for conformance](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/conformance-tests.md#conformance-test-requirements).
+Using [literate programming](https://wiki.c2.com/?LiterateProgramming) we created [Appsv1DaemonSetStatusLifecycleTest.org](https://github.com/apisnoop/ticket-writing/blob/create-daemonset-status-lifecycle-test/Appsv1DaemonSetStatusLifecycleTest.org)
+(via [pair](https://github.com/sharingio/pair)) to both test and document the explorations of the endpoints. This provides a clear outline that should be easily replicated and validated by others as needed.
+Once completed, the document is converted into markdown which becomes a GitHub [issue](https://github.com/kubernetes/kubernetes/issues/100437).
 
+The issue provides the following before a PR is opened:
+- a starting point to discuss the endpoints
+- the approach taken to test them
+- whether they are [eligible for conformance](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/conformance-tests.md#conformance-test-requirements).
 
 ## Creating the e2e test
 
@@ -100,8 +115,6 @@ Utilizing the above document, the test is structured in to four parts;
 3.  The next endpoint tested is `replaceAppsV1NamespacedDaemonSetStatus` which replaces all status conditions at the same time. As the resource version of the DaemonSet may change before the new status conditions are updated we may need to [retry the request if there is a conflict](https://github.com/ii/kubernetes/blob/ca3aa6f5af1b545b116b52c717b866e43c79079b/test/e2e/apps/daemon_set.go#L854). Monitoring the watch events for the Daemonset we can confirm that the status conditions have been [replaced](https://github.com/ii/kubernetes/blob/ca3aa6f5af1b545b116b52c717b866e43c79079b/test/e2e/apps/daemon_set.go#L884-L886).
 
 4.  The last endpoint tested is `patchAppsV1NamespacedReplicaSetStatus` which only patches a [single condition](https://github.com/ii/kubernetes/blob/ca3aa6f5af1b545b116b52c717b866e43c79079b/test/e2e/apps/daemon_set.go#L906) this time. Again, using the watch to monitor for events we can check that the single condition [has been updated](https://github.com/ii/kubernetes/blob/ca3aa6f5af1b545b116b52c717b866e43c79079b/test/e2e/apps/daemon_set.go#L931).
-
-
 
 ## Validating the e2e test
 
@@ -116,7 +129,12 @@ go test ./test/e2e/ -v -timeout=0  --report-dir=/tmp/ARTIFACTS -ginkgo.focus="$T
 Checking the e2e test logs we see that everything looks to be okay.
 
 ```
-[It] should verify changes to a daemon set status  /home/ii/go/src/k8s.io/kubernetes/test/e2e/apps/daemon_set.go:812STEP: Creating simple DaemonSet "daemon-set"STEP: Check that daemon pods launch on every node of the cluster.May 10 17:36:36.106: INFO: Number of nodes with available pods: 0May 10 17:36:36.106: INFO: Node heyste-control-plane-fkjmr is running more than one daemon podMay 10 17:36:37.123: INFO: Number of nodes with available pods: 0
+[It] should verify changes to a daemon set status  /home/ii/go/src/k8s.io/kubernetes/test/e2e/apps/daemon_set.go:812
+STEP: Creating simple DaemonSet "daemon-set"
+STEP: Check that daemon pods launch on every node of the cluster.
+May 10 17:36:36.106: INFO: Number of nodes with available pods: 0
+May 10 17:36:36.106: INFO: Node heyste-control-plane-fkjmr is running more than one daemon pod
+May 10 17:36:37.123: INFO: Number of nodes with available pods: 0
 May 10 17:36:37.123: INFO: Node heyste-control-plane-fkjmr is running more than one daemon pod
 May 10 17:36:38.129: INFO: Number of nodes with available pods: 0
 May 10 17:36:38.129: INFO: Node heyste-control-plane-fkjmr is running more than one daemon pod
@@ -141,10 +159,8 @@ May 10 17:36:39.180: INFO: Observed event: ADDED
 May 10 17:36:39.180: INFO: Observed event: MODIFIED
 May 10 17:36:39.181: INFO: Observed event: MODIFIED
 May 10 17:36:39.181: INFO: Observed event: MODIFIED
-May 10 17:36:39.181: INFO: Observed daemon set daemon-set in namespace daemonsets-2986 with annotations: map[deprecated.daemonset.template.generation:1] & Conditions: [{Statu
-sUpdate True 0001-01-01 00:00:00 +0000 UTC E2E Set from e2e test}]
-May 10 17:36:39.181: INFO: Found daemon set daemon-set in namespace daemonsets-2986 with labels: map[daemonset-name:daemon-set] annotations: map[deprecated.daemonset.template
-.generation:1] & Conditions: [{StatusPatched True 0001-01-01 00:00:00 +0000 UTC  }]
+May 10 17:36:39.181: INFO: Observed daemon set daemon-set in namespace daemonsets-2986 with annotations: map[deprecated.daemonset.template.generation:1] & Conditions: [{StatusUpdate True 0001-01-01 00:00:00 +0000 UTC E2E Set from e2e test}]
+May 10 17:36:39.181: INFO: Found daemon set daemon-set in namespace daemonsets-2986 with labels: map[daemonset-name:daemon-set] annotations: map[deprecated.daemonset.template.generation:1] & Conditions: [{StatusPatched True 0001-01-01 00:00:00 +0000 UTC  }]
 May 10 17:36:39.181: INFO: Daemon set daemon-set has a patched status
 ```
 
@@ -157,6 +173,15 @@ SUCCESS! -- 1 Passed | 0 Failed | 0 Pending | 5744 Skipped
 ```
 
 Using APISnoop with the audit logger we can also confirm that the endpoints where hit during the test.
+
+```
+select distinct  endpoint, right(useragent,75) AS useragent
+from testing.audit_event
+where endpoint ilike '%DaemonSetStatus%'
+and release_date::BIGINT > round(((EXTRACT(EPOCH FROM NOW()))::numeric)*1000,0) - 60000
+and useragent like 'e2e%'
+order by endpoint;
+```
 
 ```
                 endpoint                 |                             useragent

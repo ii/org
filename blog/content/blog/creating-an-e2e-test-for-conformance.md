@@ -2,7 +2,7 @@
 title = "Creating an e2e test for Conformance"
 author = ["Stephen Heywood"]
 date = 2021-05-11
-lastmod = 2021-05-11T16:30:00+13:00
+lastmod = 2021-05-12T10:00:00+13:00
 categories = ["kubernetes"]
 draft = false
 summary = "Finding untested stable endpoints and creating an e2e test for conformance."
@@ -18,15 +18,15 @@ The process starts by using [APIsnoop](https://github.com/cncf/apisnoop) (which 
 
 APIsnoop results for untested &ldquo;DaemonSetStatus&rdquo; endpoints in [untested_stable_endpoints table](https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/tables-views-functions.org#untested_stable_endpoints)
 
-```
-    SELECT
-      endpoint,
-      path,
-      kind
-      FROM testing.untested_stable_endpoint
-      where eligible is true
-      and endpoint ilike '%DaemonSetStatus'
-      order by kind, endpoint desc;
+```sql
+  select
+    endpoint,
+    path,
+    kind
+  from testing.untested_stable_endpoint
+  where eligible is true
+  and endpoint ilike '%DaemonSetStatus'
+  order by kind, endpoint desc;
 ```
 
 
@@ -79,7 +79,25 @@ Here are three possible ways use to connect an API endpoint to a resource in a c
     ```
 
 3.  Lastly, using both [APIsnoop in cluster](https://github.com/cncf/apisnoop/tree/main/kind) while reviewing the current [e2e test suite](https://github.com/kubernetes/kubernetes/tree/master/test/e2e) for existing conformance tests that test a similair set of endpoints. In this case we used [a Service Status test](https://github.com/kubernetes/kubernetes/blob/7b2776b89fb1be28d4e9203bdeec079be903c103/test/e2e/network/service.go#L2300-L2392) as a template for the new Daemonset test.
-    
+
+    ```sql
+    with latest_release as (
+    select release::semver as release
+    from open_api
+    order by release::semver desc
+    limit 1
+    )
+
+    select ec.endpoint, ec.path, ec.kind
+    from endpoint_coverage  ec
+    join latest_release on(ec.release::semver = latest_release.release)
+    where level = 'stable'
+    and ec.endpoint ilike '%NamespacedServiceStatus'
+    and tested is true
+    ORDER BY endpoint desc;
+    ```
+
+
     ```
                       endpoint               |                         path                          |  kind
        --------------------------------------+-------------------------------------------------------+---------
@@ -120,7 +138,7 @@ Utilizing the above document, the test is structured in to four parts;
 
 Using `go test` we can run just a single test for quick feedback
 
-```
+```bash
 cd ~/go/src/k8s.io/kubernetes
 TEST_NAME="should verify changes to a daemon set status"
 go test ./test/e2e/ -v -timeout=0  --report-dir=/tmp/ARTIFACTS -ginkgo.focus="$TEST_NAME"
@@ -174,7 +192,7 @@ SUCCESS! -- 1 Passed | 0 Failed | 0 Pending | 5744 Skipped
 
 Using APISnoop with the audit logger we can also confirm that the endpoints where hit during the test.
 
-```
+```sql
 select distinct  endpoint, right(useragent,75) AS useragent
 from testing.audit_event
 where endpoint ilike '%DaemonSetStatus%'

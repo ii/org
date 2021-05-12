@@ -2,7 +2,7 @@
 title = "Creating an e2e test for Conformance"
 author = ["Stephen Heywood"]
 date = 2021-05-11
-lastmod = 2021-05-12T10:00:00+13:00
+lastmod = 2021-05-13T09:02:00+13:00
 categories = ["kubernetes"]
 draft = false
 summary = "Finding untested stable endpoints and creating an e2e test for conformance."
@@ -14,7 +14,7 @@ Since the 1.19 release of Kubernetes, the gap in e2e conformance tested endpoint
 
 ![img](/images/2021/apisnoop-progress.png)
 
-The process starts by using [APIsnoop](https://github.com/cncf/apisnoop) (which uses a postgres database containing audit logs from e2e test runs) to identify a set of untested endpoints that are part of the stable API endpoints. During this process various groups or patterns of endpoints are discovered. One such group of endpoints are &ldquo;DaemonSetStatus&rdquo;. The journey starts with exploring these endpoints, creates an e2e test that exercises each endpoint before it&rsquo;s merged into the K8s repo.
+The process starts by using [APIsnoop](https://github.com/cncf/apisnoop) (which uses a postgres database containing audit logs from e2e test runs) to identify a set of untested endpoints that are part of the stable API endpoints. During this process various groups or patterns of endpoints are discovered. One such group of endpoints are &ldquo;DaemonSetStatus&rdquo;. Next we will explore these endpoints, create an e2e test that exercises each of them, then merge this test into the k8s repo.
 
 APIsnoop results for untested &ldquo;DaemonSetStatus&rdquo; endpoints in [untested_stable_endpoints table](https://github.com/cncf/apisnoop/blob/main/apps/snoopdb/tables-views-functions.org#untested_stable_endpoints)
 
@@ -78,7 +78,7 @@ Here are three possible ways use to connect an API endpoint to a resource in a c
             Type of DaemonSet condition.
     ```
 
-3.  Lastly, using both [APIsnoop in cluster](https://github.com/cncf/apisnoop/tree/main/kind) while reviewing the current [e2e test suite](https://github.com/kubernetes/kubernetes/tree/master/test/e2e) for existing conformance tests that test a similair set of endpoints. In this case we used [a Service Status test](https://github.com/kubernetes/kubernetes/blob/7b2776b89fb1be28d4e9203bdeec079be903c103/test/e2e/network/service.go#L2300-L2392) as a template for the new Daemonset test.
+3.  Lastly, using both [APIsnoop in cluster](https://github.com/cncf/apisnoop/tree/main/kind) while reviewing the current [e2e test suite](https://github.com/kubernetes/kubernetes/tree/master/test/e2e) for existing conformance tests that test a similar set of endpoints. In this case we used [a Service Status test](https://github.com/kubernetes/kubernetes/blob/7b2776b89fb1be28d4e9203bdeec079be903c103/test/e2e/network/service.go#L2300-L2392) as a template for the new Daemonset test.
 
     ```sql
     with latest_release as (
@@ -107,7 +107,7 @@ Here are three possible ways use to connect an API endpoint to a resource in a c
        (3 rows)
     ```
     
-    The Service status e2e test followed similar ideas and patterns from [/test/e2e/auth/certificates.go](https://github.com/kubernetes/kubernetes/blob/31030820be979ea0b2c39e08eb18fddd71f353ed/test/e2e/auth/certificates.go#L356-L383) and [test/e2e/network/ingress.go](https://github.com/kubernetes/kubernetes/blob/31030820be979ea0b2c39e08eb18fddd71f353ed/test/e2e/network/ingress.go#L1091-L1127)
+    The Service status e2e test followed similar ideas and patterns from [/test/e2e/auth/certificates.go](https://github.com/kubernetes/kubernetes/blob/31030820be979ea0b2c39e08eb18fddd71f353ed/test/e2e/auth/certificates.go#L356-L383) and [/test/e2e/network/ingress.go](https://github.com/kubernetes/kubernetes/blob/31030820be979ea0b2c39e08eb18fddd71f353ed/test/e2e/network/ingress.go#L1091-L1127)
 
 # Writing an e2e test
 
@@ -136,7 +136,7 @@ Utilizing the above document, the test is structured in to four parts;
 
 ## Validating the e2e test
 
-Using `go test` we can run just a single test for quick feedback
+Using `go test` we can run a single test for quick feedback
 
 ```bash
 cd ~/go/src/k8s.io/kubernetes
@@ -215,7 +215,6 @@ Even though the test has passed here, once merged it will join other jobs on [Te
 
 # Final Thoughts
 
-The current workflow and tooling provides a high level of confidence when working through each e2e test. Following agreed coding patterns, styles and processes helps to minimise possible issues and test flakes. There&rsquo;s always an opportunities to get support through GitHub tickets, [various Kubernetes slack channels](https://kubernetes.slack.com/messages/k8s-conformance) and conformance meetings.
+The current workflow and tooling provides a high level of confidence when working through each e2e test. Following agreed coding patterns, styles and processes helps to minimise possible issues and test flakes. There&rsquo;s always opportunities to get support through GitHub tickets, [various Kubernetes slack channels](https://kubernetes.slack.com/messages/k8s-conformance) and conformance meetings.
 
-Every e2e test that&rsquo;s merged and then promoted to conformance requires the input from a wide range of people. Thanks to the support from community reviewers, SIGs and the direction provided by SIG-Architecture this work is possible and very rewarding.
-
+Every e2e test that&rsquo;s merged and then promoted to conformance requires the input from a wide range of people. It is thanks to the support from community reviewers, SIGs and the direction provided by SIG-Architecture this work is not just possible but rewarding.

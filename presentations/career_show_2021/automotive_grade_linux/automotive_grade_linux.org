@@ -1,0 +1,86 @@
+#+TITLE: Automotive Grade Linux
+#+AUTHOR: ii
+#+PROPERTY: header-args:tmate+ :session kubekohn :socket /tmp/kubecon
+
+* doc notes                                                        :noexport:
+Creating the folder and slide template
+Too many members logos
+Too verbose
+
+* What is Automotive Grade Linux?
+
+Automotive Grade Linux is a collaborative open source project that is bringing together automakers, suppliers and technology companies to accelerate the development and adoption of a fully open software stack for the connected car. With Linux at its core, AGL is developing an open platform from the ground up that can serve as the de facto industry standard to enable rapid development of new features and technologies.
+
+
+[[./agl_logo.png]]
+
+* Who is the industry contributers?
+
+
+[[./agl_platinum_members.png]]
+
+** and many more
+
+[[./agl_silver_members.png]]
+
+** And more...
+
+[[./agl_bronze_members.png]]
+
+** and more...
+
+
+[[./agl_bronze_members2.png]]
+
+** Why Automotive Grade Linux?
+
+#+begin_quote
+“The flexibility of the AGL platform allows us to quickly roll-out Toyota’s infotainment system across our vehicle line-up, providing customers with greater connectivity and new functionalities at a pace that is more consistent with consumer technology. Adopting an open source development approach has enabled us to focus resources on developing innovative new features and bringing them to market faster.”
+– Keiji Yamamoto, Executive Vice President, Connected Company of Toyota Motor Corporation
+
+#+end_quote
+
+**  It is widely adopted by the industry
+
+#+begin_quote
+“It has become clear that fast innovation cycles and flexible software architecture are key for the successful development of business applications, which is why we are using AGL as a foundation for our new onboard operating system. Using a standardized, open operating system like AGL enables us to rapidly develop new commercial vehicle use cases such as robotic delivery, data analytics and prediction and automation technologies.”
+– Thomas Wurdig, Head of Onboard-System Architecture and IoT, Mercedes-Benz Vans
+
+#+end_quote
+
+
+
+
+
+* Footnotes :noexport:
+** LOCAL VARS
+#+REVEAL_ROOT: ./reveal.js
+#+REVEAL_VERSION: 4
+#+NOREVEAL_DEFAULT_FRAG_STYLE: YY
+#+NOREVEAL_EXTRA_CSS: YY
+#+NOREVEAL_EXTRA_JS: YY
+#+REVEAL_HLEVEL: 2
+#+REVEAL_MARGIN: 0.1
+#+REVEAL_WIDTH: 1000
+#+REVEAL_HEIGHT: 600
+#+REVEAL_MAX_SCALE: 3.5
+#+REVEAL_MIN_SCALE: 0.2
+#+REVEAL_PLUGINS: (markdown notes highlight multiplex)
+#+REVEAL_SLIDE_NUMBER: ""
+#+REVEAL_SPEED: 1
+#+REVEAL_THEME: moon
+#+REVEAL_THEME_OPTIONS: beige|black|blood|league|moon|night|serif|simple|sky|solarized|white
+#+REVEAL_TRANS: fade
+#+REVEAL_TRANS_OPTIONS: none|cube|fade|concave|convex|page|slide|zoom
+
+#+OPTIONS: num:nil
+#+OPTIONS: toc:nil
+#+OPTIONS: mathjax:Y
+#+OPTIONS: reveal_single_file:nil
+#+OPTIONS: reveal_control:t
+#+OPTIONS: reveal-progress:t
+#+OPTIONS: reveal_history:nil
+#+OPTIONS: reveal_center:t
+#+OPTIONS: reveal_rolling_links:nil
+#+OPTIONS: reveal_keyboard:t
+#+OPTIONS: reveal_overview:t

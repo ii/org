@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Automotive Grade Linux</title>
+<meta name="author" content="ii"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="./reveal.js/dist/theme/moon.css" id="theme"/>
+<link rel="stylesheet" href="./reveal.js/plugin/highlight/zenburn.css"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1 class="title">Automotive Grade Linux</h1><h2 class="author">ii</h2><p class="date">Created: 2021-07-14 Wed 12:16</p>
+</section>
+
+<section>
+<section id="slide-org9e24237">
+<h2 id="org9e24237">What is Automotive Grade Linux?</h2>
+<p>
+Automotive Grade Linux is a collaborative open source project that is bringing together automakers, suppliers and technology companies to accelerate the development and adoption of a fully open software stack for the connected car. With Linux at its core, AGL is developing an open platform from the ground up that can serve as the de facto industry standard to enable rapid development of new features and technologies.
+</p>
+
+
+
+<div class="figure">
+<p><img src="./agl_logo.png" alt="agl_logo.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org1f8afe6">
+<h2 id="org1f8afe6">Who is the industry contributers?</h2>
+
+<div class="figure">
+<p><img src="./agl_platinum_members.png" alt="agl_platinum_members.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org4777ae0">
+<h3 id="org4777ae0">and many more</h3>
+
+<div class="figure">
+<p><img src="./agl_silver_members.png" alt="agl_silver_members.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org829efc1">
+<h3 id="org829efc1">And more&#x2026;</h3>
+
+<div class="figure">
+<p><img src="./agl_bronze_members.png" alt="agl_bronze_members.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd917e75">
+<h3 id="orgd917e75">and more&#x2026;</h3>
+
+<div class="figure">
+<p><img src="./agl_bronze_members2.png" alt="agl_bronze_members2.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org5dac02a">
+<h3 id="org5dac02a">Why Automotive Grade Linux?</h3>
+<blockquote>
+<p>
+“The flexibility of the AGL platform allows us to quickly roll-out Toyota’s infotainment system across our vehicle line-up, providing customers with greater connectivity and new functionalities at a pace that is more consistent with consumer technology. Adopting an open source development approach has enabled us to focus resources on developing innovative new features and bringing them to market faster.”
+– Keiji Yamamoto, Executive Vice President, Connected Company of Toyota Motor Corporation
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-orgcbdad5d">
+<h3 id="orgcbdad5d">It is widely adopted by the industry</h3>
+<blockquote>
+<p>
+“It has become clear that fast innovation cycles and flexible software architecture are key for the successful development of business applications, which is why we are using AGL as a foundation for our new onboard operating system. Using a standardized, open operating system like AGL enables us to rapidly develop new commercial vehicle use cases such as robotic delivery, data analytics and prediction and automation technologies.”
+– Thomas Wurdig, Head of Onboard-System Architecture and IoT, Mercedes-Benz Vans
+</p>
+</blockquote>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/dist/reveal.js"></script>
+<script src="./reveal.js/plugin/markdown/markdown.js"></script>
+<script src="./reveal.js/plugin/notes/notes.js"></script>
+<script src="./reveal.js/plugin/highlight/highlight.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+margin: 0.10,
+minScale: 0.20,
+maxScale: 3.50,
+
+transition: 'fade',
+transitionSpeed: '1',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
+},
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealHighlight,  ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'https://cdn.socket.io/socket.io-1.3.5.js', async: true },
+ { src: './reveal.js/plugin/multiplex/master.js', async: true }]
+
+});
+</script>
+</body>
+</html>

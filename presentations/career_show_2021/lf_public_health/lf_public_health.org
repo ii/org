@@ -33,7 +33,7 @@ Linux Foundation Public Health (LFPH) hosts open source projects for Public Heal
 
 * Get in contact
 
-
+[[./lf_public_health.png]]
 
 * Footnotes :noexport:
 ** LOCAL VARS

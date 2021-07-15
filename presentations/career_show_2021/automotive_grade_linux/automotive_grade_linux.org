@@ -37,6 +37,7 @@ The AGL platform is available to all, and anyone can participate in its developm
 - Advanced driver assistance systems (ADAS)
 - Autonomous driving
 
+
 * Developed through a joint effort by dozens of member companies
 AGL provides 70% of the starting point for a production project and includes an operating system, middleware and application framework. Automakers and suppliers can customize the platform with features, services and branding to meet their unique product and customer needs.
 
@@ -61,6 +62,7 @@ Learn more at automotivelinux.org.
 Weekly Developer Meeting held on Tuesdays
 13:00 UTC (6 am Pacific Standard Time and 10 pm JST)
 
+  [[./agl_big_logo.png]]
 
 
 * Footnotes :noexport:
@@ -95,3 +97,5 @@ Weekly Developer Meeting held on Tuesdays
 #+OPTIONS: reveal_rolling_links:nil
 #+OPTIONS: reveal_keyboard:t
 #+OPTIONS: reveal_overview:t
+#+OPTIONS: author:nil
+#+OPTIONS: timestamp:nil

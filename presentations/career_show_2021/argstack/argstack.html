@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Argstack</title>
+<meta name="author" content="ii"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="./reveal.js/dist/theme/moon.css" id="theme"/>
+<link rel="stylesheet" href="./reveal.js/plugin/highlight/zenburn.css"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1 class="title">Argstack</h1>
+</section>
+
+<section>
+<section id="slide-orgd18db54">
+<h2 id="orgd18db54">Open-Source Digital Infrastructure for the Agriculture Ecosystem</h2>
+
+<div class="figure">
+<p><img src="./argstack_logo.png" alt="argstack_logo.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org3d519e2">
+<h2 id="org3d519e2">AgStack Foundation</h2>
+<p>
+Seeks to improve global agriculture efficiency through the creation, maintenance and enhancement of free, re-usable, open and specialized digital infrastructure for data and applications.
+</p>
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgd00bfe5">
+<h2 id="orgd00bfe5">Transforming Agriculture</h2>
+<p>
+Global agriculture is a multi-trillion-dollar ecosystem that is massively inefficient and needs a transformation:
+</p>
+
+<p>
+Resource constraints (labor, water)
+Economic dependence (supply-side)
+Population growth (demand-side)
+Climate change (exogenous)
+Consumers attitudes towards food/health (demand-side)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf237ddb">
+<h2 id="orgf237ddb">Possible Projects</h2>
+
+<div class="figure">
+<p><img src="./possible_projects.png" alt="possible_projects.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org4a103df">
+<h2 id="org4a103df">Members</h2>
+
+<div class="figure">
+<p><img src="./members.png" alt="members.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgef5e5f5">
+<h2 id="orgef5e5f5">Get in contact</h2>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/dist/reveal.js"></script>
+<script src="./reveal.js/plugin/markdown/markdown.js"></script>
+<script src="./reveal.js/plugin/notes/notes.js"></script>
+<script src="./reveal.js/plugin/highlight/highlight.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+margin: 0.10,
+minScale: 0.20,
+maxScale: 3.50,
+
+transition: 'fade',
+transitionSpeed: '1',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
+},
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealHighlight,  ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'https://cdn.socket.io/socket.io-1.3.5.js', async: true },
+ { src: './reveal.js/plugin/multiplex/master.js', async: true }]
+
+});
+</script>
+</body>
+</html>

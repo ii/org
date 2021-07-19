@@ -1,4 +1,5 @@
 #+TITLE: Argstack
+
 #+AUTHOR: ii
 #+PROPERTY: header-args:tmate+ :session kubekohn :socket /tmp/kubecon
 
@@ -19,22 +20,34 @@ Seeks to improve global agriculture efficiency through the creation, maintenance
 
 Global agriculture is a multi-trillion-dollar ecosystem that is massively inefficient and needs a transformation:
 
-Resource constraints (labor, water)
-Economic dependence (supply-side)
-Population growth (demand-side)
-Climate change (exogenous)
-Consumers attitudes towards food/health (demand-side)
+- Resource constraints (labor, water)
+- Economic dependence (supply-side)
+- Population growth (demand-side)
+- Climate change (exogenous)
+- Consumers attitudes towards food/health (demand-side)
+
+
+* Projects
+The AgStack Foundation technical projects will be part of an overarching umbrella of technologies that will enable a rich suite of software and data tools and frameworks to enable easy and common access for content creators and content consumers for the agriculture ecosystem.
 
 * Possible Projects
 
 [[./possible_projects.png]]
 
+* High-level Technical Architecture
+
+[[./tech_arch.png]]
+
 * Members
 
 [[./members.png]]
 
-* Get in contact
 
+#+reveal_background: kiki.jpg
+* How to get involved
+ Join us at www.agstack.org
+
+ [[./kiwi.jpg]]
 
 * Footnotes :noexport:
 ** LOCAL VARS
@@ -51,11 +64,13 @@ Consumers attitudes towards food/health (demand-side)
 #+REVEAL_MIN_SCALE: 0.2
 #+REVEAL_PLUGINS: (markdown notes highlight multiplex)
 #+REVEAL_SLIDE_NUMBER: ""
-#+REVEAL_SPEED: 1
-#+REVEAL_THEME: moon
+#+REVEAL_SPEED: 2
+#+REVEAL_THEME: white
 #+REVEAL_THEME_OPTIONS: beige|black|blood|league|moon|night|serif|simple|sky|solarized|white
-#+REVEAL_TRANS: fade
+#+REVEAL_TRANS: convex
 #+REVEAL_TRANS_OPTIONS: none|cube|fade|concave|convex|page|slide|zoom
+#+REVEAL_TITLE_SLIDE_BACKGROUND: cow.jpg
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: grass.jpg
 
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil

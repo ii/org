@@ -88,7 +88,7 @@ Weekly Developer Meeting held on Tuesdays
 #+REVEAL_SPEED: 1
 #+REVEAL_THEME: black
 #+REVEAL_THEME_OPTIONS: beige|black|blood|league|moon|night|serif|simple|sky|solarized|white
-#+REVEAL_TRANS: fade
+#+REVEAL_TRANS: convex
 #+REVEAL_TRANS_OPTIONS: none|cube|fade|concave|convex|page|slide|zoom
 #+REVEAL_TITLE_SLIDE_BACKGROUND: lights.jpg
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: lights2.jpg

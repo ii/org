@@ -31,7 +31,12 @@ Linux Foundation Public Health (LFPH) hosts open source projects for Public Heal
 
 [[./global_deployment.png]]
 
-* Get in contact
+* Get involved
+
+Vist us at www.lfph.io
+
+View our calendar for events
+www.lfph.io/calendar/
 
 [[./lf_public_health.png]]
 
@@ -51,10 +56,12 @@ Linux Foundation Public Health (LFPH) hosts open source projects for Public Heal
 #+REVEAL_PLUGINS: (markdown notes highlight multiplex)
 #+REVEAL_SLIDE_NUMBER: ""
 #+REVEAL_SPEED: 1
-#+REVEAL_THEME: moon
+#+REVEAL_THEME: simple
 #+REVEAL_THEME_OPTIONS: beige|black|blood|league|moon|night|serif|simple|sky|solarized|white
-#+REVEAL_TRANS: fade
+#+REVEAL_TRANS: convex
 #+REVEAL_TRANS_OPTIONS: none|cube|fade|concave|convex|page|slide|zoom
+#+REVEAL_TITLE_SLIDE_BACKGROUND: map70.jpg
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: virus60.jpg
 
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil

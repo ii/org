@@ -20,6 +20,7 @@ AGL is developing an open platform from the ground up that can serve as the de f
 
 * The Automotive Grade Linux (AGL) initiative is
 
+#+ATTR_REVEAL: :frag (appear)
 - Driven by the Automotive Grade Linux Collaborative Project of the Linux Foundation
 - About improving open source components for automotive use cases
 - Follows an upstream-first policy in publishing the improvements
@@ -31,6 +32,8 @@ The AGL platform is available to all, and anyone can participate in its developm
 
 
 * AGL include software for
+
+#+ATTR_REVEAL: :frag (appear)
 - Instrument cluster
 - Heads up display
 - Telematics
@@ -51,12 +54,14 @@ AGL provides 70% of the starting point for a production project and includes an 
 [[./agl_silver_members.png]]
 
 and more than 136 Bronze members
+#+ATTR_REVEAL: :frag (appear)
 - 150 member companies
 - 11 Car manufacturing companies
 - Expecting 50% market share within 10 years
 
 * Get in contact
 Automotive Grade Linux is hosted at the Linux Foundation.
+
 Learn more at automotivelinux.org.
 
 Weekly Developer Meeting held on Tuesdays
@@ -81,10 +86,13 @@ Weekly Developer Meeting held on Tuesdays
 #+REVEAL_PLUGINS: (markdown notes highlight multiplex)
 #+REVEAL_SLIDE_NUMBER: ""
 #+REVEAL_SPEED: 1
-#+REVEAL_THEME: moon
+#+REVEAL_THEME: black
 #+REVEAL_THEME_OPTIONS: beige|black|blood|league|moon|night|serif|simple|sky|solarized|white
 #+REVEAL_TRANS: fade
 #+REVEAL_TRANS_OPTIONS: none|cube|fade|concave|convex|page|slide|zoom
+#+REVEAL_TITLE_SLIDE_BACKGROUND: lights.jpg
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: lights2.jpg
+#+REVEAL_DEFAULT_FRAG_STYLE: grow
 
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil
